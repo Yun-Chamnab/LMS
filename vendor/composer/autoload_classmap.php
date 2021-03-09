@@ -3072,6 +3072,7 @@ return array(
     'Pearl\\RequestValidate\\Console\\RequestMakeCommand' => $vendorDir . '/pearl/lumen-request-validate/src/Console/RequestMakeCommand.php',
     'Pearl\\RequestValidate\\RequestAbstract' => $vendorDir . '/pearl/lumen-request-validate/src/RequestAbstract.php',
     'Pearl\\RequestValidate\\RequestServiceProvider' => $vendorDir . '/pearl/lumen-request-validate/src/RequestServiceProvider.php',
+    'PermissionTableSeeder' => $baseDir . '/database/seeds/PermissionTableSeeder.php',
     'PharIo\\Manifest\\Application' => $vendorDir . '/phar-io/manifest/src/values/Application.php',
     'PharIo\\Manifest\\ApplicationName' => $vendorDir . '/phar-io/manifest/src/values/ApplicationName.php',
     'PharIo\\Manifest\\Author' => $vendorDir . '/phar-io/manifest/src/values/Author.php',

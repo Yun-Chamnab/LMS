@@ -74,9 +74,12 @@ class AuthController extends Controller
 
         $user = User::createFromValues($name, $email, $password);
 
+        // --Assign user role to admin-- 
+        //$user->assignRole('administrator');
+
         Mail::to($user)->send(new Welcome($user));
 
-        return response()->json(['data' => ['message' => 'Account created. Please verify via email.']]);
+        return response()->json(['data' => ['message' => 'Account created. Please verify via email.', 'token' => $user->verification_token]]);
     }
 
     /**

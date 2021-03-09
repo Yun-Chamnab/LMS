@@ -12,6 +12,8 @@ class RolesSeeder extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
         $role = Role::create(['name' => 'administrator']);
+        $role1 = Role::create(['name' => 'teacher']);
+        $role2 = Role::create(['name' => 'student']);
 
     }
 }
