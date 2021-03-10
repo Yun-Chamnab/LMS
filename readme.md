@@ -1,7 +1,5 @@
 # Lumen 5.8 API Starter with Paseto    
 
-[![Build Status](https://travis-ci.org/mstaack/lumen-api-starter.svg?branch=master)](https://travis-ci.org/mstaack/lumen-api-starter)
-
 # Notes
 - Comes with make & route command for all your needs
 - Uses jwt token alternative **paseto**. Read [Paseto](https://github.com/paragonie/paseto)
@@ -15,10 +13,8 @@
 - [Laravel-Apidoc-Generator](https://mpociot/laravel-apidoc-generator) Generate api docs
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission) Roles & Permissions
 
-# Installation
-- run `git clone git@github.com:mstaack/lumen-api-starter.git` 
-- reinit your repository with `rm -rf .git && git init`
-- run `composer install` to install dependencies (consider using homestead via `vagrant up`)
+<!-- # Installation -->
+<!-- - run `composer install` to install dependencies (consider using homestead via `vagrant up`)
 - copy `env.example` to `.env`
 - Setup your application & auth keys with `composer keys` & check `.env`file (automatically done via composer hook)
 - run migrations & seeders with `artisan migrate --seed` (within your vm using `vagrant ssh`)
@@ -26,7 +22,7 @@
 - To quickly start a dev server run `./artisan serve` (or via `homestead.test` for the vm)
 - Also consider running `composer meta` when adding models for better autocompletion (automatically done via composer hook)
 - Run included tests with `phpunit` within vagrant's code directory
-- Generate your api docs with `artisan apidoc:generate` 
+- Generate your api docs with `artisan apidoc:generate`  -->
 
 # Routes
 ```
@@ -45,7 +41,7 @@
 +------+--------------------------------+-----------------------+-------------------------------------+-----------------+--------------------------+
 ```
 
-# Artisan Commands
+<!-- # Artisan Commands
 ```
 ➜  lumen-api-starter git:(master) ./artisan 
 Laravel Framework Lumen (5.6.4) (Laravel Components 5.6.*)
@@ -126,9 +122,7 @@ Available commands:
  route
   route:list                Display all registered routes.
  schedule
-  schedule:run              Run the scheduled commands
+  schedule:run              Run the scheduled commands -->
 ```
 
-# Generated Docs Screenshot
 
-![image](https://user-images.githubusercontent.com/10169509/54946091-a154de00-4f37-11e9-8a96-3ce71c189b6d.png)

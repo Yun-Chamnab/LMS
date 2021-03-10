@@ -60,17 +60,15 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'name' => 'required|unique:roles,name'
         ]);
 
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        
 
 
-        return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+        return response()->json(['data' => ['role' => $role]]);
     }
     /**
      * Display the specified resource.
@@ -86,7 +84,7 @@ class RoleController extends Controller
             ->get();
 
 
-        return view('roles.show',compact('role','rolePermissions'));
+        return response()->json(['data' => $this->$role]);
     }
 
 
@@ -106,6 +104,8 @@ class RoleController extends Controller
 
 
         return view('roles.edit',compact('role','permission','rolePermissions'));
+        return response()->json(['data' => ['role' => $rolePermissions], ['permission' => $permission]]);
+        
     }
 
 
