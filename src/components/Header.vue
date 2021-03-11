@@ -285,7 +285,6 @@ export default {
         path: "/attendance",
       },
       { class: "ma-3 v-divider white" },
-
     ],
     previous_active_id: 1,
     fullscreen: false,
@@ -339,10 +338,8 @@ export default {
       }
     },
     logOut() {
-      document.cookie =
-        "banhji-token=" +
-        ";domain=.banhji.com;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      window.location = "https://banhji.com/banhji/sign-in";
+      this.$store.dispatch("logOut");
+      this.$router.push({ name: "SignIn" });
     },
     hideSidebar() {
       this.miniVariant = !this.miniVariant;
@@ -403,7 +400,7 @@ export default {
     historyPages: {
       set(historyPages) {
         store.commit("setHistoryPage", historyPages);
-      },  
+      },
       get() {
         return store.default.getters.getHistoryPages; //store.default.state.historyPages
       },

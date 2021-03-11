@@ -2,6 +2,7 @@ import Vue from 'vue'
 import './assets/styles/main.css'
 // Import font
 // import './assets/accounting-banhji/style.css'
+import store from './store'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
@@ -24,6 +25,7 @@ Vue.use(fullscreen)
 new Vue({
 	vuetify,
 	i18n,
+	store,
 	router,
 	render: h => h(App),
 	components: {
