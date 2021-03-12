@@ -17,7 +17,7 @@ class CreateExamsTable extends Migration
             $table->id();
             $table->string('name');
             $table->time('duration');
-            $table->tinyInteger('publish');
+            $table->boolean('publish');
             $table->timestamps();
         });
     }

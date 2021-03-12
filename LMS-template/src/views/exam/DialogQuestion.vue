@@ -137,19 +137,6 @@ export default {
       search: "",
       expanded: [],
       singleExpand: false,
-      headers: [
-        { text: "N", value: "" },
-        {
-          text: "Question",
-          align: "start",
-          filterable: false,
-          value: "question",
-        },
-        { text: "Answer", value: "[question.answer.answer]" },
-        { text: "Correct Answer", value: "status_correct" },
-        { text: "Created Date", value: "created_at" },
-      ],
-      subItems: [{ text: "Answer", value: "answer" }],
     };
   },
   async mounted() {

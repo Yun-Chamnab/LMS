@@ -33,8 +33,12 @@ class QuestionController extends Controller
 
     public function store(Request $request)
     {
-        $question = Question::create(['question' => $request->question, 'exam_id' => $request->exam_id]);
-
+        $question = Question::create([
+            'question' => $request->question,
+            'exam_id' => $request->exam_id,
+            'score' => $request->score
+        ]);
+        
         $arr_len = count($request->answer);
         for ($i = 0; $i < $arr_len; $i++) {
 
@@ -42,7 +46,11 @@ class QuestionController extends Controller
             $tss->answer = $request->answer[$i];
             $tss->question_id = $question->id;
             $tss->exam_id = $request->exam_id;
-            $tss->status_correct = $request->status_correct;
+            if ($request->status_correct == $tss->answer) {
+                $tss->status_correct = 1;
+            }
+
+            // $tss->status_correct = $request->status_correct;
             $tss->save();
         }
 

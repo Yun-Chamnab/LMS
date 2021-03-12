@@ -27,12 +27,12 @@ class ExamController extends Controller
         $rules = [
             'name' => 'required|max:255',
             'duration' => 'required|max:20',
-            'publish' => 'required|max:2',
+
         ];
 
         $this->validate($request, $rules);
         $data = Exam::create($request->all());
-      
+
         return $this->successResponse($data);
     }
 
@@ -41,7 +41,7 @@ class ExamController extends Controller
         $rules = [
             'name' => 'max:255',
             'duration' => 'max:20',
-            'publish' => 'max:2',
+
         ];
 
         $this->validate($request, $rules);
