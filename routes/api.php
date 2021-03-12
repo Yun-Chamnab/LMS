@@ -58,7 +58,8 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
 
             $router->get('/list_role', [
                 'uses' => 'RoleController@index',
-                'as' => 'list_role'
+                'as' => 'list_role',
+                //'middleware' => 'permission:role-list'
             ]);
 
             $router->post('/create', [
@@ -69,6 +70,21 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             $router->get('/show/{id}', [
                 'uses' => 'RoleController@show',
                 'as' => 'show'
+            ]);
+
+            $router->post('/edit/{id}', [
+                'uses' => 'RoleController@edit',
+                'as' => 'edit'
+            ]);
+
+            $router->post('/update/{id}', [
+                'uses' => 'RoleController@upadate',
+                'as' => 'update'
+            ]);
+
+            $router->post('/delete/{id}', [
+                'uses' => 'RoleController@delete',
+                'as' => 'delete'
             ]);
 
         });

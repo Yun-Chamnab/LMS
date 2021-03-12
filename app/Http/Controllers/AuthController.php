@@ -75,7 +75,7 @@ class AuthController extends Controller
         $user = User::createFromValues($name, $email, $password);
 
         // --Assign user role to admin-- 
-        //$user->assignRole('administrator');
+        //$user->assignRole('student');
 
         Mail::to($user)->send(new Welcome($user));
 

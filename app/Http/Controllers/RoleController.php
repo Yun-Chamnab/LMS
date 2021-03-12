@@ -6,10 +6,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
-
 
 class RoleController extends Controller
 {
@@ -18,13 +18,13 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // function __construct()
-    // {
-    //      $this->middleware('permission:role-list');
-    //      $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    //      $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //      $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+         $this->middleware('permission:role-list');
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
 
 
     /**
@@ -60,13 +60,13 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name'
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
         ]);
 
 
         $role = Role::create(['name' => $request->input('name')]);
-        
-
+        $role->syncPermissions($request->input('permission', []));
 
         return response()->json(['data' => ['role' => $role]]);
     }
@@ -79,33 +79,12 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
 
+        if(!$role) {
+            return response()->json(['message' => 'role not found.']);
+        }
 
-        return response()->json(['data' => $this->$role]);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
-
-
-        return view('roles.edit',compact('role','permission','rolePermissions'));
-        return response()->json(['data' => ['role' => $rolePermissions], ['permission' => $permission]]);
-        
+        return new RoleResource($role->load(['permissions']));
     }
 
 
@@ -132,8 +111,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
 
 
-        return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+        return new RoleResource($role->load(['permissions']));
     }
     /**
      * Remove the specified resource from storage.
@@ -141,10 +119,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+
+        return response()->json(['message' => 'Role Deleted.']);
     }
 }
