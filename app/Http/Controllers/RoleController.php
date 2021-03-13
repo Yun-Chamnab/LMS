@@ -40,18 +40,6 @@ class RoleController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function list_permission()
-    {
-        $permission = Permission::get();
-        return response()->json(['data' => ['permission' => $permission]]);
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -108,7 +96,7 @@ class RoleController extends Controller
         $role->save();
 
 
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->input('permission', []));
 
 
         return new RoleResource($role->load(['permissions']));

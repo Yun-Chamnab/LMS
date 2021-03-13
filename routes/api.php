@@ -54,49 +54,112 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             return response()->json(['message' => 'You are authorized as an administrator.']);
         });
 
-        $router->group(['prefix' => 'role'], function (Router $router) {
+    });
 
-            $router->get('/list_role', [
-                'uses' => 'RoleController@index',
-                'as' => 'list_role',
-                //'middleware' => 'permission:role-list'
-            ]);
 
-            $router->post('/create', [
-                'uses' => 'RoleController@store',
-                'as' => 'store'
-            ]);
-    
-            $router->get('/show/{id}', [
-                'uses' => 'RoleController@show',
-                'as' => 'show'
-            ]);
+    //Role
+    $router->group(['prefix' => 'role'], function (Router $router) {
 
-            $router->post('/edit/{id}', [
-                'uses' => 'RoleController@edit',
-                'as' => 'edit'
-            ]);
+        $router->get('/list_role', [
+            'uses' => 'RoleController@index',
+            'as' => 'list_role',
+        ]);
 
-            $router->post('/update/{id}', [
-                'uses' => 'RoleController@upadate',
-                'as' => 'update'
-            ]);
+        $router->post('/create', [
+            'uses' => 'RoleController@store',
+            'as' => 'store'
+        ]);
 
-            $router->post('/delete/{id}', [
-                'uses' => 'RoleController@delete',
-                'as' => 'delete'
-            ]);
+        $router->get('/show/{id}', [
+            'uses' => 'RoleController@show',
+            'as' => 'show'
+        ]);
 
-        });
+        $router->post('/edit/{id}', [
+            'uses' => 'RoleController@edit',
+            'as' => 'edit'
+        ]);
 
-        $router->group(['prefix' => 'permission'], function (Router $router) {
+        $router->post('/update/{id}', [
+            'uses' => 'RoleController@update',
+            'as' => 'update'
+        ]);
 
-            $router->get('/list_permission', [
-                'uses' => 'RoleController@list_permission',
-                'as' => 'list_permission'
-            ]);
+        $router->post('/delete/{id}', [
+            'uses' => 'RoleController@delete',
+            'as' => 'delete'
+        ]);
 
-        });
+    });
+
+
+    //Permission
+    $router->group(['prefix' => 'permission'], function (Router $router) {
+
+        $router->get('/list', [
+            'uses' => 'PermissionController@index',
+            'as' => 'list'
+        ]);
+
+        $router->post('/create', [
+            'uses' => 'PermissionController@store',
+            'as' => 'store'
+        ]);
+
+        $router->get('/show/{id}', [
+            'uses' => 'PermissionController@show',
+            'as' => 'show'
+        ]);
+
+        $router->post('/edit/{id}', [
+            'uses' => 'PermissionController@edit',
+            'as' => 'edit'
+        ]);
+
+        $router->post('/update/{id}', [
+            'uses' => 'PermissionController@update',
+            'as' => 'update'
+        ]);
+
+        $router->post('/delete/{id}', [
+            'uses' => 'PermissionController@delete',
+            'as' => 'delete'
+        ]);
+
+    });
+
+    //user
+    $router->group(['prefix' => 'user'], function (Router $router) {
+
+        $router->get('/list', [
+            'uses' => 'UserController@index',
+            'as' => 'list'
+        ]);
+
+        $router->post('/create', [
+            'uses' => 'UserController@store',
+            'as' => 'store'
+        ]);
+
+        $router->get('/show/{id}', [
+            'uses' => 'UserController@show',
+            'as' => 'show'
+        ]);
+
+        $router->post('/edit/{id}', [
+            'uses' => 'UserController@edit',
+            'as' => 'edit'
+        ]);
+
+        $router->post('/update/{id}', [
+            'uses' => 'UserController@update',
+            'as' => 'update'
+        ]);
+
+        $router->post('/delete/{id}', [
+            'uses' => 'UserController@delete',
+            'as' => 'delete'
+        ]);
 
     });
 
