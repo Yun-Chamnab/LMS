@@ -9,9 +9,17 @@ use App\Http\Resources\PermissionResource;
 use DB;
 
 
-
 class PermissionController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:permission-list');
+         $this->middleware('permission:permission-create', ['only' => ['create','store']]);
+         $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:permission-delete', ['only' => ['delete']]);
+    }
+
     public function index()
     {
         $permission = Permission::get();
