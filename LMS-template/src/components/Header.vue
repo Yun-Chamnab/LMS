@@ -285,7 +285,6 @@ export default {
         path: "/attendance",
       },
       { class: "ma-3 v-divider white" },
-
     ],
     previous_active_id: 1,
     fullscreen: false,
@@ -403,7 +402,7 @@ export default {
     historyPages: {
       set(historyPages) {
         store.commit("setHistoryPage", historyPages);
-      },  
+      },
       get() {
         return store.default.getters.getHistoryPages; //store.default.state.historyPages
       },

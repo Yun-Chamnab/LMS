@@ -2,8 +2,8 @@
   <v-container>
     <v-dialog v-model="dialog" max-width="790">
       <v-card>
-        <!-- <v-card-title class="headline">{{ $route.params.id }}</v-card-title> -->
-        <v-form v-model="valid">
+        <!-- <div hidden>{{ loadData() }}</div> -->
+        <v-form>
           <v-container>
             <v-row>
               <v-col cols="12" md="7">
@@ -15,20 +15,17 @@
                   ></v-text-field>
 
                   <v-select
-                    :items="options"
-                    label="Select"
-                    data-vv-name="select"
+                    label="Select Correct Answer"
+                    v-bind:items="[answer1, answer2, answer3]"
                     v-model="status_correct"
                     required
                   ></v-select>
 
-                  <v-col cols="12" md="8">
-                    <v-text-field
-                      v-model="status_correct"
-                      label="Correct Answer"
-                      required
-                    ></v-text-field>
-                  </v-col>
+                  <v-text-field
+                    v-model="score"
+                    label="Score"
+                    required
+                  ></v-text-field>
                 </v-form>
               </v-col>
 
@@ -67,7 +64,14 @@
           </v-btn>
         </div>
         <div class="text-center">
-          <v-btn text v-on:click.stop="dialog = false" min-width="20rem">
+          <v-btn
+            text
+            v-on:click.stop="
+              dialog = false;
+              clear();
+            "
+            min-width="20rem"
+          >
             <h6>Cancel</h6>
           </v-btn>
         </div>
@@ -78,42 +82,51 @@
       color="pink darken-1"
       max-width="9rem"
       dark
+      class="mb-5 mt-3"
       v-on:click.stop="dialog = true"
     >
       <h6>Add New Question</h6>
     </v-btn>
-    <!-- 
-    <v-card-title>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title> -->
+
     <v-data-table
+      class="elevation-1"
       :headers="headers"
+      show-expand
       :items="items"
       :single-expand="singleExpand"
       :expanded.sync="expanded"
-      item-key="name"
-      show-expand
-      class="elevation-1"
+      :items-per-page="5"
+      hide-default-header
+      :sort-by="['question']"
     >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>Expandable Table</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-switch
-            v-model="singleExpand"
-            label="Single expand"
-            class="mt-2"
-          ></v-switch>
-        </v-toolbar>
+      <template v-slot:header="{}">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Question</th>
+            <th>Score</th>
+            <th colspan="3">Answer</th>
+          </tr>
+        </thead>
       </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">{{ item.question }}</td>
+      <template v-slot:body="{ items }">
+        <tbody style="white-space: nowrap">
+          <tr v-for="(quest, index) in items" v-bind:key="index">
+            <td>{{ 1 + index++ }}</td>
+            <td>{{ quest.question }}</td>
+            <td>{{ quest.score }}</td>
+            <td v-for="(answ, i) in quest.answer" v-bind:key="i">
+              <span v-if="answ.status_correct == 1">
+                <v-alert dense text type="success">
+                  {{ answ.answer }}
+                </v-alert>
+              </span>
+              <span v-else>
+                {{ answ.answer }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
       </template>
     </v-data-table>
   </v-container>
@@ -129,14 +142,31 @@ export default {
       answer: [],
       e1: 1,
       items: [],
-      options: ["A", "B", "C"],
+      answer1: "",
+      answer2: "",
+      answer3: "",
+      options: [this.answer1, this.answer2, this.answer3],
       itemid: this.$route.params.id,
       dialog: false,
       question: null,
-      status_correct: null,
+      score: null,
+      status_correct: [],
       search: "",
       expanded: [],
       singleExpand: false,
+      headers: [
+        { text: "N", value: "" },
+        {
+          text: "Question",
+          align: "start",
+          filterable: false,
+          value: "question",
+        },
+        { text: "Answer", value: "[question.answer.answer]" },
+        { text: "Correct Answer", value: "status_correct" },
+        { text: "Created Date", value: "created_at" },
+      ],
+      subItems: [{ text: "Answer", value: "answer" }],
     };
   },
   async mounted() {
@@ -155,6 +185,7 @@ export default {
             url: strUrl,
             data: {
               question: this.question,
+              score: this.score,
               status_correct: this.status_correct,
               answer: [this.answer1, this.answer2, this.answer3],
               exam_id: this.$route.params.id,
@@ -162,6 +193,7 @@ export default {
           })
             .then((response) => {
               this.loadData();
+              this.clear();
               window.console.log(response.data);
             })
             .catch((e) => {
@@ -170,9 +202,17 @@ export default {
         }, 200);
       });
     },
+    clear() {
+      (this.question = ""),
+        (this.status_correct = ""),
+        (this.answer1 = ""),
+        (this.answer2 = ""),
+        (this.answer3 = ""),
+        (this.score = "");
+    },
     async loadData() {
       axios
-        .get("http://127.0.0.1:8000/api/question/" + this.itemid)
+        .get("http://127.0.0.1:8000/api/question/" + this.$route.params.id)
         .then((response) => {
           this.items = response.data.data[0].question;
           window.console.log(this.items);

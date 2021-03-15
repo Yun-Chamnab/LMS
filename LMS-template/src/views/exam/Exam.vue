@@ -7,6 +7,7 @@
             Create Quiz
           </v-btn>
         </template>
+
         <v-card>
           <v-card-title>
             <span class="headline">Create Quiz</span>
@@ -29,25 +30,33 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    label="Publish"
+                  <v-checkbox
                     v-model="publish"
-                  ></v-text-field>
+                    :label="`Publish: ${publish.toString()}`"
+                  ></v-checkbox>
                 </v-col>
               </v-row>
             </v-container>
-            <!-- <small>*indicates required field</small> -->
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="
+                dialog = false;
+                clear();
+              "
+            >
               Close
             </v-btn>
             <v-btn
               color="blue darken-1"
               text
-              @click.prevent="onSaveClose()"
-              @click="dialog = false"
+              @click="
+                dialog = false;
+                onSaveClose();
+              "
             >
               Save
             </v-btn>
@@ -57,24 +66,45 @@
     </v-row>
 
     <v-row>
-      <div class="mx-3 mt-3" v-for="(item, i) in items" :key="i" cols="12" sm="4">
+      <div
+        class="mx-3 mt-3"
+        v-for="(item, i) in items"
+        :key="i"
+        cols="12"
+        sm="4"
+      >
+        <v-card
+          class="rounded"
+          outlined
+          tile
+          color="purple darken-4"
+          dark
+          min-width="230px"
+        >
+          <v-card-title class="headline"> {{ item.name }} </v-card-title>
+          <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
+          <v-card-subtitle>Publish: {{ item.publish }}</v-card-subtitle>
+          <v-btn color="primary" @click="onEditItem(item)"> Edit</v-btn>
+        </v-card>
         <router-link
           style="display: inline-block; text-decoration: none"
           :to="'question/' + item.id"
         >
-          <v-card
-            class="rounded"
-            outlined
-            tile
-            color="purple darken-4"
-            dark
-            min-width="230px"
+          <v-btn
+            @click="$router.push({ name: 'test2', params: { id: item.id } })"
+            ><h5>Add Question</h5></v-btn
           >
-            <v-card-title class="headline"> {{ item.name }} </v-card-title>
-            <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
-            <v-card-subtitle>Publish: {{ item.publish }}</v-card-subtitle>
-          </v-card>
         </router-link>
+        |
+        <router-link
+          style="display: inline-block; text-decoration: none"
+          :to="'quiz/' + item.id"
+        >
+          <v-btn
+            @click="$router.push({ name: 'test2', params: { id: item.id } })"
+            ><h5>Take Exam</h5></v-btn
+          ></router-link
+        >
       </div>
     </v-row>
   </v-container>
@@ -82,8 +112,9 @@
 
 <script>
 import axios from "axios";
-// import { Grid, GridToolbar, GridNoRecords } from "@progress/kendo-vue-grid";
+
 import DialogQuestion from "./DialogQuestion";
+import TakeExam from "./TakeExam";
 
 const apiUrl = require("../../apiUrl.js");
 
@@ -91,15 +122,19 @@ export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
     DialogQuestion,
+    // eslint-disable-next-line vue/no-unused-components
+    TakeExam,
   },
   data: () => ({
     items: [],
     dialog: false,
     dialog1: false,
     e1: 1,
+    examId: "",
     title: null,
     duration: null,
-    publish: null,
+
+    publish: false,
   }),
   async mounted() {
     await this.loadData();
@@ -111,11 +146,17 @@ export default {
         .then((response) => {
           this.items = response.data.data;
           window.console.log(this.items);
-          // this.loading = false;
         })
         .catch((error) => {
           window.console.log(error);
         });
+    },
+    async onEditItem(exam) {
+      this.title = exam.name;
+      this.duration = exam.duration;
+      this.publish = exam.publish;
+      this.examId = exam.id;
+      this.dialog = true;
     },
     async onSaveClose() {
       new Promise((resolve) => {
@@ -124,6 +165,11 @@ export default {
 
           let strUrl = apiUrl.exam_post;
           let method = "post";
+
+          if (this.examId !== "") {
+            strUrl = apiUrl.exam_edit + "/" + this.examId;
+            method = "patch";
+          }
           axios({
             method: method,
             url: strUrl,
@@ -131,11 +177,11 @@ export default {
               name: this.title,
               duration: this.duration,
               publish: this.publish,
-              //   question: this.question,
             },
           })
             .then((response) => {
               this.loadData();
+              this.clear();
               window.console.log(response);
             })
             .catch((e) => {
@@ -146,6 +192,9 @@ export default {
     },
     openModal() {
       this.$refs.modal.showModal();
+    },
+    clear() {
+      (this.title = ""), (this.duration = ""), (this.publish = false);
     },
   },
   computed: {},

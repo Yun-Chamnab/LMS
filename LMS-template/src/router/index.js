@@ -55,6 +55,14 @@ const routes = [{
 				}
 			},
 			{
+				path: 'quiz/:id',
+				name: 'Quiz',
+				component: load('exam/TakeExam'),
+				meta:{
+					mainMenu: 'exam'
+				}
+			},
+			{
 				path: 'course',
 				name: 'Course',
 				component: load('course/Course'),

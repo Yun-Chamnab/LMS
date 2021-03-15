@@ -11,11 +11,11 @@ import DatetimePicker from 'vuetify-datetime-picker'
 import BTable from 'bootstrap-vue'
 
 //Kendo
-import '@progress/kendo-ui'
-import '@progress/kendo-theme-default/dist/all.css'
-import { Grid } from '@progress/kendo-vue-grid'
+// import '@progress/kendo-ui'
+// import '@progress/kendo-theme-default/dist/all.css'
+// import { Grid } from '@progress/kendo-vue-grid'
 // import $ from 'jquery'
-import { DataSource, DataSourceInstaller } from '@progress/kendo-datasource-vue-wrapper'
+// import { DataSource, DataSourceInstaller } from '@progress/kendo-datasource-vue-wrapper'
 // import { Grid, GridColumn, GridInstaller } from '@progress/kendo-grid-vue-wrapper'
 // import JSZip from 'jszip'
 
@@ -28,7 +28,7 @@ Vue.use(DatetimePicker)
 Vue.use(BTable)
 // eslint-disable-next-line no-undef
 // Vue.use(GridInstaller)
-Vue.use(DataSourceInstaller)
+// Vue.use(DataSourceInstaller)
 
 Vue.use(fullscreen)
 
@@ -38,7 +38,6 @@ new Vue({
 	router,
 	render: h => h(App),
 	components: {
-		Grid,		
-		DataSource,
+	
 	},
 }).$mount('#app')
