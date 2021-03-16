@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Pearl\RequestValidate\RequestAbstract;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserRequest extends RequestAbstract
 {
@@ -23,22 +24,11 @@ class UpdateUserRequest extends RequestAbstract
      * @return array
      */
     public function rules(): array
-    {
+    {   
         return [
-            'name'    => [
-                'required',
-            ],
-            'email'   => [
-                'required',
-                'unique:users,email,'
-            ],
-            'roles.*' => [
-                'integer',
-            ],
-            'roles'   => [
-                'required',
-                'array',
-            ],
+            'name'    => 'required',
+            'roles.*' => 'integer',
+            'roles'   => 'required|array',
         ];
     }
 
