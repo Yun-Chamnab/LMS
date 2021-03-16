@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         Mail::to($user)->send(new Welcome($user));
 
-        return response()->json(['data' => ['message' => 'Account created. Please verify via email.', 'token' => $user->verification_token]]);
+        return response()->json(['data' => ['message' => 'Account created.']]);
     }
 
     /**

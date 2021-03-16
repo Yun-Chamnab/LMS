@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesSeeder::class,
+            PermissionTableSeeder::class,
         ]);
         User::createFromValues('John Doe', 'demo@demo.com', 'password')->assignRole('administrator');
     }

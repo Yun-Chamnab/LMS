@@ -70,6 +70,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $user->name = $name;
         $user->email = $email;
         $user->password = Hash::make($password);
+        $user->verified = 1;
         $user->verification_token = Str::random(64);
 
         return $user->save() ? $user : false;
