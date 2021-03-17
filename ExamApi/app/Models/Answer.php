@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Question;
 use App\Models\Exam;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Answer extends Model
 {
@@ -13,7 +14,7 @@ class Answer extends Model
         'answer',
 
     ];
-
+    use SoftDeletes;
     public function question()
     {
         // return $this->hasMany(Question::class, 'question_id');

@@ -18,7 +18,8 @@ class CreateAnswerTable extends Migration
             $table->integer('exam_id');
             $table->integer('question_id');
             $table->string('answer');
-            $table->tinyInteger('status_correct');
+            $table->tinyInteger('status_correct')->default(0)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

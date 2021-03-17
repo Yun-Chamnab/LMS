@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Exam extends Model
+class Result extends Model
 {
 
     /**
@@ -15,18 +15,14 @@ class Exam extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'duration', 'publish'
+        'user_id', 'quiz_id', 'score'
     ];
     use SoftDeletes;
-    protected $timeFormat = 'i:s';
+    
 
     public function question()
     {
         return $this->hasMany(Question::class);
     }
 
-    // public function answer()
-    // {
-    //     return $this->hasMany(Answer::class);
-    // }
 }

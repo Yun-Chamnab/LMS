@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use App\Models\Question;
 use App\Models\Answer;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -20,13 +19,11 @@ class QuestionController extends Controller
 
     public function show($question)
     {
-
         $posts = Exam::with([
             'question.answer' => function ($query) {
                 $query->get();
             },
         ])->where('id', $question)->get();
-
 
         return $this->successResponse($posts);
     }
@@ -36,9 +33,9 @@ class QuestionController extends Controller
         $question = Question::create([
             'question' => $request->question,
             'exam_id' => $request->exam_id,
-            'score' => $request->score
+            'score' => $request->score,
         ]);
-        
+
         $arr_len = count($request->answer);
         for ($i = 0; $i < $arr_len; $i++) {
 

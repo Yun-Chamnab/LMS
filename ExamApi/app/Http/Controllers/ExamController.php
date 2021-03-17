@@ -16,6 +16,12 @@ class ExamController extends Controller
         return $this->successResponse($exam);
     }
 
+    public function indexStudent()
+    {
+        $exam = Exam::where('publish', '1')->get();
+        return $this->successResponse($exam);
+    }
+
     public function show($exam)
     {
         $exam = Exam::find($exam);
@@ -27,7 +33,6 @@ class ExamController extends Controller
         $rules = [
             'name' => 'required|max:255',
             'duration' => 'required|max:20',
-
         ];
 
         $this->validate($request, $rules);
@@ -38,13 +43,12 @@ class ExamController extends Controller
 
     public function update(Request $request, $exam)
     {
-        $rules = [
-            'name' => 'max:255',
-            'duration' => 'max:20',
+        // $rules = [
+        //     'name' => 'max:255',
+        //     'duration' => 'max:20',
+        // ];
 
-        ];
-
-        $this->validate($request, $rules);
+        // $this->validate($request, $rules);
         $exam = Exam::findOrFail($exam);
         $exam = $exam->fill($request->all());
 

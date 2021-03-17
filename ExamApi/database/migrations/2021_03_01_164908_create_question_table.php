@@ -18,6 +18,7 @@ class CreateQuestionTable extends Migration
             $table->string('question');
             $table->integer('exam_id');
             $table->integer('score');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
