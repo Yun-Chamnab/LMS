@@ -37,14 +37,14 @@
         <v-tab-item>
           <v-card flat class="custom_vcard">
             <v-card-text class="pt-0 bg_white">
-              <PermissionManage />
+              <RoleManage />
             </v-card-text>
           </v-card>
         </v-tab-item>
         <v-tab-item>
           <v-card flat class="custom_vcard">
             <v-card-text class="pt-0 bg_white">
-              <RoleManage />
+              <PermissionManage />
             </v-card-text>
           </v-card>
         </v-tab-item>

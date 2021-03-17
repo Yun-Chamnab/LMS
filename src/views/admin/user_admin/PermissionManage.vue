@@ -25,17 +25,15 @@
             <v-container>
               <v-row>
                 <v-col sm="12" cols="12" class>
-                  <label class="label">{{ $t("permission") }}</label>
-                  <v-select
-                    v-model="permission"
-                    single-line
-                    item-text="name"
-                    item-value="id"
-                    :items="listRoles"
-                    label="All"
+                  <label class="label">{{ $t("permission_name") }}</label>
+                  <v-text-field
+                    class="disable_alert my-3"
+                    v-model="name"
+                    append-icon="fa-id-card"
+                    precision="3"
                     outlined
-                    hide-details
-                  ></v-select
+                    required
+                  />
                   >>
                 </v-col>
               </v-row>
@@ -70,7 +68,7 @@
                 item-key="name"
                 class="elevation-1"
                 :headers="headers"
-                :items="listUser"
+                :items="listPermissions"
                 :items-per-page="5"
                 hide-default-header
               >
@@ -78,29 +76,22 @@
                   <thead>
                     <tr>
                       <th>{{ $t("no") }}</th>
-                      <th>{{ $t("role_name") }}</th>
-                      <th>{{ $t("permission") }}</th>
+                      <th>{{ $t("permission_name") }}</th>
                       <th class="text-center">{{ $t("Action") }}</th>
                     </tr>
                   </thead>
                 </template>
                 <template v-slot:body="{ items }">
                   <tbody style="white-space: nowrap">
-                    <tr v-for="(user, index) in items" v-bind:key="index">
+                    <tr v-for="(per, index) in items" v-bind:key="index">
                       <td>{{ 1 + index++ }}</td>
-                      <td>{{ user.name }}</td>
-                      <td>{{ user.email }}</td>
-                      <td>
-                        <v-chip :color="getColor(user.roleNames[0])" dark>
-                          {{ user.roleNames[0] }}
-                        </v-chip>
-                      </td>
+                      <td>{{ per.name }}</td>
 
                       <td class="text-center">
-                        <v-btn @click="onEditItem(user)">
+                        <v-btn @click="onEditItem(per)">
                           <v-icon size="15" color="#3e0eff">fa fa-pen</v-icon>
                         </v-btn>
-                        <v-btn @click="deleteuser(user)">
+                        <v-btn @click="deletepermission(per)">
                           <v-icon size="15" color="#f50d0d">fa fa-trash</v-icon>
                         </v-btn>
                       </td>
@@ -121,24 +112,17 @@
 <script>
 const axios = require("axios");
 const apiUrl = require("../../../apiUrl");
-const state = require("../../../query.js");
 import store from "@/store";
 export default {
   data: () => ({
     headers: [
       { text: "No", value: "no" },
-      { text: "Username", value: "name" },
-      { text: "Email", value: "email" },
-      { text: "Role", value: "roleNames" },
+      { text: "PermissionName", value: "name" },
     ],
     dialog: false,
-    listUser: [],
-    listRoles: [],
-    userId: "",
+    listPermissions: [],
+    permissionId: "",
     name: "",
-    email: "",
-    roleNames: "",
-    password: "",
     editot: false,
   }),
   props: {},
@@ -148,19 +132,6 @@ export default {
     },
   },
   methods: {
-    // onNewClick() {
-    //   this.taxId = "";
-    // },
-    getColor(roleNames) {
-      if (roleNames === "administrator") {
-        return "red";
-      } else if (roleNames === "teacher") {
-        return "green";
-      } else {
-        return "orange";
-      }
-    },
-
     clickMe(data) {
       // alert(data.link)
       this.$router.push(`${data.link}`);
@@ -170,13 +141,13 @@ export default {
       //eslint-disable-next-line no-console
       //console.log(data)
     },
-    async loadUser() {
+    async loadPermissions() {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
           let loggedUser = store.getters.getLoggedUser;
           axios
-            .get(apiUrl.list_users, {
+            .get(apiUrl.list_permissions, {
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -184,37 +155,35 @@ export default {
               },
             })
             .then((res) => {
-              this.listUser = res.data.user;
-              //   window.console.log(this.listUser);
+              this.listPermissions = res.data.permission;
+              window.console.log(this.listPermissions);
             });
         }, 500);
       });
     },
     onEditItem(item) {
       this.name = item.name;
-      this.email = item.email;
-      this.roleName = item.roleNames;
-      this.userId = item.id;
+      this.permissionId = item.id;
       this.dialog = true;
       this.editot = true;
     },
-    async deleteuser(user) {
-      const index = this.listUser.indexOf(user);
-      this.deletItems = user;
+    async deletepermission(per) {
+      const index = this.listPermissions.indexOf(per);
+      this.deletItems = per;
       const btnCancel = confirm("Are you sure you want to delete this item?");
       if (btnCancel === true) {
-        this.listUser.splice(index, 1);
-        await this.deleteUser();
+        this.listPermissions.splice(index, 1);
+        await this.deletePermission();
       }
     },
-    async deleteUser() {
+    async deletePermission() {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
           let loggedUser = store.getters.getLoggedUser;
           axios
             .post(
-              apiUrl.del_user + this.deletItems.id,
+              apiUrl.delete_permissions + this.deletItems.id,
               {},
               {
                 headers: {
@@ -235,36 +204,6 @@ export default {
     },
     clear() {
       this.name = "";
-      this.email = "";
-      this.roleNames = "";
-    },
-    async loadRole() {
-      this.loading = true;
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("resolved");
-          let fromState = state.default.getters.getRole;
-          let loggedUser = store.getters.getLoggedUser;
-          if (fromState.length > 0) {
-            this.listRoles = fromState;
-            window.console.log("am form state", fromState);
-          } else {
-            axios
-              .get(apiUrl.list_roles, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + loggedUser.data.token,
-                },
-              })
-              .then((res) => {
-                this.listRoles = res.data.data.role;
-                state.default.commit("setRole", res.data.data.role);
-                window.console.log("set state", fromState);
-              });
-          }
-        }, 100);
-      });
     },
     async onSaveClose(isNew) {
       new Promise((resolve) => {
@@ -272,7 +211,7 @@ export default {
           resolve("resolved");
           // this.isDisabled = true
           //eslint-disable-next-line no-console
-          let strUrl = apiUrl.create_user;
+          let strUrl = apiUrl.create_permissions;
           let method = "post";
           let loggedUser = store.getters.getLoggedUser;
           let headers = {
@@ -281,9 +220,9 @@ export default {
             Authorization: "Bearer " + loggedUser.data.token,
           };
 
-          if (this.userId !== "") {
+          if (this.permissionId !== "") {
             headers["Authorization"] = "Bearer " + loggedUser.data.token;
-            strUrl = apiUrl.edit_user + "/" + this.userId;
+            strUrl = apiUrl.edit_permissions + "/" + this.permissionId;
             method = "post";
           }
           axios({
@@ -292,26 +231,18 @@ export default {
             url: strUrl,
             data: {
               name: this.name,
-              email: this.email,
-              password: this.password,
-              roles: {
-                roleName: this.roleNames,
-              },
             },
           })
             .then((response) => {
               window.console.log(response);
               if (isNew) {
-                (this.name = ""),
-                  (this.email = ""),
-                  (this.roles = ""),
-                  (this.userId = "");
+                (this.name = ""), (this.permissionId = "");
               } else {
                 this.dialog = false;
               }
 
               // this.isDisabled = false
-              this.loadUser();
+              this.loadPermissions();
             })
             .catch((e) => {
               this.errors.push(e);
@@ -322,8 +253,7 @@ export default {
   },
   components: {},
   async mounted() {
-    this.loadUser();
-    this.loadRole();
+    this.loadPermissions();
   },
 };
 </script>
