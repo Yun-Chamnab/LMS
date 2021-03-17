@@ -262,7 +262,7 @@ export default {
         class: "",
         activeClass: "",
         icon: "mdi-message-draw",
-        name: "Course",
+        name: "Student Quiz",
         menuTex: "course",
         path: "/course",
       },

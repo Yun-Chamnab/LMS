@@ -10,6 +10,7 @@ import { Trans } from './plugins/Translation'
 import DatetimePicker from 'vuetify-datetime-picker'
 import BTable from 'bootstrap-vue'
 
+import CircularCountDownTimer from "vue-circular-count-down-timer";
 //Kendo
 // import '@progress/kendo-ui'
 // import '@progress/kendo-theme-default/dist/all.css'
@@ -38,6 +39,6 @@ new Vue({
 	router,
 	render: h => h(App),
 	components: {
-	
+	CircularCountDownTimer
 	},
 }).$mount('#app')
