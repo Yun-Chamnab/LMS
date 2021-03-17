@@ -20,7 +20,7 @@
           <v-icon class="btn_close" @click="dialog = false">close</v-icon>
           <v-divider />
           <v-card-text
-            style="height: 400px; background-color: #edf1f5; color: #333"
+            style="height: 200px; background-color: #edf1f5; color: #333"
           >
             <v-container>
               <v-row>
@@ -34,7 +34,6 @@
                     outlined
                     required
                   />
-                  >>
                 </v-col>
               </v-row>
             </v-container>

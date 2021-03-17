@@ -8,66 +8,7 @@
       <div style="height: 30px; width: 100%"></div>
       <!-- <v-row>
         <v-col sm="12" cols="12" class="py-0"> -->
-      <v-dialog v-model="dialog" max-width="400px">
-        <template v-slot:activator="{ on }">
-          <v-btn class="btn_save_att" v-on="on">{{ $t("create_role") }} </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>{{ $t("create_role") }}</v-card-title>
 
-          <v-icon class="btn_close" @click="dialog = false">close</v-icon>
-          <v-divider />
-          <v-card-text
-            style="height: 400px; background-color: #edf1f5; color: #333"
-          >
-            <v-container>
-              <v-row>
-                <v-col sm="12" cols="12" class>
-                  <label class="label">{{ $t("role_name") }}</label>
-                  <v-text-field
-                    class="disable_alert my-3"
-                    v-model="name"
-                    append-icon="fa-id-card"
-                    precision="3"
-                    outlined
-                    required
-                  />
-                  <label class="label">{{ $t("permission") }}</label>
-                  <v-select
-                    v-model="permission"
-                    single-line
-                    item-text="name"
-                    item-value="id"
-                    :items="listRoles"
-                    label="All"
-                    outlined
-                    hide-details
-                  ></v-select
-                  >>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-divider />
-          <v-card-actions class="function_footer">
-            <v-btn
-              class="btn_cancel float-left"
-              @click="(dialog = false), clear()"
-              >{{ $t("cancel") }}</v-btn
-            >
-            <v-btn
-              class="btn_save_new float-right"
-              @click="onSaveClose(true)"
-              >{{ $t("save_new") }}</v-btn
-            >
-            <v-btn
-              class="btn_save_close float-right"
-              @click="onSaveClose(false)"
-              >{{ $t("save_close") }}
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       <div style="height: 30px; width: 100%"></div>
       <v-row class="mb-3">
         <v-col sm="12" cols="12" class="py-0">
@@ -77,7 +18,7 @@
                 item-key="name"
                 class="elevation-1"
                 :headers="headers"
-                :items="listUser"
+                :items="listRoles"
                 :items-per-page="5"
                 hide-default-header
               >
@@ -86,30 +27,17 @@
                     <tr>
                       <th>{{ $t("no") }}</th>
                       <th>{{ $t("role_name") }}</th>
-                      <th>{{ $t("permission") }}</th>
-                      <th class="text-center">{{ $t("Action") }}</th>
                     </tr>
                   </thead>
                 </template>
                 <template v-slot:body="{ items }">
                   <tbody style="white-space: nowrap">
-                    <tr v-for="(user, index) in items" v-bind:key="index">
+                    <tr v-for="(ro, index) in items" v-bind:key="index">
                       <td>{{ 1 + index++ }}</td>
-                      <td>{{ user.name }}</td>
-                      <td>{{ user.email }}</td>
                       <td>
-                        <v-chip :color="getColor(user.roleNames[0])" dark>
-                          {{ user.roleNames[0] }}
+                        <v-chip :color="getColor(ro.name)" dark>
+                          {{ ro.name }}
                         </v-chip>
-                      </td>
-
-                      <td class="text-center">
-                        <v-btn @click="onEditItem(user)">
-                          <v-icon size="15" color="#3e0eff">fa fa-pen</v-icon>
-                        </v-btn>
-                        <v-btn @click="deleteuser(user)">
-                          <v-icon size="15" color="#f50d0d">fa fa-trash</v-icon>
-                        </v-btn>
                       </td>
                     </tr>
                   </tbody>
@@ -128,25 +56,15 @@
 <script>
 const axios = require("axios");
 const apiUrl = require("../../../apiUrl");
-const state = require("../../../query.js");
 import store from "@/store";
 export default {
   data: () => ({
     headers: [
       { text: "No", value: "no" },
-      { text: "Username", value: "name" },
-      { text: "Email", value: "email" },
-      { text: "Role", value: "roleNames" },
+      { text: "RoleName", value: "name" },
     ],
-    dialog: false,
-    listUser: [],
     listRoles: [],
-    userId: "",
     name: "",
-    email: "",
-    roleNames: "",
-    password: "",
-    editot: false,
   }),
   props: {},
   watch: {
@@ -155,19 +73,6 @@ export default {
     },
   },
   methods: {
-    // onNewClick() {
-    //   this.taxId = "";
-    // },
-    getColor(roleNames) {
-      if (roleNames === "administrator") {
-        return "red";
-      } else if (roleNames === "teacher") {
-        return "green";
-      } else {
-        return "orange";
-      }
-    },
-
     clickMe(data) {
       // alert(data.link)
       this.$router.push(`${data.link}`);
@@ -177,13 +82,22 @@ export default {
       //eslint-disable-next-line no-console
       //console.log(data)
     },
-    async loadUser() {
+    getColor(name) {
+      if (name === "administrator") {
+        return "red";
+      } else if (name === "teacher") {
+        return "green";
+      } else {
+        return "orange";
+      }
+    },
+    async loadRole() {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
           let loggedUser = store.getters.getLoggedUser;
           axios
-            .get(apiUrl.list_users, {
+            .get(apiUrl.list_roles, {
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -191,145 +105,14 @@ export default {
               },
             })
             .then((res) => {
-              this.listUser = res.data.user;
-              //   window.console.log(this.listUser);
+              this.listRoles = res.data.data.role;
             });
         }, 500);
-      });
-    },
-    onEditItem(item) {
-      this.name = item.name;
-      this.email = item.email;
-      this.roleName = item.roleNames;
-      this.userId = item.id;
-      this.dialog = true;
-      this.editot = true;
-    },
-    async deleteuser(user) {
-      const index = this.listUser.indexOf(user);
-      this.deletItems = user;
-      const btnCancel = confirm("Are you sure you want to delete this item?");
-      if (btnCancel === true) {
-        this.listUser.splice(index, 1);
-        await this.deleteUser();
-      }
-    },
-    async deleteUser() {
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("resolved");
-          let loggedUser = store.getters.getLoggedUser;
-          axios
-            .post(
-              apiUrl.del_user + this.deletItems.id,
-              {},
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + loggedUser.data.token,
-                },
-              }
-            )
-            .then((response) => {
-              window.console.log(response);
-            })
-            .catch((e) => {
-              this.errors.push(e);
-            });
-        }, 200);
-      });
-    },
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.roleNames = "";
-    },
-    async loadRole() {
-      this.loading = true;
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("resolved");
-          let fromState = state.default.getters.getRole;
-          let loggedUser = store.getters.getLoggedUser;
-          if (fromState.length > 0) {
-            this.listRoles = fromState;
-            window.console.log("am form state", fromState);
-          } else {
-            axios
-              .get(apiUrl.list_roles, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + loggedUser.data.token,
-                },
-              })
-              .then((res) => {
-                this.listRoles = res.data.data.role;
-                state.default.commit("setRole", res.data.data.role);
-                window.console.log("set state", fromState);
-              });
-          }
-        }, 100);
-      });
-    },
-    async onSaveClose(isNew) {
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("resolved");
-          // this.isDisabled = true
-          //eslint-disable-next-line no-console
-          let strUrl = apiUrl.create_user;
-          let method = "post";
-          let loggedUser = store.getters.getLoggedUser;
-          let headers = {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + loggedUser.data.token,
-          };
-
-          if (this.userId !== "") {
-            headers["Authorization"] = "Bearer " + loggedUser.data.token;
-            strUrl = apiUrl.edit_user + "/" + this.userId;
-            method = "post";
-          }
-          axios({
-            method: method,
-            headers: headers,
-            url: strUrl,
-            data: {
-              name: this.name,
-              email: this.email,
-              password: this.password,
-              roles: {
-                roleName: this.roleNames,
-              },
-            },
-          })
-            .then((response) => {
-              window.console.log(response);
-              if (isNew) {
-                (this.name = ""),
-                  (this.email = ""),
-                  (this.roles = ""),
-                  (this.userId = "");
-              } else {
-                this.dialog = false;
-              }
-
-              // this.isDisabled = false
-              this.loadUser();
-            })
-            .catch((e) => {
-              this.errors.push(e);
-            });
-        }, 200);
       });
     },
   },
   components: {},
   async mounted() {
-    this.loadUser();
     this.loadRole();
   },
 };
