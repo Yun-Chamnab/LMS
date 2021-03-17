@@ -77,6 +77,7 @@
 
 <script>
 // const axios = require("axios");
+// import store from "@/store";
 import httpAxios from "@/httpAxios.js";
 export default {
   data() {
@@ -114,15 +115,12 @@ export default {
     // },
     login: function () {
       const self = this;
-
       // Clear Errors
       // Object.keys(this.errors).forEach(function (key) {
       //   self.errors[key] = false;
       // });
-
       // Ajax Request
       // const vm = this;
-
       // if (
       //   this.email != this.$root.email &&
       //   this.password != this.$root.password
@@ -147,7 +145,14 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             self.$store.commit("LOGGED_USER", response.data);
-            self.$router.push({ name: "Overview" });
+            // let loggedUser = store.getters.getLoggedUser;
+            if (response.data.data.user.roleNames == "administrator") {
+              self.$router.push({ name: "Admin" });
+              self.$store.commit("LOGGED_USER", response.data);
+            } else if (response.data.data.user.roleNames == "student") {
+              self.$router.push({ name: "Index" });
+              self.$store.commit("LOGGED_USER", response.data);
+            }
           }
           window.console.log(response);
         })
@@ -157,9 +162,11 @@ export default {
               this.error = true;
               this.result = "Email or Password is incorrect";
               this.showResult = true;
+              window.console.log(error, "ERROR");
             }
           } catch (e) {
             this.errors.push(e);
+            window.console.log(error, "ERROR");
           }
         });
     },

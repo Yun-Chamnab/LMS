@@ -9,7 +9,6 @@ const LOGGED_USER = (state, user) => {
 
     localStorage.setItem('loggedUser', JSON.stringify(user))
     state.loggedUser = JSON.stringify(user)
-    window.console.log(state.loggedUser,"USER")
 }
 
 const REMOVE_LOGGED_USER = (state) => {

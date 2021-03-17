@@ -235,54 +235,63 @@ export default {
         class: "",
         icon: "mdi-view-dashboard",
         activeClass: "active",
-        name: "Overview",
-        menuTex: "overview",
-        path: "/en",
+        name: "Dashboard",
+        menuTex: "admin_dashboard",
+        path: "/en/admin",
       },
       {
         id: 2,
         class: "",
         icon: "mdi-account-multiple",
         activeClass: "",
-        name: "User",
+        name: "UserService",
         menuTex: "user",
-        path: "/user",
+        path: "/admin/userservice",
       },
       {
         id: 3,
         class: "",
         activeClass: "",
         icon: "mdi-cash-usd",
-        name: "Exam",
+        name: "ExamService",
         menuTex: "exam",
-        path: "/exam",
+        path: "/admin/examservice",
       },
       {
         id: 4,
         class: "",
         activeClass: "",
         icon: "mdi-message-draw",
-        name: "Course",
+        name: "CourseService",
         menuTex: "course",
-        path: "/course",
+        path: "/admin/courseservice",
       },
       {
         id: 5,
         class: "",
         activeClass: "",
         icon: "mdi-file-multiple",
-        name: "Feedback",
+        name: "FeedbackService",
         menuTex: "feedback",
-        path: "/feedback",
+        path: "/admin/feedbackservice",
       },
       {
         id: 6,
         class: "",
         activeClass: "",
         icon: "settings",
-        name: "Attendance",
+        name: "AttendanceService",
         menuTex: "attendance",
-        path: "/attendance",
+        path: "/admin/attendanceservice",
+      },
+      {
+        id: 7,
+        class: "",
+        activeClass: "",
+        icon: "settings",
+        name: "Setting",
+        menuTex: "setting",
+        path: "/admin/setting",
       },
       { class: "ma-3 v-divider white" },
     ],
@@ -311,9 +320,8 @@ export default {
       //eslint-disable-next-line no-console
       // console.log(i18n.locale + data.path)
       if (data.id == 1) {
-        this.$router.push(`${i18n.locale}`);
+        this.$router.push(`${(i18n.locale, "admin")}`);
       }
-
       // eslint-disable-next-line no-console
       this.items.forEach((element) => {
         element.activeClass = "";

@@ -9,6 +9,10 @@ function load(component) {
 	// '@' is aliased to src/components
 	return () => import(`@/views/${component}.vue`)
 }
+function loadAdmin(component) {
+	// '@' is aliased to src/components
+	return () => import(`@/views/admin/${component}.vue`)
+}
 
 Vue.use(VueRouter)
 
@@ -26,6 +30,7 @@ const routes = [{
 			{
 				path: '/', 
 				component: load('Index'),
+				name: 'Index',
 				children: [
 					{
 						path: '',
@@ -33,7 +38,10 @@ const routes = [{
 						component:load('overview/Overview'),
 						meta:{
 							mainMenu: 'overview',
-							auth: true
+							auth: true,
+							adminAuth: false,
+							guest: false,
+							studentAuth: true
 							
 						},
 					},
@@ -43,6 +51,10 @@ const routes = [{
 						component: load('user/User'),
 						meta:{
 							mainMenu: 'user',
+							auth: true,
+							adminAuth: false,
+							studentAuth: true,
+							guest: false,
 						
 						
 						}
@@ -53,6 +65,10 @@ const routes = [{
 						component: load('exam/Exam'),
 						meta:{
 							mainMenu: 'Exam',
+							auth: true,
+							adminAuth: false,
+							guest: false,
+							studentAuth: true
 							
 						}
 					},
@@ -62,6 +78,10 @@ const routes = [{
 						component: load('course/Course'),
 						meta:{
 							mainMenu: 'Course',
+							auth: true,
+							adminAuth: false,
+							guest: false,
+							studentAuth: true
 						
 						}
 					},
@@ -71,6 +91,10 @@ const routes = [{
 						component: load('feedback/Feedback'),
 						meta:{
 							mainMenu: 'Feedback',
+							auth: true,
+							adminAuth: false,
+							guest: false,
+							studentAuth: true
 						
 						}
 					},
@@ -80,6 +104,98 @@ const routes = [{
 						component: load('attendance/Attendance'),
 						meta:{
 							mainMenu: 'Attendance',
+							auth: true,
+							adminAuth: false,
+							guest: false,
+							studentAuth: true
+							
+						}
+					},
+
+				]
+			},
+			{
+				path: 'admin/', 
+				component: load('AdminIndex'),
+				name: 'Admin',		
+				children: [
+					{
+						path: '',
+						name: 'OverviewAdmin',
+						component: loadAdmin('admin_overview/OverviewAdmin'),
+						meta:{
+							mainMenu: 'OverviewAdmin',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
+						
+						}
+					},
+					{
+						path: 'userservice',
+						name: 'UserService',
+						component: loadAdmin('user_admin/UserManage'),
+						meta:{
+							mainMenu: 'UserService',
+							auth: true,
+							guest: false,
+							adminAuth: true,
+							studentAuth: false
+						
+						
+						}
+					},
+					{
+						path: 'examservice',
+						name: 'ExamService',
+						component: loadAdmin('exam_admin/ExamManage'),
+						meta:{
+							mainMenu: 'ExamService',
+							auth: true,
+							guest: false,
+							adminAuth: true,
+							studentAuth: false
+							
+						}
+					},
+					{
+						path: 'courseservice',
+						name: 'CourseService',
+						component: loadAdmin('course_admin/CourseManage'),
+						meta:{
+							mainMenu: 'CourseService',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
+						}
+					},
+					{
+						path: 'feedbackservice',
+						name: 'FeedbackService',
+						component: loadAdmin('feedback_admin/FeedbackManage'),
+						meta:{
+							mainMenu: 'FeedbackService',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
+						}
+					},
+					{
+						path: 'attendanceservice',
+						name: 'AttendanceService',
+						component: loadAdmin('attendance_admin/AttendanceManage'),
+						meta:{
+							mainMenu: 'AttendanceService',
+							auth: true,
+							guest: false,
+							adminAuth: true,
+							studentAuth: false
 							
 						}
 					},
@@ -91,7 +207,7 @@ const routes = [{
 				component: load('auth/SignIn'),
 				name: 'SignIn',
 				meta:{
-					guest: 'true'
+					guest: true,
 				}
 			},
 			{
@@ -99,7 +215,7 @@ const routes = [{
 				component: load('auth/SignUp'),
 				name: 'SignUp',
 				meta:{
-					guest: 'true'
+					guest: true,
 				}
 			},
 			
@@ -178,7 +294,7 @@ router.beforeEach((to, from, next) => {
     let redirectToRoute = function(name) {
 		if (name === from.name) {
 			next()
-			return
+			return 
         }
         
 		next({ name: name , params:{locale: i18n.locale}})
@@ -186,7 +302,6 @@ router.beforeEach((to, from, next) => {
     
     // Get logged user
     let loggedUser = store.getters.getLoggedUser
-	window.console.log(loggedUser)
 
     // Check if access token expired
 	if (loggedUser) {
@@ -197,18 +312,43 @@ router.beforeEach((to, from, next) => {
 		}
 	}
 
-    // Auth
-    if (to.meta.auth) {
-        if (loggedUser)
-            return next()
-        else
-            return redirectToRoute('SignIn')
+    
+    // if (to.meta.auth) {
+    //     if (loggedUser)
+    //         return next()
+    //     else
+    //         return redirectToRoute('SignIn')
+    // }
+	if (to.meta.auth) {
+        if(!loggedUser || !loggedUser.data.token){
+			return redirectToRoute('SignIn')
+		}
+		else if(to.meta.adminAuth){
+			if(loggedUser.data.user.roleNames == 'administrator'){
+				next()
+			}else{
+				return redirectToRoute('Index')
+			}
+		}else if(to.meta.studentAuth){
+			if(loggedUser.data.user.roleNames == 'student'){
+				next()
+			}else{
+				return redirectToRoute('Admin')
+			}
+		}else{
+			return next()
+		}
     }
 
     // Guest
     if (to.meta.guest) {
         if (loggedUser)
-            return redirectToRoute('Overview')
+			if(loggedUser.data.user.roleNames == 'administrator'){
+
+				return redirectToRoute('Admin')
+			}else if(loggedUser.data.user.roleNames == 'student'){
+				return redirectToRoute('Index')
+			}
         else
             return next()
     }
