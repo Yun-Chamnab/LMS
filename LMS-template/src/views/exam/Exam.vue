@@ -128,7 +128,7 @@
             class="far fa-edit float-right"
             color="primary"
             @click="onEditItem(item)"
-          ></i>
+          ></i> 
 
           <v-card-title class="headline"> {{ item.name }} </v-card-title>
           <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>

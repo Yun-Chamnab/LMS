@@ -22,12 +22,14 @@
                 >
               </h4>
             </v-list-item-title>
-            
+
             <v-list-item
               v-for="answ in quest.answer"
               :key="answ"
-              v-model="userResponses[answ.status_correct, quest.score]"
-              @click.native="checkAnswer(answ.status_correct, quest.score , index)"
+              v-model="userResponses[(answ.status_correct, quest.score)]"
+              @click.native="
+                checkAnswer(answ.status_correct, quest.score, index)
+              "
             >
               <v-list-item-content>
                 <span>
@@ -58,12 +60,12 @@
 
     <!-- <div class="callout">
       <div v-for="(question, index) in items" :key="index"> -->
-        <!-- Hide all questions, show only the one with index === to current question index -->
-        <!-- <div v-show="index === questionIndex">
+    <!-- Hide all questions, show only the one with index === to current question index -->
+    <!-- <div v-show="index === questionIndex">
           <h3>{{ question.question }}</h3>
           <ol> -->
-            <!-- for each response of the current question -->
-            <!-- <li v-for="response in question.answer" :key="response">
+    <!-- for each response of the current question -->
+    <!-- <li v-for="response in question.answer" :key="response">
               <label>
                 <input
                   type="radio"
@@ -75,9 +77,9 @@
               </label>
             </li>
           </ol> -->
-          <!-- The two navigation buttons -->
-          <!-- Note: prev is hidden on first question -->
-          <!-- <button
+    <!-- The two navigation buttons -->
+    <!-- Note: prev is hidden on first question -->
+    <!-- <button
             class="secondary button"
             v-if="questionIndex > 0"
             v-on:click="prev"
@@ -88,11 +90,11 @@
         </div>
       </div> -->
 
-      <!-- Last page, quiz is finished, display result -->
-      <!-- <div v-show="questionIndex === items.questions.length()"> -->
-      <!-- <h3>Your Results</h3>
+    <!-- Last page, quiz is finished, display result -->
+    <!-- <div v-show="questionIndex === items.questions.length()"> -->
+    <!-- <h3>Your Results</h3>
         <p>You are: {{ score() }}</p> -->
-      <!-- </div> -->
+    <!-- </div> -->
     <!-- </div> -->
 
     <v-layout justify-center v-if="result == false || countdown == false">
@@ -167,27 +169,25 @@ export default {
           window.console.log(error);
         });
     },
-    async postQuestion() {
+    async postResult() {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
 
-          let strUrl = apiUrl.question_post;
+          let strUrl = apiUrl.result_post;
           let method = "post";
           axios({
             method: method,
             url: strUrl,
             data: {
-              question: this.question,
-              score: this.score,
-              status_correct: this.status_correct,
-              answer: [this.answer1, this.answer2, this.answer3],
-              exam_id: this.$route.params.id,
+              user_id: 1,
+              quiz_id: this.$route.params.id,
+              score: this.point,
+              total_score: this.total_score,
             },
           })
             .then((response) => {
               this.loadData();
-              this.clear();
               window.console.log(response.data);
             })
             .catch((e) => {
@@ -200,10 +200,8 @@ export default {
       window.console.log(key, "KEY");
       window.console.log(score, "score");
       window.console.log(ind, "index");
-      this.colAnsw = [key,score,ind];
+      this.colAnsw = [key, score, ind];
       window.console.log(this.colAnsw, "allanswer");
-
-
 
       this.total_score = this.total_score + score;
       window.console.log("total", this.total_score);
@@ -217,6 +215,7 @@ export default {
     loadResult() {
       this.checkAnswer(0, 0);
       // window.console.log(this.radioGroup, "picked");
+      this.postResult();
       this.result = true;
     },
     startCountdown: function () {
