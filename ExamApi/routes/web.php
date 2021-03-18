@@ -6,6 +6,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'exam'], function () use ($router) {
         $router->get('/', ['uses' => 'ExamController@index']);
         $router->get('/student', ['uses' => 'ExamController@indexStudent']);
+        $router->get('/overview', ['uses' => 'ExamController@countExam']);
         $router->post('/', ['uses' => 'ExamController@store']);
         $router->get('/{exam}', ['uses' => 'ExamController@show']);
         $router->patch('/{exam}', ['uses' => 'ExamController@update']);

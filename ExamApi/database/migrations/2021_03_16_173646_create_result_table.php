@@ -17,7 +17,8 @@ class CreateResultTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('quiz_id');
-            $table->decimal('score');
+            $table->decimal('score')->nullable();
+            $table->decimal('total_score')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
