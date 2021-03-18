@@ -314,12 +314,12 @@ export default {
         this.$router.push(`${i18n.locale}`);
       }
 
-      // eslint-disable-next-line no-console
+      // // eslint-disable-next-line no-console
       this.items.forEach((element) => {
         element.activeClass = "";
       });
-      this.items.find((item) => item.id === data.id).activeClass = "active"; //set active class to new li
-      this.previous_active_id = data.id; //store the new active li id
+      // this.items.find((item) => item.id === data.id).activeClass = "active"; //set active class to new li
+      // this.previous_active_id = data.id; //store the new active li id
     },
     toggle() {
       this.$fullscreen.toggle(document.getElementsByTagName("body")[0], {

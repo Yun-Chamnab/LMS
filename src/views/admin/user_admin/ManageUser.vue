@@ -42,19 +42,7 @@
                     required
                   />
 
-                  <span v-if="this.editot == true">
-                    <label class="label">{{ $t("password") }}</label>
-                    <v-text-field
-                      class="disable_alert my-3"
-                      v-model="password"
-                      append-icon="fas fa-lock"
-                      outlined
-                      placeholder="Cannot Edit"
-                      required
-                      disabled
-                    />
-                  </span>
-                  <span v-else>
+                  <span>
                     <label class="label">{{ $t("password") }}</label>
                     <v-text-field
                       class="disable_alert my-3"
@@ -235,7 +223,6 @@ export default {
       this.roleName = item.roleNames;
       this.userId = item.id;
       this.dialog = true;
-      this.editot = true;
     },
     async deleteuser(user) {
       const index = this.listUser.indexOf(user);

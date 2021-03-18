@@ -147,10 +147,10 @@ export default {
             self.$store.commit("LOGGED_USER", response.data);
             // let loggedUser = store.getters.getLoggedUser;
             if (response.data.data.user.roleNames == "administrator") {
-              self.$router.push({ name: "Admin" });
+              self.$router.push({ name: "OverviewAdmin" });
               self.$store.commit("LOGGED_USER", response.data);
             } else if (response.data.data.user.roleNames == "student") {
-              self.$router.push({ name: "Index" });
+              self.$router.push({ name: "Overview" });
               self.$store.commit("LOGGED_USER", response.data);
             }
           }

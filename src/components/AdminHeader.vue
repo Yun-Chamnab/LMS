@@ -379,7 +379,7 @@ export default {
     setActiveSideNav() {
       let pathURL = window.location.pathname;
       //eslint-disable-next-line no-console
-      if (pathURL == "/") {
+      if (pathURL == "/ ") {
         pathURL = "/en";
       }
       this.items.forEach((element) => {

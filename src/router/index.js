@@ -73,6 +73,14 @@ const routes = [{
 						}
 					},
 					{
+						path: 'quiz/:id',
+						name: 'Quiz',
+						component: load('exam/TakeExam'),
+						meta:{
+							mainMenu: 'exam'
+						}
+					},
+					{
 						path: 'course',
 						name: 'Course',
 						component: load('course/Course'),
@@ -158,6 +166,18 @@ const routes = [{
 							adminAuth: true,
 							studentAuth: false
 							
+						}
+					},
+					{
+						path: 'question/:id',
+						name: 'Dialogue',
+						component: loadAdmin('exam_admin/DialogQuestion'),
+						meta:{
+							mainMenu: 'ExamService',
+							auth: true,
+							guest: false,
+							adminAuth: true,
+							studentAuth: false
 						}
 					},
 					{

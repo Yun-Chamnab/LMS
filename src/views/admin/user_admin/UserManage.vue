@@ -1,7 +1,7 @@
 <template>
   <v-row class>
     <v-col sm="12" cols="12">
-      <v-tabs vertical class="tab_setting" slider-color="lightGray">
+      <v-tabs class="tab_setting" slider-color="lightGray">
         <v-tab>
           <span class="hidden-sm-and-up">
             <v-icon left>mdi-pen</v-icon>

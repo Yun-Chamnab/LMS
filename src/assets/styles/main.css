@@ -341,7 +341,7 @@ button, input, select, textarea{
 /* Tab vertical */
 .theme--light.v-tabs.tab_setting>.v-tabs-bar {
     padding-top: 10px;
-    min-height: 100vh !important;
+    /* min-height: 100vh !important; */
     background: rgb(237, 241, 245) !important;
 }
 .tab_setting .v-item-group.v-tabs-items{
