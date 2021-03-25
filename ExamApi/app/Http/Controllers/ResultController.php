@@ -25,7 +25,7 @@ class ResultController extends Controller
 
     public function show($result)
     {
-        $result = Result::find($result);
+        $result = Result::where('quiz_id', $result)->get();
         return $this->successResponse($result);
     }
 
@@ -35,6 +35,7 @@ class ResultController extends Controller
             'user_id' => 'required',
             'quiz_id' => 'required',
             'score' => 'required',
+            'total_score' => 'required',
         ];
 
         $this->validate($request, $rules);

@@ -15,14 +15,13 @@ class Result extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'quiz_id', 'score'
+        'user_id', 'quiz_id', 'score', 'total_score'
     ];
     use SoftDeletes;
-    
+
 
     public function question()
     {
         return $this->hasMany(Question::class);
     }
-
 }
