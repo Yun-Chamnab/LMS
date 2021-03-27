@@ -15,10 +15,10 @@ class Classservice extends Model
      * @var array
      */
     protected $fillable = [
-        'class_name'
+        'class_name', 'description', 'color'
     ];
     use SoftDeletes;
-    
+
 
     // public function question()
     // {

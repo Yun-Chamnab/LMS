@@ -16,6 +16,7 @@ class CreateLessonTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('lesson');
+            $table->string('description')->nullable();
             $table->string('file_path')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -35,7 +35,8 @@ class LessonController extends Controller
 
         $user = new Lesson;
         $user->lesson = $request->lesson;
-
+        $user->description = $request->description;
+        
         if ($request->hasfile('file_path')) {
             $file = $request->file('file_path');
             $extension = $file->getClientOriginalExtension();

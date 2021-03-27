@@ -49,11 +49,11 @@ class ClassServiceController extends Controller
 
     public function update(Request $request, $class1)
     {
-        $rules = [
-            'class_name' => 'max:255',
-        ];
+        // $rules = [
+        //     'class_name' => 'max:255',
+        // ];
 
-        $this->validate($request, $rules);
+        // $this->validate($request, $rules);
         $class1 = Classservice::findOrFail($class1);
         $class1 = $class1->fill($request->all());
 

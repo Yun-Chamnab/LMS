@@ -16,6 +16,8 @@ class CreateClassTable extends Migration
         Schema::create('classservices', function (Blueprint $table) {
             $table->id();
             $table->string('class_name');
+            $table->string('description')->nullable();
+            $table->string('color')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
