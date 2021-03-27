@@ -17,6 +17,7 @@ class CreateCourseTable extends Migration
             $table->id();
             $table->integer('class_id');
             $table->integer('teacher_id');
+            $table->string('teacher_name');
             $table->string('title');
             $table->string('description');
             $table->softDeletes();
