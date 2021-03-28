@@ -15,7 +15,7 @@ class Student extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'class_id'
+        'student_id', 'student_name', 'class_id'
     ];
     // use SoftDeletes;
 

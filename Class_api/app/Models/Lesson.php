@@ -15,7 +15,7 @@ class Lesson extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson','description', 'file_path',
+        'course_id','lesson','description', 'file_path',
     ];
     use SoftDeletes;
 

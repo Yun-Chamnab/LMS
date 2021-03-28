@@ -14,7 +14,7 @@ class LessonController extends Controller
 
     public function index()
     {
-        $lesson = Lesson::all();
+        $lesson = Lesson::orderBy('created_at', 'desc')->get();
         return $this->successResponse($lesson);
     }
 
@@ -27,16 +27,18 @@ class LessonController extends Controller
 
     public function store(Request $request)
     {
-        // $rules = [
-        //     'user_id' => 'required|max:255',
-        // ];
+        $rules = [
+            'course_id' => 'required',
+            'lesson' => 'required'
+        ];
 
-        // $this->validate($request, $rules);
+        $this->validate($request, $rules);
 
         $user = new Lesson;
+        $user->course_id = $request->course_id;
         $user->lesson = $request->lesson;
         $user->description = $request->description;
-        
+        $user->file_path = $request->file_path;
         if ($request->hasfile('file_path')) {
             $file = $request->file('file_path');
             $extension = $file->getClientOriginalExtension();
@@ -45,7 +47,7 @@ class LessonController extends Controller
             $user->file_path = $filename;
         }
         $user->save();
-       
+
 
         return $this->successResponse($user);
     }
