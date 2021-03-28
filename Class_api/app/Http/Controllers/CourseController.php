@@ -42,7 +42,22 @@ class CourseController extends Controller
         // ];
 
         // $this->validate($request, $rules);
-        $data = Course::create($request->all());
+        $data = new Course;
+        $data->class_id = $request->class_id;
+        $data->teacher_id = $request->teacher_id;
+        $data->teacher_name = $request->teacher_name;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->image_path = $request->image_path;
+        if ($request->hasfile('image_path')) {
+            $file = $request->file('image_path');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/course_img/', $filename);
+            $data->image_path = $filename;
+        }
+        $data->save();
+        // $data = Course::create($request->all());
 
         return $this->successResponse($data);
     }

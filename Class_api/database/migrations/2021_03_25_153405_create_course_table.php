@@ -20,6 +20,7 @@ class CreateCourseTable extends Migration
             $table->string('teacher_name');
             $table->string('title');
             $table->string('description');
+            $table->string('image_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
