@@ -42,7 +42,14 @@ class StudentController extends Controller
         // ];
 
         // $this->validate($request, $rules);
-        $data = Student::create($request->all());
+        $data = new Student;
+        $data->class_id = $request->class_id;
+        foreach ($request->student_id as $key) {
+            $data->student_id = $key;
+            $data->student_name = $key;
+        }
+        $data->save();
+        // $data = Student::create($request->all());
 
         return $this->successResponse($data);
     }

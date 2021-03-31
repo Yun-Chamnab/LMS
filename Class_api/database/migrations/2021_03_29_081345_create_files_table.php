@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateStudentTable extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('filestores', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
-            $table->string('student_name');
-            $table->integer('class_id');
-            $table->softDeletes();
+            $table->integer('lesson_id');
+            $table->string('file_path')->nullable();
+            $table->string('video_link')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateStudentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('filestores');
     }
 }
