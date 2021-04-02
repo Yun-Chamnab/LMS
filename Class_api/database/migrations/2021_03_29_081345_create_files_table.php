@@ -15,7 +15,7 @@ class CreateFilesTable extends Migration
     {
         Schema::create('filestores', function (Blueprint $table) {
             $table->id();
-            $table->integer('lesson_id');
+            $table->string('lesson_uuid');
             $table->string('file_path')->nullable();
             $table->string('video_link')->nullable();
             $table->timestamps();

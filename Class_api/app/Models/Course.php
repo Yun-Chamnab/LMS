@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\Class;
+// use App\Models\Filestore;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\UsesUuid;
 
 class Course extends Model
 {
 
+    use UsesUuid;
     /**
      * The attributes that are mass assignable.
      *
@@ -20,13 +22,10 @@ class Course extends Model
     use SoftDeletes;
 
 
-    // public function question()
-    // {
-    //     return $this->hasMany(Question::class);
-    // }
+    protected $guarded = ['uuid'];
 
-    // public function answer()
-    // {
-    //     return $this->hasMany(Answer::class);
-    // }
+    public function product($id)
+    {
+        return $this->with($this->with)->findOrFail($id);
+    }
 }

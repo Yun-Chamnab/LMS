@@ -52,7 +52,7 @@ class CourseController extends Controller
         if ($request->hasfile('image_path')) {
             $file = $request->file('image_path');
             $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
+            $filename = time() . '_' . $extension;
             $file->move('uploads/course_img/', $filename);
             $data->image_path = $filename;
         }

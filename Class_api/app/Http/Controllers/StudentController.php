@@ -16,19 +16,6 @@ class StudentController extends Controller
         return $this->successResponse($student);
     }
 
-    // public function indexStudent()
-    // {
-    //     $exam = Exam::where('publish', '1')->get();
-    //     return $this->successResponse($exam);
-    // }
-
-    // public function countExam()
-    // {
-    //     $exam = Exam::all()->count();
-    //     $exam1 = Exam::where('publish', 1)->get()->count();
-    //     return $this->successResponse(["allExam" => $exam, "examPublish" => $exam1]);
-    // }
-
     public function show($student)
     {
         $student = Student::find($student);
@@ -49,7 +36,7 @@ class StudentController extends Controller
             $data->student_name = $key;
         }
         $data->save();
-        // $data = Student::create($request->all());
+       
 
         return $this->successResponse($data);
     }

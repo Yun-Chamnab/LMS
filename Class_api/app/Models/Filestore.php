@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\Class;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Filestore extends Model
@@ -15,15 +15,15 @@ class Filestore extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson_id', 'file_path', 'video_link'
+        'lesson_uuid', 'file_path', 'video_link'
     ];
     // use SoftDeletes;
 
 
-    // public function question()
-    // {
-    //     return $this->hasMany(Question::class);
-    // }
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 
     // public function answer()
     // {

@@ -15,10 +15,10 @@ class CreateLessonTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
+            $table->uuid('uuid')->unique();
+            $table->string('course_id');
             $table->string('lesson');
             $table->string('description')->nullable();
-            $table->string('file_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
