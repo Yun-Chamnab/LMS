@@ -35,7 +35,7 @@
 import axios from "axios";
 import TakeExam from "./TakeExam";
 
-// const apiUrl = require("../../apiUrl.js");
+const apiUrl = require("../../apiUrl.js");
 
 import { VDigitalTimePicker } from "v-digital-time-picker";
 
@@ -62,8 +62,12 @@ export default {
   },
   methods: {
     async loadData() {
-      axios
-        .get("http://127.0.0.1:8083/api/exam/student/")
+      let strUrl = apiUrl.student_list_exam;
+      let method = "get";
+      axios({
+        method: method,
+        url: strUrl,
+      })
         .then((response) => {
           this.items = response.data.data;
           window.console.log(this.items);

@@ -2,6 +2,7 @@
 // import store from './store'
 const baseApiUrlLocal = 'http://localhost:8000/'
 const baseApiUrlLocalExamples = 'http://127.0.0.1:8083/api/'
+const baseApiUrlLocalClass = 'http://127.0.0.1:8085/api/'
 module.exports = {
     // Tax Setting
     create_user                         : baseApiUrlLocal + 'user/create',
@@ -14,8 +15,27 @@ module.exports = {
     edit_permissions                    : baseApiUrlLocal + 'permission/update',
     delete_permissions                  : baseApiUrlLocal + 'permission/delete/',
     //////////Exam///////////////////
-    exam_post                           : baseApiUrlLocalExamples + 'exam',
-    question_post                       : baseApiUrlLocalExamples + 'question',
-    exam_edit                           : baseApiUrlLocalExamples + 'exam',
+    exam_post                           : baseApiUrlLocalExamples + 'exam/',
+    question_post                       : baseApiUrlLocalExamples + 'question/',
+    exam_edit                           : baseApiUrlLocalExamples + 'exam/',
     delete_exam                         : baseApiUrlLocalExamples + 'exam/',
+    result_post                         : baseApiUrlLocalExamples + 'result/',
+    student_list_exam                   : baseApiUrlLocalExamples + 'exam/student/',
+
+    ///////Class////////////////
+    class_post                          : baseApiUrlLocalClass + 'class',
+    list_class                          : baseApiUrlLocalClass + 'class',
+    edit_class                          : baseApiUrlLocalClass + 'class',
+    delete_class                        : baseApiUrlLocalClass + 'class',
+
+    /////course////////////////////////////////
+
+    course_post                         : baseApiUrlLocalClass + 'course',
+    list_course                         : baseApiUrlLocalClass + 'course',
+
+    //////student//////////////////////////
+
+    add_student                         : baseApiUrlLocalClass + 'student',
+    list_student                        : baseApiUrlLocalClass + 'student'
+
 }

@@ -25,7 +25,7 @@
                   />
                   <h1 class="flex my-4 primary--text">NIPTICT LMS SYSTEM</h1>
                 </div>
-                <v-form>
+                <v-form @submit.prevent="submit">
                   <v-text-field
                     append-icon="person"
                     name="email"
@@ -48,14 +48,19 @@
                     :error="error"
                     @click:append="hidePassword = !hidePassword"
                   />
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      block
+                      color="primary"
+                      @click="login"
+                      :loading="loading"
+                      type="submit"
+                      >Login</v-btn
+                    >
+                  </v-card-actions>
                 </v-form>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn block color="primary" @click="login" :loading="loading"
-                  >Login</v-btn
-                >
-              </v-card-actions>
               <!-- <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn block color="secondary" :loading="loading"
