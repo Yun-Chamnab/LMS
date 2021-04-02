@@ -19,13 +19,16 @@ class QuestionController extends Controller
 
     public function show($question)
     {
-        $posts = Exam::with([
-            'question.answer' => function ($query) {
-                $query->get();
-            },
-        ])->where('id', $question)->get();
+        // $posts = Exam::with([
+        //     'question.answer' => function ($query) {
+        //         $query->get();
+        //     },
+        // ])->where('uuid', $question)->get();
 
-        return $this->successResponse($posts);
+        // $exam = Exam::find($question);
+        $question = Question::with('answer')->where('exam_id', $question)->get();
+
+        return $this->successResponse($question);
     }
 
     public function store(Request $request)
@@ -41,7 +44,7 @@ class QuestionController extends Controller
 
             $answer = $tss = new Answer;
             $tss->answer = $request->answer[$i];
-            $tss->question_id = $question->id;
+            $tss->question_id = $question->uuid;
             $tss->exam_id = $request->exam_id;
             if ($request->status_correct == $tss->answer) {
                 $tss->status_correct = 1;

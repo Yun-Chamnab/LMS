@@ -26,18 +26,19 @@ class ExamController extends Controller
     {
         $exam = Exam::all()->count();
         $exam1 = Exam::where('publish', 1)->get()->count();
-        return $this->successResponse(["allExam"=>$exam,"examPublish"=> $exam1]);
+        return $this->successResponse(["allExam" => $exam, "examPublish" => $exam1]);
     }
 
     public function show($exam)
     {
-        $exam = Exam::find($exam);
+        $exam = Exam::where('course_id', $exam)->get();
         return $this->successResponse($exam);
     }
 
     public function store(Request $request)
     {
         $rules = [
+            'course_id' => 'required',
             'name' => 'required|max:255',
             'duration' => 'required|max:20',
         ];

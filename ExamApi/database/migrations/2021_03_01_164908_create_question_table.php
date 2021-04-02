@@ -15,8 +15,9 @@ class CreateQuestionTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('question');
-            $table->integer('exam_id');
+            $table->string('exam_id');
             $table->integer('score');
             $table->softDeletes();
             $table->timestamps();

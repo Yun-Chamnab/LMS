@@ -6,9 +6,12 @@ use App\Models\Question;
 use App\Models\Exam;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// use App\Traits\UsesUuid;
 
 class Answer extends Model
 {
+    // use UsesUuid;
+
     protected $fillable = [
         'question_id',
         'answer',
@@ -21,8 +24,10 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
-    // public function exam()
+    // protected $guarded = ['uuid'];
+
+    // public function product($id)
     // {
-    //     return $this->belongsTo(Exam::class);
+    //     return $this->with($this->with)->findOrFail($id);
     // }
 }

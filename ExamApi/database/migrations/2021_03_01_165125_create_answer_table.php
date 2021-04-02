@@ -15,8 +15,9 @@ class CreateAnswerTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('exam_id');
-            $table->integer('question_id');
+            // $table->uuid('uuid')->unique();
+            $table->string('exam_id');
+            $table->string('question_id');
             $table->string('answer');
             $table->tinyInteger('status_correct')->default(0)->nullable();
             $table->softDeletes();
