@@ -15,7 +15,7 @@ class Result extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'quiz_id', 'score', 'total_score'
+        'user_id', 'student_name', 'quiz_id', 'score', 'total_score'
     ];
     use SoftDeletes;
 

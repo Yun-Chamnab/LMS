@@ -16,7 +16,8 @@ class CreateResultTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('quiz_id');
+            $table->string('student_name');
+            $table->string('quiz_id');
             $table->decimal('score')->nullable();
             $table->decimal('total_score')->nullable();
             $table->softDeletes();
