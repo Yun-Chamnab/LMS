@@ -37,12 +37,12 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        // $rules = [
-        //     'user_id' => 'required|max:255',
-        // ];
+        
+        $invite = $request->json()->all();
 
-        // $this->validate($request, $rules);
-        $data = Student::create($request->all());
+        foreach ($invite as $inv){
+            $data=Student::create($inv);
+        }
 
         return $this->successResponse($data);
     }
