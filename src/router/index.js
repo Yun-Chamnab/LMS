@@ -194,6 +194,19 @@ const routes = [{
 						}
 					},
 					{
+						path: 'courseservice/detail/:id',
+						name: 'LessonDetail',
+						component: loadAdmin('course_admin/LessonDetail'),
+						meta:{
+							mainMenu: 'CourseService',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
+						}
+					},
+					{
 						path: 'feedbackservice',
 						name: 'FeedbackService',
 						component: loadAdmin('feedback_admin/FeedbackManage'),

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="grey lighten-5">
+  <v-container background-color="transparent">
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
@@ -28,11 +28,6 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                  <!-- <v-text-field
-                    label="Duration"
-                    v-model="duration"
-                    required
-                  ></v-text-field> -->
                   <h4>Duration</h4>
                   <span class="border">
                     <v-digital-time-picker
@@ -112,46 +107,44 @@
           </v-card>
         </v-dialog>
         <!-- =====END delete====== -->
-        <v-card
-          class="rounded"
-          outlined
-          tile
-          color="purple darken-4"
-          dark
-          min-width="230px"
-        >
-          <i
-            class="far fa-trash-alt float-right mx-1"
-            @click.stop="dialog2 = true"
-          ></i>
-          <i
-            class="far fa-edit float-right"
-            color="primary"
-            @click="onEditItem(item)"
-          ></i>
-
-          <v-card-title class="headline"> {{ item.name }} </v-card-title>
-          <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
-          <v-card-subtitle>Publish: {{ item.publish }}</v-card-subtitle>
-        </v-card>
         <router-link
-          style="display: inline-block; text-decoration: none"
-          :to="'question/' + item.id"
+          style="display: inline-block; text-decoration: none; float: right"
+          :to="'question/' + item.uuid"
         >
-          <v-btn
-            @click="$router.push({ name: 'test2', params: { id: item.id } })"
-            ><h5>Add Question</h5></v-btn
+          <v-card
+            class="rounded"
+            outlined
+            tile
+            color="light-blue accent-4"
+            dark
+            min-width="230px"
+            @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
           >
+            <v-card-title class="headline mb-2"> {{ item.name }} </v-card-title>
+            <v-card-subtitle class="text-center"
+              ><i class="fas fa-stopwatch fa-2x" style="color: white"></i>
+              <h3>{{ item.duration }}</h3></v-card-subtitle
+            >
+            <v-card-subtitle class=""
+              >Publish:
+              <span class="yellow--text">
+                {{ item.publish }}
+              </span></v-card-subtitle
+            >
+          </v-card>
         </router-link>
-        <!-- <router-link
-          style="display: inline-block; text-decoration: none"
-          :to="'quiz/' + item.id"
-        >
-          <v-btn
-            @click="$router.push({ name: 'test2', params: { id: item.id } })"
-            ><h5>Take Exam</h5></v-btn
-          ></router-link
-        > -->
+        <div></div>
+        <i
+          class="far fa-trash-alt float-right mx-1"
+          style="color: red"
+          @click.stop="dialog2 = true"
+        ></i>
+        <i
+          class="far fa-edit float-right"
+          style="color: green"
+          color="primary"
+          @click="onEditItem(item)"
+        ></i>
       </div>
     </v-row>
   </v-container>
@@ -161,7 +154,6 @@
 import axios from "axios";
 
 import DialogQuestion from "./DialogQuestion";
-
 const apiUrl = require("../../../apiUrl");
 import { VDigitalTimePicker } from "v-digital-time-picker";
 
@@ -169,7 +161,7 @@ export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
     DialogQuestion,
-    // eslint-disable-next-line vue/no-unused-components
+
     VDigitalTimePicker,
   },
   data: () => ({
@@ -183,14 +175,19 @@ export default {
     duration: "",
     timeValue: "",
     publish: false,
+    course_id: 1,
   }),
   async mounted() {
     await this.loadData();
   },
   methods: {
     async loadData() {
-      axios
-        .get("http://127.0.0.1:8083/api/exam")
+      let strUrl = apiUrl.exam_post;
+      let method = "get";
+      axios({
+        method: method,
+        url: strUrl,
+      })
         .then((response) => {
           this.items = response.data.data;
           window.console.log(this.items);
@@ -203,7 +200,7 @@ export default {
       this.title = exam.name;
       this.duration = exam.duration;
       this.publish = exam.publish;
-      this.examId = exam.id;
+      this.examId = exam.uuid;
       this.dialog = true;
     },
     async onSaveClose() {
@@ -215,7 +212,7 @@ export default {
           let method = "post";
 
           if (this.examId !== "") {
-            strUrl = apiUrl.exam_edit + "/" + this.examId;
+            strUrl = apiUrl.exam_edit + this.examId;
             method = "patch";
           }
           axios({
@@ -225,6 +222,7 @@ export default {
               name: this.title,
               duration: this.duration,
               publish: this.publish,
+              course_id: this.course_id,
             },
           })
             .then((response) => {
@@ -244,20 +242,10 @@ export default {
     clear() {
       (this.title = ""), (this.duration = ""), (this.publish = false);
     },
-    // async deleteExam(id) {
-    //   axios
-    //     .delete("http://127.0.0.1:8083/api/exam/" + id)
-    //     .then(function (response) {
-    //       window.console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //       window.console.log(error);
-    //     });
-    // },
+
     async deleteexam(item) {
       const index = this.items.indexOf(item);
       this.deletItems = item;
-
       this.items.splice(index, 1);
       await this.deleteExam();
     },
@@ -266,7 +254,7 @@ export default {
         setTimeout(() => {
           resolve("resolved");
           axios
-            .delete(apiUrl.delete_exam + this.deletItems.id, {})
+            .delete(apiUrl.exam_post + this.deletItems.uuid, {})
             .then((response) => {
               window.console.log(response);
             })

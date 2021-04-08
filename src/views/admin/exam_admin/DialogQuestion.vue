@@ -2,7 +2,6 @@
   <v-container>
     <v-dialog v-model="dialog" max-width="790">
       <v-card>
-        <!-- <div hidden>{{ loadData() }}</div> -->
         <v-form>
           <v-container>
             <v-row>
@@ -77,58 +76,70 @@
         </div>
       </v-card>
     </v-dialog>
+    <v-card>
+      <v-tabs background-color="transparent" center-active color="basil">
+        <v-tab>Add Question</v-tab>
+        <v-tab>Student Response</v-tab>
+        <v-tab-item>
+          <v-btn
+            color="pink darken-1"
+            max-width="9rem"
+            dark
+            class="mb-5 mt-3"
+            v-on:click.stop="dialog = true"
+          >
+            <h6>Add New Question</h6>
+          </v-btn>
 
-    <v-btn
-      color="pink darken-1"
-      max-width="9rem"
-      dark
-      class="mb-5 mt-3"
-      v-on:click.stop="dialog = true"
-    >
-      <h6>Add New Question</h6>
-    </v-btn>
-
-    <v-data-table
-      class="elevation-1"
-      :headers="headers"
-      show-expand
-      :items="items"
-      :single-expand="singleExpand"
-      :expanded.sync="expanded"
-      :items-per-page="5"
-      hide-default-header
-      :sort-by="['question']"
-    >
-      <template v-slot:header="{}">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Question</th>
-            <th>Score</th>
-            <th colspan="3">Answer</th>
-          </tr>
-        </thead>
-      </template>
-      <template v-slot:body="{ items }">
-        <tbody style="white-space: nowrap">
-          <tr v-for="(quest, index) in items" v-bind:key="index">
-            <td>{{ 1 + index++ }}</td>
-            <td>{{ quest.question }}</td>
-            <td>{{ quest.score }}</td>
-            <td v-for="(answ, i) in quest.answer" v-bind:key="i">
-              <span v-if="answ.status_correct == 1">
-                <v-alert dense text type="success">
-                  {{ answ.answer }}
-                </v-alert>
-              </span>
-              <span v-else>
-                {{ answ.answer }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-data-table>
+          <v-data-table
+            class="elevation-1"
+            :headers="headers"
+            show-expand
+            :items="items"
+            :single-expand="singleExpand"
+            :expanded.sync="expanded"
+            :items-per-page="5"
+            hide-default-header
+            :sort-by="['question']"
+          >
+            <template v-slot:header="{}">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Question</th>
+                  <th>Score</th>
+                  <th colspan="3">Answer</th>
+                </tr>
+              </thead>
+            </template>
+            <template v-slot:body="{ items }">
+              <tbody style="white-space: nowrap">
+                <tr v-for="(quest, index) in items" v-bind:key="index">
+                  <td>{{ 1 + index++ }}</td>
+                  <td>{{ quest.question }}</td>
+                  <td>{{ quest.score }}</td>
+                  <td v-for="(answ, i) in quest.answer" v-bind:key="i">
+                    <span v-if="answ.status_correct == 1">
+                      <i
+                        class="fas fa-check-circle fa-lg float-left mr-2"
+                        style="color: green"
+                      ></i>
+                      {{ answ.answer }}
+                    </span>
+                    <span v-else>
+                      {{ answ.answer }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-data-table>
+        </v-tab-item>
+        <v-tab-item>
+          <StudentResult />
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
   </v-container>
 </template>
 
@@ -136,7 +147,12 @@
 import axios from "axios";
 const apiUrl = require("../../../apiUrl");
 
+import StudentResult from "./StudentResult";
+
 export default {
+  components: {
+    StudentResult,
+  },
   data() {
     return {
       answer: [],
@@ -211,16 +227,21 @@ export default {
         (this.score = "");
     },
     async loadData() {
-      axios
-        .get("http://127.0.0.1:8083/api/question/" + this.$route.params.id)
+      let strUrl = apiUrl.question_post + this.$route.params.id;
+      let method = "get";
+      axios({
+        method: method,
+        url: strUrl,
+      })
         .then((response) => {
-          this.items = response.data.data[0].question;
+          this.items = response.data.data;
           window.console.log(this.items);
         })
         .catch((error) => {
           window.console.log(error);
         });
     },
+    
   },
 };
 </script>
