@@ -194,6 +194,19 @@ const routes = [{
 						}
 					},
 					{
+						path: 'class/course/:uuid&:title&:teacher',
+						name: 'CourseDetail',
+						component: loadAdmin('course_admin/CourseDetail'),
+						meta:{
+							mainMenu: 'CourseService',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
+						}
+					},
+					{
 						path: 'class/:id',
 						name: 'InCourse',
 						component: loadAdmin('course_admin/InCourse'),
@@ -203,6 +216,19 @@ const routes = [{
 							guest: false,
 							adminAuth: true,
 							studentAuth: false
+						}
+					},
+					{
+						path: 'class/course/detail/:uuid&:title',
+						name: 'LessonDetail',
+						component: loadAdmin('course_admin/LessonDetail'),
+						meta:{
+							mainMenu: 'CourseService',
+							auth: true,
+							adminAuth: true,
+							guest: false,
+							studentAuth: false
+						
 						}
 					},
 					{

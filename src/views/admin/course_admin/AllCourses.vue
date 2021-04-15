@@ -11,6 +11,7 @@
             >{{ $t("create_course") }}
           </v-btn>
         </template>
+
         <v-card>
           <v-card-title>{{ $t("create_course") }}</v-card-title>
 
@@ -80,22 +81,23 @@
       </v-dialog>
       <v-row class="masonry">
         <v-col sm="3" cols="12" v-for="(item, i) in listCourses" :key="i">
-          <!-- <router-link
-            style="display: inline-block; text-decoration: none; float: right"
-            :to="'class/' + item.id"
-          > -->
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              :src="imgsrc + item.image_path"
-              height="200px"
-              width="100%"
-            ></v-img>
+          <router-link
+            style="text-decoration: none"
+            :to="
+              'course/' + item.uuid + '&' + item.title + '&' + item.teacher_name"
+          >
+            <v-card class="mx-auto" max-width="344">
+              <v-img
+                :src="imgsrc + item.image_path"
+                height="200px"
+                width="100%"
+              ></v-img>
 
-            <v-card-title> {{ item.title }} </v-card-title>
+              <v-card-title> {{ item.title }} </v-card-title>
 
-            <v-card-subtitle> {{ item.teacher_name }} </v-card-subtitle>
-          </v-card>
-          <!-- </router-link> -->
+              <v-card-subtitle> {{ item.teacher_name }} </v-card-subtitle>
+            </v-card>
+          </router-link>
         </v-col>
       </v-row>
     </v-container>
@@ -155,7 +157,7 @@ export default {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
-          axios.get(apiUrl.list_course, {}).then((res) => {
+          axios.get(apiUrl.list_course + this.$route.params.id).then((res) => {
             this.listCourses = res.data.data;
             window.console.log(this.listCourses);
           });

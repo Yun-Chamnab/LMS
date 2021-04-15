@@ -93,14 +93,17 @@
         <v-col sm="3" cols="12" v-for="(item, i) in listClass" :key="i">
           <router-link
             style="text-decoration: none"
-            :to="'class/' + item.id"
+            :to="'class/' + item.uuid"
             tag="button"
           >
             <v-card
               max-width="400"
+              min-width="400"
               :color="item.color"
               dark
-              @click="$router.push({ name: 'test2', params: { id: item.id } })"
+              @click="
+                $router.push({ name: 'test2', params: { id: item.uuid } })
+              "
             >
               <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -188,7 +191,7 @@ export default {
       this.class_name = item.class_name;
       this.description = item.description;
       this.color = item.color;
-      this.classId = item.id;
+      this.classId = item.uuid;
       this.dialog = true;
     },
     async deleteclass(item) {
@@ -202,10 +205,10 @@ export default {
     },
     async deleteClass() {
       new Promise((resolve) => {
-        setTimeout(() => {
+        setTimeout(() => {  
           resolve("resolved");
           axios
-            .delete(apiUrl.delete_class + "/" + this.deletItems.id, {})
+            .delete(apiUrl.delete_class + "/" + this.deletItems.uuid, {})
             .then((response) => {
               window.console.log(response);
             })

@@ -31,8 +31,8 @@ module.exports = {
     /////course////////////////////////////////
 
     course_post                         : baseApiUrlLocalClass + 'course',
-    list_course                         : baseApiUrlLocalClass + 'course',
-
+    list_course                         : baseApiUrlLocalClass + 'course/',
+    lesson                              : baseApiUrlLocalClass + 'lesson/',
     //////student//////////////////////////
 
     add_student                         : baseApiUrlLocalClass + 'student',

@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.exam_post;
+      let strUrl = apiUrl.exam_post+this.$route.params.id;
       let method = "get";
       axios({
         method: method,
