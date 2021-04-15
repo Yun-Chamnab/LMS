@@ -17,7 +17,7 @@ class CreateStudentTable extends Migration
             $table->id();
             $table->integer('student_id');
             $table->string('student_name');
-            $table->integer('class_id');
+            $table->string('class_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateStudentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student');
+        Schema::dropIfExists('students');
     }
 }

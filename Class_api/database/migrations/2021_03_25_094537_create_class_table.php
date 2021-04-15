@@ -14,7 +14,7 @@ class CreateClassTable extends Migration
     public function up()
     {
         Schema::create('classservices', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('class_name');
             $table->string('description')->nullable();
             $table->string('color')->nullable();
@@ -30,6 +30,6 @@ class CreateClassTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class');
+        Schema::dropIfExists('classservices');
     }
 }

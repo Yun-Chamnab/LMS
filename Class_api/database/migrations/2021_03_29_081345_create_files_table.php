@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLessonTable extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
-            // $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('course_id');
-            $table->string('lesson');
-            $table->string('description')->nullable();
-            $table->softDeletes();
+        Schema::create('filestores', function (Blueprint $table) {
+            $table->id();
+            $table->string('lesson_uuid');
+            $table->string('file_path')->nullable();
+            $table->string('video_link')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateLessonTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('filestores');
     }
 }

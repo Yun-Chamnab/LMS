@@ -14,8 +14,8 @@ class CreateCourseTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->integer('class_id');
+            $table->uuid('uuid')->unique();
+            $table->string('class_id');
             $table->integer('teacher_id');
             $table->string('teacher_name');
             $table->string('title');
@@ -33,6 +33,6 @@ class CreateCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course');
+        Schema::dropIfExists('courses');
     }
 }

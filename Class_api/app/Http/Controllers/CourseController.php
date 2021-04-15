@@ -31,7 +31,8 @@ class CourseController extends Controller
 
     public function show($course)
     {
-        $course = Course::find($course);
+        // $course_id = $this->findUOrFail($course);
+        $course = Course::where('class_id',$course)->get();
         return $this->successResponse($course);
     }
 
@@ -52,7 +53,7 @@ class CourseController extends Controller
         if ($request->hasfile('image_path')) {
             $file = $request->file('image_path');
             $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
+            $filename = time() . '_' . $extension;
             $file->move('uploads/course_img/', $filename);
             $data->image_path = $filename;
         }

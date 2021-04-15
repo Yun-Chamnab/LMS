@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Filestore;
 use App\Models\Lesson;
 
 use Illuminate\Http\Request;
@@ -21,7 +22,10 @@ class LessonController extends Controller
 
     public function show($lesson)
     {
-        $lesson = Lesson::find($lesson);
+        // $lesson = Lesson::find($lesson);
+        // $uid = Lesson::uuid($lesson);
+        $lesson = Lesson::with('filestore')->where('uuid', $lesson)->get();
+        // $lesson = Filestore::with('lesson')->where('lesson_uuid', $lesson)->get();
         return $this->successResponse($lesson);
     }
 
@@ -38,15 +42,37 @@ class LessonController extends Controller
         $user->course_id = $request->course_id;
         $user->lesson = $request->lesson;
         $user->description = $request->description;
-        $user->file_path = $request->file_path;
-        if ($request->hasfile('file_path')) {
-            $file = $request->file('file_path');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/img/', $filename);
-            $user->file_path = $filename;
-        }
         $user->save();
+        if ($request->hasfile('file_path')) {
+
+            foreach ($request->file('file_path') as $file) {
+
+                $extension = $file->getClientOriginalName();
+                $mhash = md5(time());
+                $filename = ($mhash . '.' . $extension);
+                $file->move('uploads/img/', $filename);
+
+                $allfile = new Filestore;
+                $allfile->lesson_uuid = $user->uuid;
+                $allfile->file_path = $filename;
+                if ($request->video_link) {
+                    $vl = $request->video_link;
+                    $v = count($vl);
+                    // foreach ($vl as $k) {
+                    for ($i = 0; $i < $v; $i++) {
+
+                        $allfile->video_link = $request->video_link[$i];
+                    }
+                }
+                $allfile->save();
+            }
+        } else {
+            $allfile = new Filestore;
+            $allfile->lesson_uuid = $user->uuid;
+            $allfile->video_link = $request->video_link;
+            $allfile->save();
+        }
+
 
 
         return $this->successResponse($user);
