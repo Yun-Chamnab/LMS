@@ -10,7 +10,7 @@
         v-model="drawer"
         :mini-variant="miniVariant"
         :expand-on-hover="handOver"
-        :mini-variant-width="60"
+        :mini-variant-width="50"
         :app="isApp"
         :fixed="isAbsolute"
         color=""

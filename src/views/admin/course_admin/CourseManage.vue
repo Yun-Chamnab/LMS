@@ -89,57 +89,77 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-row class="masonry">
-        <v-col sm="3" cols="12" v-for="(item, i) in listClass" :key="i">
-          <router-link
-            style="text-decoration: none"
-            :to="'class/' + item.uuid"
-            tag="button"
-          >
-            <v-card
-              max-width="400"
-              min-width="400"
-              :color="item.color"
-              dark
-              @click="
-                $router.push({ name: 'test2', params: { id: item.uuid } })
-              "
+      <v-row>
+        <template v-if="listClass.length > 0">
+          <v-col sm="3" cols="12" v-for="(item, i) in listClass" :key="i">
+            <router-link
+              style="text-decoration: none"
+              :to="'class/' + item.uuid"
+              tag="button"
             >
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    dark
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    style="float: right"
-                  >
-                    <v-icon style="float: right">mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
+              <v-card
+                max-width="400"
+                min-width="400"
+                :color="item.color"
+                dark
+                @click="
+                  $router.push({ name: 'test2', params: { id: item.uuid } })
+                "
+              >
+                <v-menu bottom left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      dark
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                      style="float: right"
+                    >
+                      <v-icon style="float: right">mdi-dots-vertical</v-icon>
+                    </v-btn>
+                  </template>
 
-                <v-list>
-                  <v-list-item link @click="onEditItem(item)">
-                    <v-list-item-title>Edit</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link @click="deleteclass(item)">
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              <v-card-title style="font-weight: bold; font-size: 20px">
-                {{ item.class_name }}
-              </v-card-title>
-              <v-card-text style="height: 100px" class="font-weight-bold">
-                {{ item.description }}
-              </v-card-text>
-              <v-divider class="mx-4"></v-divider>
+                  <v-list>
+                    <v-list-item link @click="onEditItem(item)">
+                      <v-list-item-title>Edit</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link @click="deleteclass(item)">
+                      <v-list-item-title>Delete</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+                <v-card-title style="font-weight: bold; font-size: 20px">
+                  {{ item.class_name }}
+                </v-card-title>
+                <v-divider class="mx-4"></v-divider>
+                <v-card-text style="height: 100px" class="font-weight-bold">
+                  {{ item.description }}
+                </v-card-text>
+                <v-divider class="mx-4"></v-divider>
 
-              <v-card-actions>
-                <v-btn color="white" text> Learn More </v-btn>
-              </v-card-actions>
-            </v-card>
-          </router-link>
+                <v-card-actions>
+                  <v-btn color="white" text> Learn More </v-btn>
+                </v-card-actions>
+              </v-card>
+            </router-link>
+          </v-col>
+        </template>
+
+        <v-col
+          v-if="listClass.length === 0"
+          cols="12"
+          sm="12"
+          class="tab_wrapper py-0 mt-5"
+        >
+          <v-alert border="top" colored-border type="info" elevation="2">
+            No classroom available!! Click Create button to create one !!
+          </v-alert>
+          <v-progress-linear
+            color="deep-purple accent-4"
+            indeterminate
+            rounded
+            height="6"
+          ></v-progress-linear>
         </v-col>
       </v-row>
     </v-container>
@@ -205,7 +225,7 @@ export default {
     },
     async deleteClass() {
       new Promise((resolve) => {
-        setTimeout(() => {  
+        setTimeout(() => {
           resolve("resolved");
           axios
             .delete(apiUrl.delete_class + "/" + this.deletItems.uuid, {})

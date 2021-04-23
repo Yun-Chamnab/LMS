@@ -10,6 +10,9 @@
 	},
 	"dependencies": {
 		"@chenfengyuan/vue-countdown": "^1.1.5",
+		"@progress/kendo-charts-vue-wrapper": "^2021.1.330",
+		"@progress/kendo-theme-default": "^4.37.0",
+		"@progress/kendo-ui": "^2021.1.330",
 		"axios": "^0.19.2",
 		"bootstrap-vue": "^2.18.1",
 		"file-saver": "^2.0.2",

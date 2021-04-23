@@ -38,5 +38,11 @@
   "name":"Username",
   "email":"Email",
   "role":"Role",
-  "password":"Password"
+  "password":"Password",
+  "page_not_found":"Page Not Found",
+
+  "statistics":"Statistics",
+  "quizz":"Quizz",
+  "class":"Class"
+
   }

@@ -378,6 +378,14 @@ router.beforeEach((to, from, next) => {
     //         return redirectToRoute('SignIn')
     // }
 	if (to.meta.auth) {
+		if (loggedUser) {
+			let currentDateTime = new Date().getTime()
+			if (currentDateTime > loggedUser.expiryDate) {
+				store.dispatch('logOut')
+				return redirectToRoute('SignIn')
+			}
+			window.console.log("cur",loggedUser.expiryDate)
+		}
         if(!loggedUser || !loggedUser.data.token){
 			return redirectToRoute('SignIn')
 		}
