@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Filestore;
 use App\Models\Lesson;
-
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Traits\UploadTrait;
@@ -13,9 +13,9 @@ class LessonController extends Controller
 {
     use UploadTrait;
 
-    public function index()
+    public function index($lesson)
     {
-        $lesson = Lesson::orderBy('created_at', 'desc')->get();
+        $lesson = Lesson::where('course_id', $lesson)->orderBy('created_at', 'desc')->get();
         return $this->successResponse($lesson);
     }
 
@@ -24,7 +24,7 @@ class LessonController extends Controller
     {
         // $lesson = Lesson::find($lesson);
         // $uid = Lesson::uuid($lesson);
-        $lesson = Lesson::with('filestore')->where('uuid', $lesson)->get();
+        $lesson = Lesson::with('filestore', 'videostore')->where('uuid', $lesson)->get();
         // $lesson = Filestore::with('lesson')->where('lesson_uuid', $lesson)->get();
         return $this->successResponse($lesson);
     }
@@ -55,21 +55,20 @@ class LessonController extends Controller
                 $allfile = new Filestore;
                 $allfile->lesson_uuid = $user->uuid;
                 $allfile->file_path = $filename;
-                if ($request->video_link) {
-                    $vl = $request->video_link;
-                    $v = count($vl);
-                    // foreach ($vl as $k) {
-                    for ($i = 0; $i < $v; $i++) {
 
-                        $allfile->video_link = $request->video_link[$i];
-                    }
-                }
                 $allfile->save();
             }
-        } else {
-            $allfile = new Filestore;
+        }
+        if ($request->video_link) {
+            $allfile = new Video;
             $allfile->lesson_uuid = $user->uuid;
-            $allfile->video_link = $request->video_link;
+            $vl = $request->video_link;
+            $v = count($vl);
+            // foreach ($vl as $k) {
+            for ($i = 0; $i < $v; $i++) {
+
+                $allfile->video_link = $request->video_link[$i];
+            }
             $allfile->save();
         }
 

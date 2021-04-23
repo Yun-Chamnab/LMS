@@ -18,18 +18,18 @@ class StudentController extends Controller
 
     public function show($student)
     {
-        $student = Student::find($student);
+        $student = Student::where('class_id', $student)->get();
         return $this->successResponse($student);
     }
 
     public function store(Request $request)
     {
-        
+
         $invite = $request->json()->all();
 
 
-        foreach ($invite as $inv){
-            $data=Student::create($inv);
+        foreach ($invite as $inv) {
+            $data = Student::create($inv);
         }
 
 

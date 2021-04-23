@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Lesson;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Filestore extends Model
+class Video extends Model
 {
 
     /**
@@ -15,7 +15,7 @@ class Filestore extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson_uuid', 'file_path'
+        'lesson_uuid', 'video_link'
     ];
     // use SoftDeletes;
 

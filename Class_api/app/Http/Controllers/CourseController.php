@@ -32,7 +32,7 @@ class CourseController extends Controller
     public function show($course)
     {
         // $course_id = $this->findUOrFail($course);
-        $course = Course::where('class_id',$course)->get();
+        $course = Course::where('class_id', $course)->get();
         return $this->successResponse($course);
     }
 

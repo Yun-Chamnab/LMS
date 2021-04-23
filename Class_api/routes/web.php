@@ -33,7 +33,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     });
 
     $router->group(['prefix' => 'lesson'], function () use ($router) {
-        $router->get('/', ['uses' => 'LessonController@index']);
+        $router->get('/show/{lesson}', ['uses' => 'LessonController@index']);
         $router->post('/', ['uses' => 'LessonController@store']);
         $router->get('/{lesson}', ['uses' => 'LessonController@show']);
         $router->put('/{lesson}', ['uses' => 'LessonController@update']);

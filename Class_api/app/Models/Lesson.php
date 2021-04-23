@@ -27,6 +27,11 @@ class Lesson extends Model
         return $this->hasMany(Filestore::class, "lesson_uuid");
     }
 
+    public function videostore()
+    {
+        return $this->hasMany(Video::class, "lesson_uuid");
+    }
+
     protected $guarded = ['uuid'];
 
     public function product($id)
