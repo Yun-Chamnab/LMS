@@ -109,7 +109,7 @@
         <!-- =====END delete====== -->
         <router-link
           style="display: inline-block; text-decoration: none; float: right"
-          :to="'question/' + item.id"
+          :to="'question/' + item.uuid"
         >
           <v-card
             class="rounded"
@@ -118,7 +118,7 @@
             color="light-blue accent-4"
             dark
             min-width="230px"
-            @click="$router.push({ name: 'test2', params: { id: item.id } })"
+            @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
           >
             <v-card-title class="headline mb-2"> {{ item.name }} </v-card-title>
             <v-card-subtitle class="text-center"
@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.exam_post+this.$route.params.id;
+      let strUrl = apiUrl.exam_post + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
@@ -199,7 +199,7 @@ export default {
       this.title = exam.name;
       this.duration = exam.duration;
       this.publish = exam.publish;
-      this.examId = exam.id;
+      this.examId = exam.uuid;
       this.dialog = true;
     },
     async onSaveClose() {
@@ -218,6 +218,7 @@ export default {
             method: method,
             url: strUrl,
             data: {
+              course_id: this.$route.params.uuid,
               name: this.title,
               duration: this.duration,
               publish: this.publish,
@@ -252,7 +253,7 @@ export default {
         setTimeout(() => {
           resolve("resolved");
           axios
-            .delete(apiUrl.exam_post + this.deletItems.id, {})
+            .delete(apiUrl.exam_post + this.deletItems.uuid, {})
             .then((response) => {
               window.console.log(response);
             })

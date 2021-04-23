@@ -27,7 +27,7 @@
                         Teacher: {{ this.$route.params.teacher }}
                       </v-list-item-subtitle>
                       <v-list-item-subtitle
-                        class="white--text mt-16 float-left"
+                        class="white--text mt-3 float-left"
                       >
                         IP Address: {{ this.clientIp }}
                       </v-list-item-subtitle>
@@ -46,7 +46,7 @@
                       <v-btn
                         bottom
                         color="indigo darken-4"
-                        class="rounded-pill float-right mr-4"
+                        class="rounded-pill float-right mr-4 mt-12"
                         width="110"
                         min-height="60"
                         dark
@@ -151,6 +151,36 @@
                   :elevation="hover ? 8 : 0"
                   min-height="150"
                 >
+                  <!-- Delete -->
+                  <v-dialog v-model="dialog3" max-width="290">
+                    <v-card>
+                      <v-card-title class="headline"
+                        >Are you sure?</v-card-title
+                      >
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog3 = false"
+                        >
+                          Cancel
+                        </v-btn>
+
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="deleteexam(item)"
+                          @click.prevent="dialog3 = false"
+                        >
+                          Agree
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <!-- End Delete Dialog -->
                   <router-link
                     class="text-decoration-none"
                     :to="'detail/' + item.uuid + '&' + title"
@@ -166,10 +196,29 @@
                         <v-list-item-title class="headline"
                           ><h6>{{ item.lesson }}</h6></v-list-item-title
                         >
-                        <v-list-item-subtitle class="gray--text">{{
-                          convertDateTime(item.created_at)
-                        }}</v-list-item-subtitle>
+                        <v-list-item-subtitle class="blue--text"
+                          ><h5>
+                            {{ convertDateTime(item.created_at) }}
+                          </h5></v-list-item-subtitle
+                        >
                       </v-list-item-content>
+
+                      <!-- <i
+                        class="fa fa-trash float-right mx-1 align-top"
+                        style="color: red"
+                        @click="dialog3 = true"
+                      ></i> -->
+                      <v-btn color="black" link bottom icon>
+                        <i
+                          class="fa fa-trash float-right mx-1 align-top"
+                          style="color: red"
+                          @click="dialog3 = true"
+                        ></i>
+                      </v-btn>
+
+                      <!-- <span class="float-right">{{
+                        convertDate(item.created_at)
+                      }}</span> -->
                     </v-list-item>
                     <v-divider class="my-2"></v-divider>
 
@@ -177,6 +226,13 @@
                       {{ item.description }}
                     </v-card-text>
                   </router-link>
+
+                  <!-- <i
+                    class="far fa-edit float-right"
+                    style="color: green"
+                    color="primary"
+                    @click="onEditItem(item)"
+                  ></i> -->
                 </v-card>
               </v-hover>
             </div>
@@ -199,6 +255,7 @@ export default {
   data: () => ({
     items: [],
     dialog: false,
+    dialog3: false,
     selectedFile: [],
     lesson: "",
     description: "",
@@ -221,7 +278,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.lesson;
+      let strUrl = apiUrl.show_lesson + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
@@ -277,18 +334,38 @@ export default {
       // let date = dateTime.format("DD MMM, hh:mma");
       return dateTime.fromNow();
     },
+    convertDate(value) {
+      let dateTime = moment(value);
+      let date = dateTime.format("DD MMMM YYYY, hh:mm a");
+      return date;
+    },
     onFileSelected(event) {
       var selfile = event.target.files;
       for (let i = 0; i < selfile.length; i++) {
         this.selectedFile.push(selfile[i]);
       }
-      // let formdata = new FormData();
-      // formdata.append("file_path", img);
-      // axios.post("http://127.0.0.1:8002/api/lesson/", formdata).then((resp) => {
-      //   this.imagePath = resp.data.path;
-      // });
-      window.console.log(this.selectedFile);
-      // window.console.log(this.filename);
+      // window.console.log(this.selectedFile);
+    },
+    async deleteexam(item) {
+      const index = this.items.indexOf(item);
+      this.deletItems = item;
+      this.items.splice(index, 1);
+      await this.deleteExam();
+    },
+    async deleteExam() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          axios
+            .delete(apiUrl.lesson + this.deletItems.uuid, {})
+            .then((response) => {
+              window.console.log(response);
+            })
+            .catch((e) => {
+              this.errors.push(e);
+            });
+        }, 200);
+      });
     },
   },
   computed: {},

@@ -84,7 +84,8 @@
           <router-link
             style="text-decoration: none"
             :to="
-              'course/' + item.uuid + '&' + item.title + '&' + item.teacher_name"
+              'course/' + item.uuid + '&' + item.title + '&' + item.teacher_name
+            "
           >
             <v-card class="mx-auto" max-width="344">
               <v-img
@@ -122,7 +123,7 @@ export default {
     filterRole: [],
     description: "",
     imgsrc:
-      "http://localhost/LMS-Class/LMS/Class_api/public/uploads/course_img/",
+      "http://localhost/LMS/Class_service/Class_api/public/uploads/course_img/",
   }),
   mounted() {
     this.loadUser();
