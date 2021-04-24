@@ -3,7 +3,7 @@
 ### First Run
 
 #### 1. Go to lms_auth folder
-###### 1.1  run: composer install
+###### 1.1  run: `composer install`
 ###### 1.2  run: php artisan migrate
 ###### 1.3  run: php artisan server
 
