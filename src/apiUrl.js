@@ -3,6 +3,7 @@
 const baseApiUrlLocal = 'http://localhost:8000/'
 const baseApiUrlLocalExamples = 'http://127.0.0.1:8083/api/'
 const baseApiUrlLocalClass = 'http://127.0.0.1:8085/api/'
+
 module.exports = {
     // Tax Setting
     create_user                         : baseApiUrlLocal + 'user/create',
@@ -37,6 +38,13 @@ module.exports = {
     //////student//////////////////////////
 
     add_student                         : baseApiUrlLocalClass + 'student',
-    list_student                        : baseApiUrlLocalClass + 'student/'
+    list_student                        : baseApiUrlLocalClass + 'student/',
 
+    // File URL
+    file_path: 'http://localhost/LMS/Class_service/Class_api/public/uploads/course_img/',
+    file_path1: 'http://localhost/LMS/Class_service/Class_api/public/uploads/img/',
+
+    // course for student
+    student_course                      : baseApiUrlLocalClass + 'course/student/',
+    
 }

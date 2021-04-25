@@ -97,7 +97,7 @@
             tag="button"
           >
             <v-card
-              max-width="400"
+              class="mx-auto"
               min-width="400"
               :color="item.color"
               dark
@@ -205,7 +205,7 @@ export default {
     },
     async deleteClass() {
       new Promise((resolve) => {
-        setTimeout(() => {  
+        setTimeout(() => {
           resolve("resolved");
           axios
             .delete(apiUrl.delete_class + "/" + this.deletItems.uuid, {})

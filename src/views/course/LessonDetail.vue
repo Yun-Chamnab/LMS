@@ -42,33 +42,40 @@
                 v-model="dialog"
                 v-if="p.file_path != null"
               >
-                <v-btn
-                  color="transparent"
-                  class="black--text mr-8 mb-8"
-                  width="250"
-                  min-height="80"
-                  dark
-                  style="text-transform: capitalize"
-                  slot="activator"
-                  @click="
-                    dialog = true;
-                    changeFile(p.file_path);
-                  "
-                >
-                  <v-avatar color="light-blue" size="40" class="mr-2 float-left"
-                    ><i
-                      class="fas fa-file-alt fa-sm text-center"
-                      style="color: white; font-size: 1.3rem"
-                    ></i
-                  ></v-avatar>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    color="transparent"
+                    class="black--text mr-8 mb-8"
+                    width="250"
+                    min-height="80"
+                    dark
+                    style="text-transform: capitalize"
+                    v-on="on"
+                    @click="
+                      dialog = true;
+                      changeFile(p.file_path);
+                    "
+                  >
+                    <v-avatar
+                      color="light-blue"
+                      size="40"
+                      class="mr-2 float-left"
+                      ><i
+                        class="fas fa-file-alt fa-sm text-center"
+                        style="color: white; font-size: 1.3rem"
+                      ></i
+                    ></v-avatar>
 
-                  <div v-if="p.file_path.length >= 33">
-                    <div class="float-left" style="text-transform: capitalize">
-                      {{ p.file_path.substring(33, 50) }}
+                    <div v-if="p.file_path.length >= 33">
+                      <div
+                        class="float-left"
+                        style="text-transform: capitalize"
+                      >
+                        {{ p.file_path.substring(33, 50) }}
+                      </div>
                     </div>
-                  </div>
-                </v-btn>
-
+                  </v-btn>
+                </template>
                 <iframe
                   id="iframe_id"
                   v-on="dialog"
@@ -89,35 +96,37 @@
                 v-if="p.video_link != null"
                 max-width="590"
               >
-                <v-btn
-                  v-if="p.video_link"
-                  color="transparent"
-                  class="black--text mr-8 mb-8"
-                  width="250"
-                  min-height="80"
-                  dark
-                  slot="activator"
-                  @click="dialog1 = true"
-                >
-                  <span class="text-capitalize">{{
-                    getYoutubeTitle(p.video_link.substring(30, 41))
-                  }}</span>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    v-if="p.video_link"
+                    color="transparent"
+                    class="black--text mr-8 mb-8"
+                    width="250"
+                    min-height="80"
+                    dark
+                    v-on="on"
+                    @click="dialog1 = true"
+                  >
+                    <span class="text-capitalize">{{
+                      getYoutubeTitle(p.video_link.substring(30, 41))
+                    }}</span>
 
-                  <v-img
-                    max-width="100"
-                    max-height="80"
-                    class="float-left mr-1 rounded-l"
-                    contain
-                    :src="
-                      'https://img.youtube.com/vi/' +
-                      p.video_link.substring(30, 41) +
-                      '/hqdefault.jpg'
-                    "
-                  ></v-img>
-                  <div class="" style="text-transform: capitalize">
-                    {{ video.substring(0, 16) }}
-                  </div>
-                </v-btn>
+                    <v-img
+                      max-width="100"
+                      max-height="80"
+                      class="float-left mr-1 rounded-l"
+                      contain
+                      :src="
+                        'https://img.youtube.com/vi/' +
+                        p.video_link.substring(30, 41) +
+                        '/hqdefault.jpg'
+                      "
+                    ></v-img>
+                    <div class="" style="text-transform: capitalize">
+                      {{ video.substring(0, 16) }}
+                    </div>
+                  </v-btn>
+                </template>
                 <iframe
                   height="350"
                   :src="p.video_link"
@@ -138,7 +147,7 @@
 </template>
 <script>
 import axios from "axios";
-const apiUrl = require("../../../apiUrl");
+const apiUrl = require("../../apiUrl");
 import moment from "moment";
 export default {
   components: {},

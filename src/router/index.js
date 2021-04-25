@@ -90,6 +90,30 @@ const routes = [
             },
           },
           {
+            path: "lesson/:uuid&:title&:teacher",
+            name: "Lesson",
+            component: load("course/Lesson"),
+            meta: {
+              mainMenu: "Course",
+              auth: true,
+              adminAuth: false,
+              guest: false,
+              studentAuth: true,
+            },
+          },
+          {
+            path: "lesson/detail/:uuid&:title",
+            name: "Detail",
+            component: load("course/LessonDetail"),
+            meta: {
+              mainMenu: "Course",
+              auth: true,
+              adminAuth: false,
+              guest: false,
+              studentAuth: true,
+            },
+          },
+          {
             path: "feedback",
             name: "Feedback",
             component: load("feedback/Feedback"),

@@ -8,28 +8,27 @@
         cols="12"
         sm="4"
       >
-        <router-link
+        <!-- <router-link
           style="display: inline-block; text-decoration: none"
           :to="disable ? '' : 'quiz/' + item.uuid + '&' + item.duration"
-        >
-          <span>
-            <v-card
-              outlined
-              tile
-              :class="checkOneSubmite(item.uuid)"
-              dark
-              :disabled="disable"
-              min-width="200px"
-              min-height="100"
-              @click="
-                $router.push({ name: 'test2', params: { id: item.uuid } })
-              "
-            >
-              <v-card-title class="headline"> {{ item.name }} </v-card-title>
-              <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
-            </v-card>
-          </span>
-        </router-link>
+        > -->
+        <span>
+          <v-card
+            :to="'quiz/' + item.uuid + '&' + item.duration"
+            outlined
+            tile
+            :class="checkOneSubmite(item.uuid)"
+            dark
+            :disabled="disable"
+            min-width="200px"
+            min-height="100"
+            @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
+          >
+            <v-card-title class="headline"> {{ item.name }} </v-card-title>
+            <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
+          </v-card>
+        </span>
+        <!-- </router-link> -->
       </div>
     </v-row>
   </v-container>
