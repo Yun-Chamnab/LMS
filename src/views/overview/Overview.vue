@@ -194,6 +194,10 @@
               </v-card-actions>
             </v-card>
           </v-col>
+          <iframe
+            src="https://covid19-map.cdcmoh.gov.kh/list_views?location_info=00"
+            style="width: 250px; height: 300px; border: 0"
+          ></iframe>
         </v-row>
       </v-col>
     </v-row>
