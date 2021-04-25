@@ -17,6 +17,10 @@ class CreateLessonTable extends Migration
             // $table->id();
             $table->uuid('uuid')->unique();
             $table->string('course_id');
+            $table->foreign('course_id')
+                ->references('uuid')
+                ->on('courses')
+                ->onDelete('cascade');
             $table->string('lesson');
             $table->string('description')->nullable();
             $table->softDeletes();

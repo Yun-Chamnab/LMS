@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Filestore;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UsesUuid;
 
 class Lesson extends Model
@@ -19,7 +19,7 @@ class Lesson extends Model
     protected $fillable = [
         'course_id', 'lesson', 'description', 'file_path',
     ];
-    use SoftDeletes;
+    // use SoftDeletes;
 
 
     public function filestore()

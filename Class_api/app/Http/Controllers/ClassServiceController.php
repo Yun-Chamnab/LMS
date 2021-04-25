@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classservice;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -71,7 +71,6 @@ class ClassServiceController extends Controller
 
     public function destroy($class)
     {
-
         $class = Classservice::findOrFail($class);
         $class->delete();
         return $this->successResponse($class);

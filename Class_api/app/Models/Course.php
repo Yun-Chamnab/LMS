@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\Filestore;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Lesson;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UsesUuid;
 
 class Course extends Model
@@ -19,7 +19,7 @@ class Course extends Model
     protected $fillable = [
         'class_id', 'teacher_id', 'teacher_name', 'title', 'description', 'image_path',
     ];
-    use SoftDeletes;
+    // use SoftDeletes;
 
 
     protected $guarded = ['uuid'];
@@ -28,4 +28,12 @@ class Course extends Model
     {
         return $this->with($this->with)->findOrFail($id);
     }
+
+    // public function delete()
+    // {
+    //     Lesson::where("course_id", $this->uuid)->delete();
+
+    //     // delete the user
+    //     return parent::delete();
+    // }
 }
