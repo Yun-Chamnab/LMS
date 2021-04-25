@@ -122,8 +122,7 @@ export default {
     color: "",
     filterRole: [],
     description: "",
-    imgsrc:
-      "http://localhost/LMS-Class/LMS/Class_api/public/uploads/course_img/",
+    imgsrc: apiUrl.file_path,
   }),
   mounted() {
     this.loadUser();

@@ -124,8 +124,22 @@ export default {
       } else {
         return (this.disable = e);
       }
+      // return (this.disable = e);
     },
+
+    // colorClass() {
+    //   let color = this.already == false ? "green" : "red";
+    //   return "rounded color: " + color;
+    // },
   },
-  computed: {},
+  computed: {
+    // isDisabled: function (value) {
+    //   if (value === true) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
+  },
 };
 </script>

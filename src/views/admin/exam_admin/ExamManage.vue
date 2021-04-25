@@ -265,7 +265,7 @@ export default {
         setTimeout(() => {
           resolve("resolved");
           axios
-            .delete(apiUrl.delete_exam + this.deletItems.uuid, {})
+            .delete(apiUrl.exam_post + this.deletItems.uuid, {})
             .then((response) => {
               window.console.log(response);
             })
