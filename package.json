@@ -11,6 +11,11 @@
 	"dependencies": {
 		"@chenfengyuan/vue-countdown": "^1.1.5",
 		"@progress/kendo-charts-vue-wrapper": "^2021.1.330",
+<<<<<<< HEAD
+=======
+		"@progress/kendo-theme-default": "^4.37.0",
+		"@progress/kendo-ui": "^2021.1.330",
+>>>>>>> 923c3fd89d1289e97070e5a49af7c492391dfe72
 		"axios": "^0.19.2",
 		"bootstrap-vue": "^2.18.1",
 		"file-saver": "^2.0.2",

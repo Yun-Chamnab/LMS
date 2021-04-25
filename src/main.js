@@ -10,6 +10,8 @@ import { i18n } from './i18n'
 import { Trans } from './plugins/Translation'
 import DatetimePicker from 'vuetify-datetime-picker'
 import BTable from 'bootstrap-vue'
+import '@progress/kendo-ui'
+import '@progress/kendo-theme-default/dist/all.css'
 
 import fullscreen from 'vue-fullscreen'
 Vue.prototype.$i18nRoute = Trans.i18nRoute.bind(Trans)

@@ -1,9 +1,46 @@
 <template>
   <v-app>
-    <v-container height="auto">
-      <h2 class="text-lg" onclick="window.history.go(-1); return false;">
-        {{ this.$route.params.title }}
-      </h2>
+    <v-container>
+      <v-row>
+        <v-col sm="12" cols="12">
+          <div style="background-color: #fff; padding: 20px 20px 5px">
+            <v-row>
+              <v-col sm="12" cols="12" class="tab_wrapper py-0">
+                <v-btn link plain style="background-color: transparent">
+                  <h2
+                    class="text-lg"
+                    onclick="window.history.go(-1); return false;"
+                  >
+                    {{ this.$route.params.title }}
+                  </h2>
+                </v-btn>
+                <v-card
+                  :elevation="0"
+                  outlined
+                  class="mx-auto"
+                  max-width="800"
+                  color="transparent"
+                >
+                  <v-card-text>
+                    <v-card-title>
+                      <h3 class="display-1 text--primary">
+                        <v-avatar color="light-blue" size="40" class="mr-2"
+                          ><i
+                            class="far fa-file-alt fa-xs text-center"
+                            style="color: white; font-size: 1.3rem"
+                          ></i
+                        ></v-avatar>
+                        <span class="light-blue--text">
+                          {{ items.lesson }}</span
+                        >
+                      </h3>
+                      <v-layout align-end>
+                        <v-spacer></v-spacer>
+                        <h6>
+                          {{ convertDateTime(items.created_at) }}
+                        </h6>
+                      </v-layout>
+                    </v-card-title>
 
       <v-card
         :elevation="0"
@@ -129,10 +166,8 @@
               </v-dialog>
             </span>
           </div>
-          <!-- </span> -->
-          <!-- </v-card-text> -->
-        </v-card-text>
-      </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>

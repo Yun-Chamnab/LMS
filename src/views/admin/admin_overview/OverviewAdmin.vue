@@ -1,106 +1,511 @@
 <template>
-  <v-container class="grey lighten-5">
-    <v-row>
-      <div class="mx-3 mt-3" cols="12" sm="4">
-        <v-card class="mx-auto" color="amber darken-2" min-width="300" outlined>
-          <v-list-item three-line>
-            <v-list-item-content class="white--text">
-              <v-list-item-title class="headline mb-1">
-                3
-              </v-list-item-title>
-              <!-- <span color="light-green accent-3"
-                ><i class="fas fa-circle fa-xs" style="color: #0000CD"></i> {{ items.examPublish }}</span
-              > -->
-              <v-list-item-subtitle class="white--text"
-                >Quiz</v-list-item-subtitle
+  <v-container style="background-color: white">
+    <v-row class="">
+      <v-col sm="7" cols="12">
+        <v-row>
+          <v-col sm="6" cols="12">
+            <v-card
+              outlined
+              dense
+              color="#0306b9"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">5</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-archway fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase"
+                    style="font-size: 30px"
+                  >
+                    {{ $t("class") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+            <v-card
+              outlined
+              dense
+              color="#ec525e"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-book-open fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase align-center="
+                    style="font-size: 30px"
+                  >
+                    {{ $t("course") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+            <v-card
+              outlined
+              dense
+              color="#2fbb74"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">6</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-brain fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase align-center="
+                    style="font-size: 30px"
+                  >
+                    {{ $t("quizz") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col sm="6" cols="12">
+            <v-card
+              outlined
+              dense
+              color="#f2a730"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-user-graduate fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase align-center="
+                    style="font-size: 30px"
+                  >
+                    {{ $t("teacher") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+            <v-card
+              outlined
+              dense
+              color="#26c6da"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-users fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase align-center="
+                    style="font-size: 25px"
+                  >
+                    {{ $t("student") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+            <v-card
+              outlined
+              dense
+              color="#9de219"
+              class="pa-3 mb-4 no_border"
+              min-height="92px"
+            >
+              <v-row>
+                <v-col sm="4" cols="6" class="py-0 mt-5">
+                  <v-card
+                    width="66"
+                    height="66"
+                    outlined
+                    dense
+                    color="white"
+                    class="no_border align-center justify-center d-flex rounded-circle"
+                  >
+                    <h3 class="mt-2" style="font-size: 40px">3</h3>
+                  </v-card>
+                </v-col>
+                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
+                <v-col sm="5" cols="6">
+                  <i
+                    class="fas fa-user-tag fa-3x mb-5"
+                    style="color: white; margin-left: 100px"
+                  ></i>
+                  <h4
+                    class="white--text text-right text-uppercase align-center="
+                    style="font-size: 30px"
+                  >
+                    {{ $t("role") }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col sm="12" cols="12" class="py-0">
+            <template>
+              <v-card>
+                <v-data-table
+                  item-key="name"
+                  class="elevation-1"
+                  :headers="headers"
+                  :items="listUser"
+                  :items-per-page="5"
+                  hide-default-header
+                >
+                  <template v-slot:header="{}">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("no") }}</th>
+                        <th>{{ $t("name") }}</th>
+                        <th>{{ $t("email") }}</th>
+                        <th>{{ $t("role") }}</th>
+                      </tr>
+                    </thead>
+                  </template>
+                  <template v-slot:body="{ items }">
+                    <tbody style="white-space: nowrap">
+                      <tr v-for="(user, index) in items" v-bind:key="index">
+                        <td>{{ 1 + index++ }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                          <v-chip :color="getColor(user.roleNames[0])" dark>
+                            {{ user.roleNames[0] }}
+                          </v-chip>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-data-table>
+              </v-card>
+            </template>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col sm="5" cols="12">
+        <v-row>
+          <v-col sm="12" cols="12" class="">
+            <v-card
+              outlined
+              dense
+              color="#B2DFDB"
+              class="pa-5 no_border"
+              min-height="410px"
+            >
+              <v-row>
+                <v-col sm="12" cols="12" class="py-0 text-center">
+                  <h3>{{ $t("statistics") }}</h3>
+                  <h3 style="font-size: 30px" class="my-5">500,000</h3>
+                </v-col>
+              </v-row>
+              <chart
+                ref="chart"
+                title-text="'Learning Magement System , 2020 - 2021'"
+                :title-position="'bottom'"
+                :chart-area-background="''"
+                :legend-visible="false"
+                :series-defaults-labels-visible="true"
+                :series-defaults-labels-background="'transparent'"
+                :series-defaults-labels-template="labelTemplate"
+                :series="series"
+                :tooltip-visible="true"
+                :theme="'sass'"
               >
-            </v-list-item-content>
+              </chart>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col sm="12" cols="12" class="py-0">
+            <v-card
+              class="mx-auto text-center"
+              color="#0306b9"
+              dark
+              max-width="600"
+            >
+              <v-card-text>
+                <v-sheet color="rgba(0, 0, 0, .12)">
+                  <v-sparkline
+                    :value="value"
+                    color="rgba(255, 255, 255, .7)"
+                    height="100"
+                    padding="24"
+                    stroke-linecap="round"
+                    smooth
+                  >
+                    <template v-slot:label="item"> {{ item.value }} </template>
+                  </v-sparkline>
+                </v-sheet>
+              </v-card-text>
 
-            <v-list-item-avatar tile size="auto"
-              ><i class="fas fa-graduation-cap fa-3x" style="color: white"></i
-            ></v-list-item-avatar>
-          </v-list-item>
-        </v-card>
-      </div>
-      <div class="mx-3 mt-3" cols="12" sm="4">
-        <v-card class="mx-auto" color="teal accent-4" min-width="300" outlined>
-          <v-list-item three-line>
-            <v-list-item-content class="white--text">
-              <v-list-item-title class="headline mb-1">
-                3
-              </v-list-item-title>
-              <v-list-item-subtitle class="white--text"
-                >Student</v-list-item-subtitle
-              >
-            </v-list-item-content>
+              <v-card-text>
+                <div class="display-1 font-weight-thin">
+                  Student Usage For Last 24h
+                </div>
+              </v-card-text>
 
-            <v-list-item-avatar tile size="auto"
-              ><i class="fas fa-user-graduate fa-3x" style="color: white"></i
-            ></v-list-item-avatar>
-          </v-list-item>
-        </v-card>
-      </div>
-      <div class="mx-3 mt-3" cols="12" sm="4">
-        <v-card class="mx-auto" color="pink lighten-1" min-width="300" outlined>
-          <v-list-item three-line>
-            <v-list-item-content class="white--text">
-              <v-list-item-title class="headline mb-1">
-                3
-              </v-list-item-title>
-              <v-list-item-subtitle class="white--text"
-                >Courses</v-list-item-subtitle
-              >
-            </v-list-item-content>
+              <v-divider></v-divider>
 
-            <v-list-item-avatar tile size="auto"
-              ><i class="fas fa-shapes fa-3x" style="color: white"></i
-            ></v-list-item-avatar>
-          </v-list-item>
-        </v-card>
-      </div>
+              <v-card-actions class="justify-center">
+                <v-btn block text> Go to Report </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
-
-// const apiUrl = require("../../apiUrl.js");
-
-import { VDigitalTimePicker } from "v-digital-time-picker";
-
+const axios = require("axios");
+const apiUrl = require("../../../apiUrl");
+const state = require("../../../query.js");
+import { i18n } from "@/i18n";
+import store from "@/store";
+import { Chart } from "@progress/kendo-charts-vue-wrapper";
 export default {
   components: {
-    // eslint-disable-next-line vue/no-unused-components
-    VDigitalTimePicker,
+    chart: Chart,
   },
   data: () => ({
-    items: [],
-    dialog: false,
-    dialog1: false,
-    e1: 1,
-    examId: "",
-    title: null,
-    duration: "",
-    timeValue: "",
-    publish: false,
+    headers: [
+      { text: "No", value: "no" },
+      { text: "Username", value: "name" },
+      { text: "Email", value: "email" },
+      { text: "Role", value: "roleNames" },
+    ],
+    listUser: [],
+    listRoles: [],
+    value: [10, 50, 30, 40, 50, 40, 20],
+    labelTemplate: "#= category # #= value #%",
+    series: [
+      {
+        type: "pie",
+        startAngle: 100,
+        data: [
+          {
+            category: "Teacher",
+            value: 20,
+            color: "#f2a730",
+          },
+          {
+            category: "Student",
+            value: 78,
+            color: "#26c6da",
+          },
+        ],
+      },
+    ],
   }),
-  async mounted() {
-    await this.loadData();
+  mounted() {
+    this.loadUser();
+    this.loadRole();
   },
   methods: {
-    async loadData() {
-      axios
-        .get("http://127.0.0.1:8000/api/exam/overview/")
-        .then((response) => {
-          this.items = response.data.data;
-          window.console.log(this.items);
-        })
-        .catch((error) => {
-          window.console.log(error);
-        });
+    getColor(roleNames) {
+      if (roleNames === "administrator") {
+        return "red";
+      } else if (roleNames === "teacher") {
+        return "green";
+      } else {
+        return "orange";
+      }
+    },
+    async loadRole() {
+      this.loading = true;
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          let fromState = state.default.getters.getRole;
+          let loggedUser = store.getters.getLoggedUser;
+          if (fromState.length > 0) {
+            this.listRoles = fromState;
+            window.console.log("am form state", fromState);
+          } else {
+            axios
+              .get(apiUrl.list_roles, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + loggedUser.data.token,
+                },
+              })
+              .then((res) => {
+                this.listRoles = res.data.data.role;
+                state.default.commit("setRole", res.data.data.role);
+                window.console.log("set state", fromState);
+              });
+          }
+        }, 100);
+      });
+    },
+    async loadUser() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          let loggedUser = store.getters.getLoggedUser;
+          axios
+            .get(apiUrl.list_users, {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + loggedUser.data.token,
+              },
+            })
+            .then((res) => {
+              this.listUser = res.data.user;
+              //   window.console.log(this.listUser);
+            });
+        }, 500);
+      });
     },
   },
-  computed: {},
+  computed: {
+    fields() {
+      return ["30 " + i18n.t("days_summary"), "60 " + i18n.t("days_summary")];
+    },
+  },
 };
 </script>
+<style scoped>
+.theme--light.v-data-table {
+  background-color: transparent !important;
+}
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  height: 32px !important;
+}
+.k-chart {
+  height: 190px !important;
+}
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+  background-color: transparent !important;
+}
+.v-menu__content .v-list .v-list-item {
+  min-height: 35px !important;
+}
+.tab_wrapper {
+  position: relative;
+  display: inherit;
+}
+.v-tab {
+  min-width: 30px;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+.v-icon--left {
+  margin-right: 0px;
+}
+.theme--light.v-tabs > .v-tabs-bar {
+  border-bottom: 1px solid #ddd !important;
+}
+.dropdown_transactions.v-btn {
+  background-color: #2ca01c !important;
+  height: 40px !important;
+  width: auto !important;
+  border-radius: 0 !important;
+  padding: 0px 5px 0px 10px !important;
+  color: #fff !important;
+  right: 12px;
+  position: absolute;
+  top: 7px;
+}
+.v-tab--active {
+  background-color: #f3f8ff;
+  color: #000;
+}
+.t {
+  color: #00b050;
+}
+.theme--light.v-tabs >>> .v-tabs-bar {
+  border-bottom: 1px solid #ddd !important;
+}
+.v-card__text {
+  padding: 0 !important;
+}
+
+@media (max-width: 576px) {
+}
+</style>
