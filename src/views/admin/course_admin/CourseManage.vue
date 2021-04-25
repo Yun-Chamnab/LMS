@@ -77,89 +77,66 @@
               >{{ $t("cancel") }}</v-btn
             >
             <v-btn
-              class="btn_save_new float-right"
-              @click="onSaveClose(true)"
-              >{{ $t("save_new") }}</v-btn
-            >
-            <v-btn
               class="btn_save_close float-right"
-              @click="onSaveClose(false)"
+              @click="
+                onSaveClose(true);
+                dialog = false;
+              "
               >{{ $t("save_close") }}
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-row>
-        <template v-if="listClass.length > 0">
-          <v-col sm="3" cols="12" v-for="(item, i) in listClass" :key="i">
-            <router-link
-              style="text-decoration: none"
-              :to="'class/' + item.uuid"
-              tag="button"
+      <v-row class="masonry">
+        <v-col sm="3" cols="12" v-for="(item, i) in listClass" :key="i">
+          <router-link
+            style="text-decoration: none"
+            :to="'class/' + item.uuid"
+            tag="button"
+          >
+            <v-card
+              max-width="400"
+              :color="item.color"
+              dark
+              @click="
+                $router.push({ name: 'test2', params: { id: item.uuid } })
+              "
             >
-              <v-card
-                max-width="400"
-                min-width="400"
-                :color="item.color"
-                dark
-                @click="
-                  $router.push({ name: 'test2', params: { id: item.uuid } })
-                "
-              >
-                <v-menu bottom left>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      dark
-                      icon
-                      v-bind="attrs"
-                      v-on="on"
-                      style="float: right"
-                    >
-                      <v-icon style="float: right">mdi-dots-vertical</v-icon>
-                    </v-btn>
-                  </template>
+              <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    dark
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    style="float: right"
+                  >
+                    <v-icon style="float: right">mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
 
-                  <v-list>
-                    <v-list-item link @click="onEditItem(item)">
-                      <v-list-item-title>Edit</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item link @click="deleteclass(item)">
-                      <v-list-item-title>Delete</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-                <v-card-title style="font-weight: bold; font-size: 20px">
-                  {{ item.class_name }}
-                </v-card-title>
-                <v-divider class="mx-4"></v-divider>
-                <v-card-text style="height: 100px" class="font-weight-bold">
-                  {{ item.description }}
-                </v-card-text>
-                <v-divider class="mx-4"></v-divider>
+                <v-list>
+                  <v-list-item link @click="onEditItem(item)">
+                    <v-list-item-title>Edit</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item link @click="deleteclass(item)">
+                    <v-list-item-title>Delete</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-card-title style="font-weight: bold; font-size: 20px">
+                {{ item.class_name }}
+              </v-card-title>
+              <v-card-text style="height: 100px" class="font-weight-bold">
+                {{ item.description }}
+              </v-card-text>
+              <v-divider class="mx-4"></v-divider>
 
-                <v-card-actions>
-                  <v-btn color="white" text> Learn More </v-btn>
-                </v-card-actions>
-              </v-card>
-            </router-link>
-          </v-col>
-        </template>
-
-        <v-col
-          v-if="listClass.length === 0"
-          cols="12"
-          sm="12"
-          class="tab_wrapper py-0 mt-5"
-        >
-          <v-alert border="top" colored-border type="info" elevation="2">
-            No classroom available!! Click Create button to create one !!
-          </v-alert>
-          <v-progress-linear
-            color="deep-purple accent-4"
-            indeterminate
-            rounded
-            height="6"
-          ></v-progress-linear>
+              <v-card-actions>
+                <v-btn color="white" text> Learn More </v-btn>
+              </v-card-actions>
+            </v-card>
+          </router-link>
         </v-col>
       </v-row>
     </v-container>
@@ -183,7 +160,9 @@ export default {
       { color: "#34d491" },
     ],
     dialog: false,
+
     class_name: "",
+    uuid: "",
     classId: "",
     color: "",
     description: "",
@@ -195,6 +174,7 @@ export default {
   methods: {
     clear() {
       (this.class_name = ""), (this.description = ""), (this.color = "");
+      this.uuid = "";
     },
     async loadClass() {
       new Promise((resolve) => {
@@ -238,6 +218,9 @@ export default {
         }, 200);
       });
     },
+    onNewClick() {
+      this.classId = "";
+    },
     async onSaveClose(isNew) {
       new Promise((resolve) => {
         setTimeout(() => {
@@ -248,6 +231,7 @@ export default {
           if (this.classId !== "") {
             strUrl = apiUrl.edit_class + "/" + this.classId;
             method = "put";
+            window.console.log(this.classId, "ID");
           }
           axios({
             method: method,
@@ -262,10 +246,12 @@ export default {
               window.console.log(response);
               document.body.style.background = this.color;
               if (isNew) {
-                (this.class_name = ""),
-                  (this.color = ""),
-                  (this.description = "");
+                this.class_name = "";
+                this.description = "";
+                this.color = "";
+                this.classId = "";
               } else {
+                this.clear();
                 this.dialog = false;
               }
 

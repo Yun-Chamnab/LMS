@@ -1,12 +1,6 @@
 <template>
   <v-container>
-    <vue-countdown
-      v-if="counting"
-      :time="100000"
-      @end="onCountdownEnd"
-      v-slot="{ totalSeconds }"
-      >Duration: {{ totalSeconds }} later</vue-countdown
-    >
+    <h3>{{ time }}</h3>
 
     <v-card class="mx-auto mt-1" max-width="400" tile v-if="result == false">
       <v-list class="mx-5">
@@ -82,17 +76,16 @@
 <script>
 import axios from "axios";
 const apiUrl = require("../../apiUrl.js");
+import moment from "moment";
+import store from "@/store";
 
-import VueCountdown from "@chenfengyuan/vue-countdown";
 export default {
-  components: {
-    VueCountdown,
-  },
+  components: {},
   data() {
     return {
       answer: [],
       items: [],
-      itemid: this.$route.params.id,
+      itemid: this.$route.params.uuid,
       question: null,
       // score: null,
       status_correct: null,
@@ -103,15 +96,19 @@ export default {
       result: false,
       total_point: 0,
       counting: true,
-      duration: 1000000,
+      duration: this.$route.params.duration,
       countdown: false,
       questionIndex: 0,
       userResponses: Array(),
       currentQuestion: 0,
+      date: moment(100000),
     };
   },
   async mounted() {
     await this.loadData();
+    setInterval(() => {
+      this.date = moment(this.date.subtract(1, "seconds"));
+    }, 1000);
   },
   methods: {
     async loadData() {
@@ -122,9 +119,7 @@ export default {
         url: strUrl,
       })
         .then((response) => {
-          this.items = response.data.data[0].question;
-          this.duration = response.data.data[0].duration;
-          // this.duration + 10000;
+          this.items = response.data.data;
           // window.console.log(this.duration);
         })
         .catch((error) => {
@@ -138,11 +133,13 @@ export default {
 
           let strUrl = apiUrl.result_post;
           let method = "post";
+          let loggedUser = store.getters.getLoggedUser;
           axios({
             method: method,
             url: strUrl,
             data: {
-              user_id: 1,
+              user_id: loggedUser.data.user.id,
+              student_name: loggedUser.data.user.name,
               quiz_id: this.itemid,
               score: this.point,
               total_score: this.total_point,
@@ -159,9 +156,9 @@ export default {
       });
     },
     checkAnswer(key, score) {
-      window.console.log(key, "KEY");
-      window.console.log(score, "score");
-      window.console.log(this.items.length, "item length");
+      // window.console.log(key, "KEY");
+      // window.console.log(score, "score");
+      // window.console.log(this.items.length, "item length");
       // this.$event.target.classList.toggle(active);
       this.total_point += score;
       window.console.log("total", this.total_point);
@@ -187,6 +184,18 @@ export default {
     onCountdownEnd: function () {
       this.counting = false;
       this.countdown = true;
+    },
+    convertDateTime(value) {
+      let dateTime = moment(value);
+      window.console.log(dateTime);
+      // let date = dateTime.format("hh:mm:i");
+      let date = moment.countdown(dateTime).toString();
+      return date;
+    },
+  },
+  computed: {
+    time: function () {
+      return this.date.format("mm:ss");
     },
   },
 };

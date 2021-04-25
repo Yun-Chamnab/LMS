@@ -84,7 +84,8 @@
           <router-link
             style="text-decoration: none"
             :to="
-              'course/' + item.uuid + '&' + item.title + '&' + item.teacher_name"
+              'course/' + item.uuid + '&' + item.title + '&' + item.teacher_name
+            "
           >
             <v-card class="mx-auto" max-width="344">
               <v-img

@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <!-- <h3 class="text-lg" onclick="window.history.go(-1); return false;">
+      {{ this.$route.params.title }}
+      Back
+    </h3> -->
     <v-dialog v-model="dialog" max-width="790">
       <v-card>
         <v-form>
@@ -55,8 +59,8 @@
           <v-btn
             color="error"
             class=""
-            @click.prevent="postQuestion()"
-            @click="dialog = false"
+            @click="postQuestion()"
+            @click.stop="dialog = false"
             min-width="20rem"
           >
             <h6>Submit</h6>
@@ -162,7 +166,7 @@ export default {
       answer2: "",
       answer3: "",
       options: [this.answer1, this.answer2, this.answer3],
-      itemid: this.$route.params.id,
+      itemid: this.$route.params.uuid,
       dialog: false,
       question: null,
       score: null,
@@ -204,7 +208,7 @@ export default {
               score: this.score,
               status_correct: this.status_correct,
               answer: [this.answer1, this.answer2, this.answer3],
-              exam_id: this.$route.params.id,
+              exam_id: this.$route.params.uuid,
             },
           })
             .then((response) => {
@@ -227,14 +231,14 @@ export default {
         (this.score = "");
     },
     async loadData() {
-      let strUrl = apiUrl.question_post + this.$route.params.id;
+      let strUrl = apiUrl.question_post + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
         url: strUrl,
       })
         .then((response) => {
-          this.items = response.data.data[0].question;
+          this.items = response.data.data;
           window.console.log(this.items);
         })
         .catch((error) => {

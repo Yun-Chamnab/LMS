@@ -65,7 +65,7 @@
               text
               @click="
                 dialog = false;
-                onSaveClose();
+                onSaveClose(true);
               "
             >
               Save
@@ -84,7 +84,7 @@
         sm="4"
       >
         <!-- Delete Dialog -->
-        <v-dialog v-model="dialog2" max-width="290">
+        <!-- <v-dialog v-model="dialog2" max-width="290">
           <v-card>
             <v-card-title class="headline">Are you sure?</v-card-title>
 
@@ -105,11 +105,11 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
         <!-- =====END delete====== -->
         <router-link
           style="display: inline-block; text-decoration: none; float: right"
-          :to="'question/' + item.id"
+          :to="'question/' + item.uuid"
         >
           <v-card
             class="rounded"
@@ -118,7 +118,7 @@
             color="light-blue accent-4"
             dark
             min-width="230px"
-            @click="$router.push({ name: 'test2', params: { id: item.id } })"
+            @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
           >
             <v-card-title class="headline mb-2"> {{ item.name }} </v-card-title>
             <v-card-subtitle class="text-center"
@@ -137,7 +137,7 @@
         <i
           class="far fa-trash-alt float-right mx-1"
           style="color: red"
-          @click.stop="dialog2 = true"
+          @click="deleteexam(item)"
         ></i>
         <i
           class="far fa-edit float-right"
@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.exam_post+this.$route.params.id;
+      let strUrl = apiUrl.exam_post + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
@@ -199,10 +199,10 @@ export default {
       this.title = exam.name;
       this.duration = exam.duration;
       this.publish = exam.publish;
-      this.examId = exam.id;
+      this.examId = exam.uuid;
       this.dialog = true;
     },
-    async onSaveClose() {
+    async onSaveClose(isNew) {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
@@ -218,14 +218,24 @@ export default {
             method: method,
             url: strUrl,
             data: {
+              course_id: this.$route.params.uuid,
               name: this.title,
               duration: this.duration,
               publish: this.publish,
             },
           })
             .then((response) => {
+              if (isNew) {
+                this.title = "";
+                this.duration = "";
+                this.publish = "";
+                this.examId = "";
+              } else {
+                this.clear();
+                this.dialog = false;
+              }
               this.loadData();
-              this.clear();
+
               window.console.log(response);
             })
             .catch((e) => {
@@ -244,15 +254,18 @@ export default {
     async deleteexam(item) {
       const index = this.items.indexOf(item);
       this.deletItems = item;
-      this.items.splice(index, 1);
-      await this.deleteExam();
+      const btnCancel = confirm("Are you sure you want to delete this item?");
+      if (btnCancel === true) {
+        this.items.splice(index, 1);
+        await this.deleteExam();
+      }
     },
     async deleteExam() {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
           axios
-            .delete(apiUrl.exam_post + this.deletItems.id, {})
+            .delete(apiUrl.delete_exam + this.deletItems.uuid, {})
             .then((response) => {
               window.console.log(response);
             })

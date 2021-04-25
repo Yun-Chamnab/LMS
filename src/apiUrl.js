@@ -33,9 +33,15 @@ module.exports = {
     course_post                         : baseApiUrlLocalClass + 'course',
     list_course                         : baseApiUrlLocalClass + 'course/',
     lesson                              : baseApiUrlLocalClass + 'lesson/',
+    show_lesson                         : baseApiUrlLocalClass + 'lesson/show/',     
     //////student//////////////////////////
 
     add_student                         : baseApiUrlLocalClass + 'student',
-    list_student                        : baseApiUrlLocalClass + 'student'
+    list_student                        : baseApiUrlLocalClass + 'student',
 
+    // File URL
+  file_path:
+  "http://localhost/LMS-Class/LMS/Class_api/public/uploads/course_img/",
+file_path1:
+  "http://localhost/LMS-Class/LMS/Class_api/public/uploads/img/",
 }

@@ -77,7 +77,7 @@
           nextIcon: 'mdi-plus',
         }"
       >
-        <template v-slot:item.score="{  }">
+        <template v-slot:item.score="{ item }">
           <v-chip :color="getColor(item.score)" dark>{{ item.score }}</v-chip>
         </template>
         <template v-slot:item.created_at="{ item }">
@@ -101,10 +101,10 @@ export default {
       student50: 0,
       student90: 0,
       percent: 0,
-      itemid: this.$route.params.id,
+      itemid: this.$route.params.uuid,
       items: [],
       headers: [
-        { text: "Student Name", value: "user_id" },
+        { text: "Student Name", value: "student_name" },
         { text: "Score", value: "score" },
         { text: "Total Score", value: "total_score" },
         { text: "Submit Time", value: "created_at" },
@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.result_post + this.$route.params.id;
+      let strUrl = apiUrl.result_post + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
@@ -165,7 +165,7 @@ export default {
     },
     convertDateTime(value) {
       let dateTime = moment(value);
-      return dateTime.format("DD-MM-YYYY, hh:mm:ss A");
+      return dateTime.format("DD-MMM-YYYY, hh:mm:ss a");
     },
   },
 };
