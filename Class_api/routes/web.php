@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('/{course}', ['uses' => 'CourseController@show']);
         $router->put('/{course}', ['uses' => 'CourseController@update']);
         $router->delete('/{course}', ['uses' => 'CourseController@destroy']);
+        $router->get('/student/{course}', ['uses' => 'CourseController@courseStudent']);
     });
 
     $router->group(['prefix' => 'lesson'], function () use ($router) {

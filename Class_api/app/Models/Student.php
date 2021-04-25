@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\Class;
+use App\Models\Classservice;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -20,10 +20,10 @@ class Student extends Model
     // use SoftDeletes;
 
 
-    // public function question()
-    // {
-    //     return $this->hasMany(Question::class);
-    // }
+    public function classes()
+    {
+        return $this->hasMany(Classservice::class);
+    }
 
     // public function answer()
     // {

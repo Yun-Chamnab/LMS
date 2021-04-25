@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Lesson;
+use App\Models\Classservice;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UsesUuid;
 
@@ -29,11 +29,8 @@ class Course extends Model
         return $this->with($this->with)->findOrFail($id);
     }
 
-    // public function delete()
-    // {
-    //     Lesson::where("course_id", $this->uuid)->delete();
-
-    //     // delete the user
-    //     return parent::delete();
-    // }
+    public function classes()
+    {
+        return $this->hasMany(Classservice::class);
+    }
 }
