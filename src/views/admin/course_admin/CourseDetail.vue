@@ -268,12 +268,12 @@
 import axios from "axios";
 const apiUrl = require("../../../apiUrl");
 import moment from "moment";
-// import LessonDetail from "./LessonDetail";
+import LessonDetail from "./LessonDetail";
 import ExamManage from "../exam_admin/ExamManage";
 
 export default {
-
-  components: {  ExamManage },
+  // eslint-disable-next-line vue/no-unused-components
+  components: { LessonDetail, ExamManage },
   data: () => ({
     items: [],
     dialog: false,

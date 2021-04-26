@@ -9,6 +9,50 @@
       }
     "
   >
+    <div>
+      <div class="loading">
+        <loading
+          :active.sync="isLoading"
+          :is-full-page="fullPage"
+          loader="dots"
+          background-color="rgba(255, 255, 255, 5)"
+          :width="40"
+          :height="40"
+        >
+          <div v-if="myLoading">
+            <img
+              hight="100%"
+              width="100%"
+              src="../../assets/images/niptict-loading.gif"
+            />
+          </div>
+        </loading>
+      </div>
+      <div v-if="visible">
+        <v-card>
+          <v-snackbar
+            v-model="visible"
+            :bottom="y === 'bottom'"
+            :color="color"
+            :left="x === 'left'"
+            :multi-line="mode === 'multi-line'"
+            :right="x === 'right'"
+            :timeout="timeout"
+            :auto-width="true"
+            :top="y === 'top'"
+            :vertical="mode === 'vertical'"
+          >
+            {{ alertText }}
+
+            <template v-slot:action="{ attrs }">
+              <v-btn dark text v-bind="attrs" @click="alertMessage = false">
+                Close
+              </v-btn>
+            </template>
+          </v-snackbar>
+        </v-card>
+      </div>
+    </div>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -53,7 +97,7 @@
                     <v-btn
                       block
                       color="primary"
-                      @click="login"
+                      @click="login()"
                       :loading="loading"
                       type="submit"
                       >Login</v-btn
@@ -81,13 +125,29 @@
 </template>
 
 <script>
-// const axios = require("axios");
-// import store from "@/store";
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+
 import httpAxios from "@/httpAxios.js";
 export default {
+  props: [
+    "isLoading",
+    "fullPage",
+    "myLoading",
+    "alertMessage",
+    "color",
+    "alertText",
+  ],
   data() {
     return {
-      loading: false,
+      mode: "",
+      snackbar: true,
+      visible: false,
+      text: "Success",
+      timeout: 6000,
+      x: "right",
+      y: "top",
       email: "",
       password: "",
       hidePassword: true,
@@ -99,6 +159,7 @@ export default {
       },
     };
   },
+  components: { Loading },
   methods: {
     // login() {
     //   const vm = this;
@@ -149,17 +210,22 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            self.$store.commit("LOGGED_USER", response.data);
-            // let loggedUser = store.getters.getLoggedUser;
-            if (response.data.data.user.roleNames == "administrator") {
-              self.$router.push({ name: "OverviewAdmin" });
-              self.$store.commit("LOGGED_USER", response.data);
-            } else if (response.data.data.user.roleNames == "student") {
-              self.$router.push({ name: "Overview" });
-              self.$store.commit("LOGGED_USER", response.data);
-            }
+            this.myLoading = true;
+            this.isLoading = true;
+            setTimeout(() => {
+              if (response.data.data.user.roleNames == "administrator") {
+                self.$router.push({ name: "OverviewAdmin" });
+                self.$store.commit("LOGGED_USER", response.data);
+              } else if (response.data.data.user.roleNames == "student") {
+                self.$router.push({ name: "Overview" });
+                self.$store.commit("LOGGED_USER", response.data);
+              }
+              this.myLoading = false;
+              this.isLoading = false;
+            }, 2000);
           }
-          window.console.log(response);
+
+          window.console.log(setTimeout);
         })
         .catch((error) => {
           try {

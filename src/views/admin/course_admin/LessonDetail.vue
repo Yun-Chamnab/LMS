@@ -62,63 +62,6 @@
                     ></i
                   ></v-avatar>
 
-      <v-card
-        :elevation="0"
-        class="mx-auto"
-        max-width="700"
-        color="transparent"
-      >
-        <v-card-text>
-          <v-card-title>
-            <h3 class="display-1 text--primary">
-              <v-avatar color="light-blue" size="40" class="mr-2"
-                ><i
-                  class="far fa-file-alt fa-xs text-center"
-                  style="color: white; font-size: 1.3rem"
-                ></i
-              ></v-avatar>
-              <span class="light-blue--text"> {{ items.lesson }}</span>
-            </h3>
-            <v-layout align-end>
-              <v-spacer></v-spacer>
-              <h6>
-                {{ convertDateTime(items.created_at) }}
-              </h6>
-            </v-layout>
-          </v-card-title>
-
-          <v-card-text>
-            <hr class="light-blue mb-6" />
-            <p>{{ items.description }}</p>
-          </v-card-text>
-
-          <div>
-            <span v-for="(p, i) in pic" :key="i">
-              <v-dialog
-                max-width="1000"
-                v-model="dialog"
-                v-if="p.file_path != null"
-              >
-                <v-btn
-                  color="transparent"
-                  class="black--text mr-8 mb-8"
-                  width="250"
-                  min-height="80"
-                  dark
-                  style="text-transform: capitalize"
-                  slot="activator"
-                  @click="
-                    dialog = true;
-                    changeFile(p.file_path);
-                  "
-                >
-                  <v-avatar color="light-blue" size="40" class="mr-2 float-left"
-                    ><i
-                      class="fas fa-file-alt fa-sm text-center"
-                      style="color: white; font-size: 1.3rem"
-                    ></i
-                  ></v-avatar>
-
                   <div v-if="p.file_path.length >= 33">
                     <div class="float-left" style="text-transform: capitalize">
                       {{ p.file_path.substring(33, 50) }}
