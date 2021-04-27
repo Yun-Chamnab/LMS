@@ -12,7 +12,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -21,17 +21,21 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">5</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listClass.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+
+                <v-col>
                   <i
-                    class="fas fa-archway fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-archway fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase"
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
                     {{ $t("class") }}
@@ -47,7 +51,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -56,17 +60,20 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listCourses.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+                <v-col>
                   <i
-                    class="fas fa-book-open fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-book-open fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase align-center="
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
                     {{ $t("course") }}
@@ -82,7 +89,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -91,17 +98,21 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">6</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listQuizz.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+
+                <v-col>
                   <i
-                    class="fas fa-brain fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-brain fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase align-center="
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
                     {{ $t("quizz") }}
@@ -119,7 +130,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -128,17 +139,20 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listTeacher.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+                <v-col>
                   <i
-                    class="fas fa-user-graduate fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-user-graduate fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase align-center="
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
                     {{ $t("teacher") }}
@@ -154,7 +168,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -163,17 +177,20 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">10</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listStudent.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+                <v-col>
                   <i
-                    class="fas fa-users fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-users fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase align-center="
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 25px"
                   >
                     {{ $t("student") }}
@@ -189,7 +206,7 @@
               min-height="92px"
             >
               <v-row>
-                <v-col sm="4" cols="6" class="py-0 mt-5">
+                <v-col sm="4" cols="6" class="py-0">
                   <v-card
                     width="66"
                     height="66"
@@ -198,17 +215,20 @@
                     color="white"
                     class="no_border align-center justify-center d-flex rounded-circle"
                   >
-                    <h3 class="mt-2" style="font-size: 40px">3</h3>
+                    <h3 class="mt-2" style="font-size: 40px">
+                      {{ listRoles.length }}
+                    </h3>
                   </v-card>
                 </v-col>
-                <v-col sm="3" cols="6" class="d-flex d-sm-flex" />
-                <v-col sm="5" cols="6">
+                <v-col>
                   <i
-                    class="fas fa-user-tag fa-3x mb-5"
-                    style="color: white; margin-left: 100px"
+                    class="fas fa-user-tag fa-3x float-right"
+                    style="color: white"
                   ></i>
+                </v-col>
+                <v-col sm="12">
                   <h4
-                    class="white--text text-right text-uppercase align-center="
+                    class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
                     {{ $t("role") }}
@@ -262,7 +282,7 @@
       </v-col>
       <v-col sm="5" cols="12">
         <v-row>
-          <v-col sm="12" cols="12" class="">
+          <v-col sm="12" cols="12">
             <v-card
               outlined
               dense
@@ -275,21 +295,23 @@
                   <h3>{{ $t("statistics") }}</h3>
                   <h3 style="font-size: 30px" class="my-5">500,000</h3>
                 </v-col>
+                <v-col cols="12" class="py-0">
+                  <chart
+                    ref="chart"
+                    title-text="'Learning Magement System , 2020 - 2021'"
+                    :title-position="'bottom'"
+                    :chart-area-background="''"
+                    :legend-visible="false"
+                    :series-defaults-labels-visible="true"
+                    :series-defaults-labels-background="'transparent'"
+                    :series-defaults-labels-template="labelTemplate"
+                    :series="series"
+                    :tooltip-visible="true"
+                    :theme="'sass'"
+                  >
+                  </chart>
+                </v-col>
               </v-row>
-              <chart
-                ref="chart"
-                title-text="'Learning Magement System , 2020 - 2021'"
-                :title-position="'bottom'"
-                :chart-area-background="''"
-                :legend-visible="false"
-                :series-defaults-labels-visible="true"
-                :series-defaults-labels-background="'transparent'"
-                :series-defaults-labels-template="labelTemplate"
-                :series="series"
-                :tooltip-visible="true"
-                :theme="'sass'"
-              >
-              </chart>
             </v-card>
           </v-col>
         </v-row>
@@ -332,6 +354,15 @@
         </v-row>
       </v-col>
     </v-row>
+    <div>
+      <chart
+        :data-source="lessonCourse"
+        :series="series1"
+        :category-axis-categories="categories"
+        :theme="'sass'"
+      >
+      </chart>
+    </div>
   </v-container>
 </template>
 
@@ -353,7 +384,12 @@ export default {
       { text: "Email", value: "email" },
       { text: "Role", value: "roleNames" },
     ],
+    listCourses: [],
+    listClass: [],
+    listQuizz: [],
     listUser: [],
+    listStudent: [],
+    listTeacher: [],
     listRoles: [],
     value: [10, 50, 30, 40, 50, 40, 20],
     labelTemplate: "#= category # #= value #%",
@@ -375,10 +411,30 @@ export default {
         ],
       },
     ],
+    lessonCourse: [],
+    categories: ["class_id", "Sep"],
+    dataSourceArray: [
+      {
+        price: 10,
+      },
+      {
+        price: 20,
+      },
+      {
+        price: 30,
+      },
+    ],
+    series1: [{ field: "teacher_id" }],
   }),
   mounted() {
     this.loadUser();
+    this.loadCourse();
+    this.loadStudent();
+    this.loadTeacher();
+    this.loadClass();
     this.loadRole();
+    this.loadQuiz();
+    this.lessonofCourse();
   },
   methods: {
     getColor(roleNames) {
@@ -389,6 +445,32 @@ export default {
       } else {
         return "orange";
       }
+    },
+    async loadQuiz() {
+      let strUrl = apiUrl.exam_post;
+      let method = "get";
+      axios({
+        method: method,
+        url: strUrl,
+      })
+        .then((response) => {
+          this.listQuizz = response.data.data;
+          window.console.log(this.listQuizz);
+        })
+        .catch((error) => {
+          window.console.log(error);
+        });
+    },
+    async loadClass() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          axios.get(apiUrl.list_class).then((res) => {
+            this.listClass = res.data.data;
+            window.console.log(this.listClass);
+          });
+        }, 500);
+      });
     },
     async loadRole() {
       this.loading = true;
@@ -418,6 +500,63 @@ export default {
         }, 100);
       });
     },
+    async loadCourse() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          axios.get(apiUrl.list_course).then((res) => {
+            this.listCourses = res.data.data;
+            window.console.log(this.listCourses);
+          });
+        }, 500);
+      });
+    },
+    async loadStudent() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          let loggedUser = store.getters.getLoggedUser;
+          axios
+            .get(apiUrl.list_users, {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + loggedUser.data.token,
+              },
+            })
+            .then((res) => {
+              const filterRole = res.data.user;
+              this.listStudent = filterRole.filter((filterRole) =>
+                filterRole.roleNames.includes("student")
+              );
+              window.console.log(this.listStudent);
+            });
+        }, 500);
+      });
+    },
+    async loadTeacher() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          let loggedUser = store.getters.getLoggedUser;
+          axios
+            .get(apiUrl.list_users, {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + loggedUser.data.token,
+              },
+            })
+            .then((res) => {
+              const filterRole = res.data.user;
+              this.listTeacher = filterRole.filter((filterRole) =>
+                filterRole.roleNames.includes("teacher")
+              );
+              window.console.log(this.listStudent);
+            });
+        }, 500);
+      });
+    },
     async loadUser() {
       new Promise((resolve) => {
         setTimeout(() => {
@@ -435,6 +574,17 @@ export default {
               this.listUser = res.data.user;
               //   window.console.log(this.listUser);
             });
+        }, 500);
+      });
+    },
+    async lessonofCourse() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          axios.get(apiUrl.lesson_of_course).then((res) => {
+            this.lessonCourse = res.data.data;
+            window.console.log(this.listCourses);
+          });
         }, 500);
       });
     },

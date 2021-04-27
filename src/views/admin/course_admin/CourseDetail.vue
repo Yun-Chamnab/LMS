@@ -268,13 +268,12 @@
 import axios from "axios";
 const apiUrl = require("../../../apiUrl");
 import moment from "moment";
-import LessonDetail from "./LessonDetail";
+// import LessonDetail from "./LessonDetail";
 import ExamManage from "../exam_admin/ExamManage";
-import FilePickerButton from "vue-google-picker";
 
 export default {
-  // eslint-disable-next-line vue/no-unused-components
-  components: { LessonDetail, ExamManage, FilePickerButton },
+
+  components: {  ExamManage },
   data: () => ({
     items: [],
     dialog: false,

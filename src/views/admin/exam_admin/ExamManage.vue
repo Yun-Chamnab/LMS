@@ -65,7 +65,7 @@
               text
               @click="
                 dialog = false;
-                onSaveClose();
+                onSaveClose(true);
               "
             >
               Save
@@ -84,7 +84,7 @@
         sm="4"
       >
         <!-- Delete Dialog -->
-        <v-dialog v-model="dialog2" max-width="290">
+        <!-- <v-dialog v-model="dialog2" max-width="290">
           <v-card>
             <v-card-title class="headline">Are you sure?</v-card-title>
 
@@ -105,7 +105,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
         <!-- =====END delete====== -->
         <router-link
           style="display: inline-block; text-decoration: none; float: right"
@@ -137,7 +137,7 @@
         <i
           class="far fa-trash-alt float-right mx-1"
           style="color: red"
-          @click.stop="dialog2 = true"
+          @click="deleteexam(item)"
         ></i>
         <i
           class="far fa-edit float-right"
@@ -202,7 +202,7 @@ export default {
       this.examId = exam.uuid;
       this.dialog = true;
     },
-    async onSaveClose() {
+    async onSaveClose(isNew) {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve("resolved");
@@ -225,8 +225,17 @@ export default {
             },
           })
             .then((response) => {
+              if (isNew) {
+                this.title = "";
+                this.duration = "";
+                this.publish = "";
+                this.examId = "";
+              } else {
+                this.clear();
+                this.dialog = false;
+              }
               this.loadData();
-              this.clear();
+
               window.console.log(response);
             })
             .catch((e) => {
@@ -245,8 +254,11 @@ export default {
     async deleteexam(item) {
       const index = this.items.indexOf(item);
       this.deletItems = item;
-      this.items.splice(index, 1);
-      await this.deleteExam();
+      const btnCancel = confirm("Are you sure you want to delete this item?");
+      if (btnCancel === true) {
+        this.items.splice(index, 1);
+        await this.deleteExam();
+      }
     },
     async deleteExam() {
       new Promise((resolve) => {

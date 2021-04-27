@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { Trans } from "@/plugins/Translation";
 import store from "../store";
+const axios = require("axios");
 import { i18n } from "../i18n";
 // let historyPages 	= store.default.getters.getHistoryPages
 
@@ -366,49 +367,16 @@ router.beforeEach((to, from, next) => {
 
   // Get logged user
   let loggedUser = store.getters.getLoggedUser;
-    
-    // if (to.meta.auth) {
-    //     if (loggedUser)
-    //         return next()
-    //     else
-    //         return redirectToRoute('SignIn')
-    // }
-	if (to.meta.auth) {
-		if (loggedUser) {
-			let currentDateTime = new Date().getTime()
-			if (currentDateTime > loggedUser.expiryDate) {
-				store.dispatch('logOut')
-				return redirectToRoute('SignIn')
-			}
-			window.console.log("cur",loggedUser.expiryDate)
-		}
-        if(!loggedUser || !loggedUser.data.token){
-			return redirectToRoute('SignIn')
-		}
-		else if(to.meta.adminAuth){
-			if(loggedUser.data.user.roleNames == 'administrator'){
-				next()
-			}else{
-				return redirectToRoute('Index')
-			}
-		}else if(to.meta.studentAuth){
-			if(loggedUser.data.user.roleNames == 'student'){
-				next()
-			}else{
-				return redirectToRoute('Admin')
-			}
-		}else{
-			return next()
-		}
-    }
 
   // Check if access token expired
   if (loggedUser) {
     let currentDateTime = new Date().getTime();
-    if (currentDateTime > loggedUser.expiryDate) {
+	
+    if (currentDateTime > loggedUser.password_timeout) {
       store.dispatch("logOut");
       return redirectToRoute("SignIn");
     }
+	// window.console.log("ex", test)
   }
 
   // if (to.meta.auth) {
@@ -418,6 +386,16 @@ router.beforeEach((to, from, next) => {
   //         return redirectToRoute('SignIn')
   // }
   if (to.meta.auth) {
+    axios.interceptors.response.use((response) => {
+      return response;
+  }, function (error) {
+      if (error.response.status === 401) {
+          window.console.log('unauthorized, logging out ...');
+          store.dispatch("logOut");
+          return redirectToRoute("SignIn");
+      }
+      return Promise.reject(error.response);
+  });
     if (!loggedUser || !loggedUser.data.token) {
       return redirectToRoute("SignIn");
     } else if (to.meta.adminAuth) {
