@@ -1,35 +1,35 @@
 <template>
   <v-app>
     <v-container>
-      <div style="height: 10px; width: 100%"></div>
-
       <v-row class="masonry">
-        <v-col sm="3" cols="12" v-for="(val, i) in listCourses" :key="i">
-          <div v-for="(item, j) in val" :key="j">
-            <router-link
-              style="text-decoration: none"
-              :to="
-                'lesson/' +
-                item.uuid +
-                '&' +
-                item.title +
-                '&' +
-                item.teacher_name
-              "
-            >
-              <v-card class="mx-auto" max-width="344">
-                <v-img
-                  :src="imgsrc + item.image_path"
-                  height="200px"
-                  width="100%"
-                ></v-img>
+        <v-col v-for="(val, i) in listCourses" :key="i">
+          <v-row>
+            <v-col cols="16" sm="4" v-for="(item, j) in val" :key="j">
+              <router-link
+                style="text-decoration: none"
+                :to="
+                  'lesson/' +
+                  item.uuid +
+                  '&' +
+                  item.title +
+                  '&' +
+                  item.teacher_name
+                "
+              >
+                <v-card class="mx-auto" max-width="344">
+                  <v-img
+                    :src="imgsrc + item.image_path"
+                    height="200px"
+                    width="100%"
+                  ></v-img>
 
-                <v-card-title> {{ item.title }} </v-card-title>
+                  <v-card-title> {{ item.title }} </v-card-title>
 
-                <v-card-subtitle> {{ item.teacher_name }} </v-card-subtitle>
-              </v-card>
-            </router-link>
-          </div>
+                  <v-card-subtitle> {{ item.teacher_name }} </v-card-subtitle>
+                </v-card>
+              </router-link>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
