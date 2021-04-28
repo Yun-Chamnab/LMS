@@ -20,11 +20,7 @@
           :height="40"
         >
           <div v-if="myLoading">
-            <img
-              hight="100%"
-              width="100%"
-              src="../../assets/images/niptict-loading.gif"
-            />
+            <img width="100%" src="../../assets/images/niptict-loading.gif" />
           </div>
         </loading>
       </div>
@@ -105,14 +101,6 @@
                   </v-card-actions>
                 </v-form>
               </v-card-text>
-              <!-- <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn block color="secondary" :loading="loading"
-                  ><router-link :to="{ name: 'SignUp' }"
-                    >Register</router-link
-                  ></v-btn
-                >
-              </v-card-actions> -->
             </v-card>
           </v-flex>
         </v-layout>
@@ -161,40 +149,9 @@ export default {
   },
   components: { Loading },
   methods: {
-    // login() {
-    //   const vm = this;
-    //   if (!vm.email || !vm.password) {
-    //     vm.result = "Email and Password can't be null.";
-    //     vm.showResult = true;
-    //     return;
-    //   }
-    //   if (
-    //     vm.email === vm.$root.email &&
-    //     vm.password === vm.$root.password
-    //   ) {
-    //     vm.$router.push({ name: "Overview" });
-    //   } else {
-    //     vm.error = true;
-    //     vm.result = "Email or Password is incorrect.";
-    //     vm.showResult = true;
-    //   }
-    // },
     login: function () {
       const self = this;
-      // Clear Errors
-      // Object.keys(this.errors).forEach(function (key) {
-      //   self.errors[key] = false;
-      // });
-      // Ajax Request
-      // const vm = this;
-      // if (
-      //   this.email != this.$root.email &&
-      //   this.password != this.$root.password
-      // ) {
-      //   this.error = true;
-      //   this.result = "Email and Password is incorrect.";
-      //   this.showResult = true;
-      // }
+
       if (!this.email || !this.password) {
         this.result = "Email and Password can't be null";
         this.showResult = true;
@@ -222,7 +179,7 @@ export default {
               }
               this.myLoading = false;
               this.isLoading = false;
-            }, 2000);
+            }, 3000);
           }
 
           window.console.log(setTimeout);

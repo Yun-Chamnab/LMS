@@ -284,45 +284,7 @@ const routes = [
         },
       },
 
-      //Signup
-      // {
-      // 	path: 'signup',
-      // 	component: load('auth/Index'),
-      // 	meta:{
-      // 		auth: false
-      // 	},
-      // 	children: [
-      // 		{
-      // 			path: '',
-      // 			name: 'SignUp',
-      // 			component: load('auth/SignUp'),
-      // 			meta:{
-      // 				auth: false,
-      // 				guest: true
-      // 			},
-      // 		},
-      // 	]
 
-      // },
-
-      // {
-      // 	path: 'signin',
-      // 	component: load('auth/Index'),
-      // 	meta:{
-      // 		auth: false
-      // 	},
-      // 	children: [
-      // 		{
-      // 			path: '',
-      // 			name: 'SignIn',
-      // 			component: load('auth/SignIn'),
-      // 			meta:{
-      // 				auth: false,
-      // 				guest: true
-      // 			},
-      // 		},
-      // 	]
-      // }
     ],
   },
   {
@@ -338,22 +300,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-// router.beforeEach((to, from, next) => {
-// 	if(to.matched.some(record => record.meta.auth)){
-// 		if(!store.getters.getLoggedUser){
-// 			window.console.log("TOKEN",store.getters.getLoggedUser)
-// 			next({
-// 				name: 'SignIn'
-// 			})
-// 		}else{
-// 			next()
 
-// 		}
-// 	}else{
-// 		next()
-// 	}
-// })
-// let loggedUser = store.getters.getLoggedUser
 router.beforeEach((to, from, next) => {
   // Redirect to route
   let redirectToRoute = function(name) {
@@ -370,32 +317,20 @@ router.beforeEach((to, from, next) => {
 
   // Check if access token expired
   if (loggedUser) {
-    let currentDateTime = new Date().getTime();
-	
-    if (currentDateTime > loggedUser.password_timeout) {
-      store.dispatch("logOut");
-      return redirectToRoute("SignIn");
-    }
-	// window.console.log("ex", test)
-  }
-
-  // if (to.meta.auth) {
-  //     if (loggedUser)
-  //         return next()
-  //     else
-  //         return redirectToRoute('SignIn')
-  // }
-  if (to.meta.auth) {
     axios.interceptors.response.use((response) => {
       return response;
   }, function (error) {
       if (error.response.status === 401) {
-          window.console.log('unauthorized, logging out ...');
           store.dispatch("logOut");
           return redirectToRoute("SignIn");
       }
       return Promise.reject(error.response);
   });
+	// window.console.log("ex", test)
+  }
+
+  if (to.meta.auth) {
+ 
     if (!loggedUser || !loggedUser.data.token) {
       return redirectToRoute("SignIn");
     } else if (to.meta.adminAuth) {
@@ -427,44 +362,6 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
-// router.beforeEach((to, from, next) =>{
-// 	const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-// 	const userLogin = to.match.some(x => x.meta.userLogin)
-// 	loggedUser().then(() => {
-// 		if(userLogin){
-// 			return next({
-// 				name: 'Overview',
-// 				params:{
-// 					locale: i18n.locale
-// 				}
-// 			})
-// 		}else{
-// 			next()
-// 		}
-// 	}).catch(() =>{
-// 		if(requiresAuth){
-// 			return next({
-// 				name: 'SignIn',
-// 				params:{
-// 					locale: i18n.locale
-// 				}
-// 			})
-// 		}else{
-// 			next()
-// 		}
-// 	})
 
-// })
-
-// Router After Hooks
-// router.afterEach((to) => {
-// 	// Remove existing route
-// 	let oldIndex = historyPages.findIndex(i => i.name === to.name)
-// 	if (oldIndex > -1) {
-// 		historyPages.splice(oldIndex, 1)
-// 	}
-// 	// Add route
-// 	store.default.commit("setHistoryPage", to)
-// })
 
 export default router;
