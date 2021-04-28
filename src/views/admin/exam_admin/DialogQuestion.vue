@@ -1,9 +1,5 @@
 <template>
   <v-container>
-    <!-- <h3 class="text-lg" onclick="window.history.go(-1); return false;">
-      {{ this.$route.params.title }}
-      Back
-    </h3> -->
     <v-dialog v-model="dialog" max-width="790">
       <v-card>
         <v-form>

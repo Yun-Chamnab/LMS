@@ -354,6 +354,15 @@
         </v-row>
       </v-col>
     </v-row>
+    <div>
+      <chart
+        :data-source="lessonCourse"
+        :series="series1"
+        :category-axis-categories="categories"
+        :theme="'sass'"
+      >
+      </chart>
+    </div>
   </v-container>
 </template>
 
@@ -402,6 +411,20 @@ export default {
         ],
       },
     ],
+    lessonCourse: [],
+    categories: ["class_id", "Sep"],
+    dataSourceArray: [
+      {
+        price: 10,
+      },
+      {
+        price: 20,
+      },
+      {
+        price: 30,
+      },
+    ],
+    series1: [{ field: "teacher_id" }],
   }),
   mounted() {
     this.loadUser();
@@ -411,6 +434,7 @@ export default {
     this.loadClass();
     this.loadRole();
     this.loadQuiz();
+    this.lessonofCourse();
   },
   methods: {
     getColor(roleNames) {
@@ -550,6 +574,17 @@ export default {
               this.listUser = res.data.user;
               //   window.console.log(this.listUser);
             });
+        }, 500);
+      });
+    },
+    async lessonofCourse() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("resolved");
+          axios.get(apiUrl.lesson_of_course).then((res) => {
+            this.lessonCourse = res.data.data;
+            window.console.log(this.listCourses);
+          });
         }, 500);
       });
     },

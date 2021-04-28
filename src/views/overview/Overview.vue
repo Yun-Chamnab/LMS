@@ -1,159 +1,116 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col
-          sm="12"
-          cols="12"
-          style="background-color: #fff"
-          class="ma-3 mt-4 pt-3 px-5"
+  <v-container class="grey lighten-5">
+    <v-row>
+      <v-card class="mx-auto" max-width="400">
+        <v-card-text>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="title red--text">
+                Total Cases: {{ total_cases }}
+              </v-list-item-title>
+              <v-list-item-subtitle> {{ date }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-row align="center">
+              <h4 class="subtitle-1">New Cases:</h4>
+
+              <v-col class="display-2 red--text" cols="4">
+                {{ new_cases }}
+              </v-col>
+              <v-col cols="4">
+                <v-img
+                  src="http://covidcp.org/images/logo-icononly.png"
+                  alt="Sunny image"
+                  width="190"
+                ></v-img>
+              </v-col>
+            </v-row>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-icon>
+              <i class="fas fa-circle fa-sm" style="color: green"></i>
+            </v-list-item-icon>
+            <v-list-item-title
+              ><h4 class="subtitle-1">
+                New Deaths:
+                <span class="red--text font-weight-bold">
+                  {{ new_deaths }}</span
+                >
+              </h4>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-icon>
+              <i class="fas fa-circle fa-sm" style="color: red"></i>
+            </v-list-item-icon>
+            <v-list-item-title
+              ><h4 class="subtitle-1">
+                Total Deaths:
+                <span class="red--text font-weight-bold">
+                  {{ total_deaths }}</span
+                >
+              </h4>
+            </v-list-item-title>
+          </v-list-item></v-card-text
         >
-          <h2 class="text-uppercase mb-0" style="color: #0306b9">
-            {{ $t("welcome_to_niptict_lms") }}
-          </h2>
-        </v-col>
-      </v-row>
-      <template>
-        <v-carousel
-          cycle
-          height="350"
-          hide-delimiter-background
-          show-arrows-on-hover
-        >
-          <v-carousel-item
-            v-for="(item, i) in items"
-            :key="i"
-            cycle
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-            :src="item.src"
-          >
-            <v-card
-              class="mx-auto ml-16 mt-15"
-              max-width="344"
-              max-height="500"
-              color="#0306b9"
-            >
-              <v-card-text class="headline font-weight-black">
-                {{ item.txt }}</v-card-text
-              >
-              <v-card-actions>
-                <v-btn depressed color="error"> Learn More > </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-carousel-item>
-        </v-carousel>
-      </template>
-      <v-row class="mansonry mt-6">
-        <v-col cols="12" sm="3">
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://niptict.edu.kh/wp-content/uploads/2019/06/Bach1.png"
-              height="200px"
-            ></v-img>
-
-            <v-card-title> Bachelor Programs </v-card-title>
-
-            <v-card-subtitle>
-              Acquire a comprehensive knowledge of the digital and
-              entrepreneurship world.
-            </v-card-subtitle>
-            <v-card-actions>
-              <v-btn text color="teal accent-4"> Learn More </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://niptict.edu.kh/wp-content/uploads/2019/06/Training1.png"
-              height="200px"
-            ></v-img>
-
-            <v-card-title> Training </v-card-title>
-
-            <v-card-subtitle>
-              Expand your knowledge through our range of ICT courses
-            </v-card-subtitle>
-            <v-card-actions>
-              <v-btn text color="teal accent-4"> Learn More </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://niptict.edu.kh/wp-content/uploads/2019/12/1-2.jpg"
-              height="200px"
-            ></v-img>
-
-            <v-card-title> R&D </v-card-title>
-
-            <v-card-subtitle>
-              Work with us on research, development, design and engineering.
-            </v-card-subtitle>
-            <v-card-actions>
-              <v-btn text color="teal accent-4"> Learn More </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://niptict.edu.kh/wp-content/uploads/2019/12/5-1.jpg"
-              height="200px"
-            ></v-img>
-
-            <v-card-title> Entrepreneurship </v-card-title>
-
-            <v-card-subtitle> Expand your connection through our range of tech & startup event program. </v-card-subtitle>
-            <v-card-actions>
-              <v-btn text color="teal accent-4"> Learn More </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
-	
-
 <script>
+import axios from "axios";
+
+// const apiUrl = require("../../apiUrl.js");
+
+import { VDigitalTimePicker } from "v-digital-time-picker";
+
 export default {
-  components: {},
+  components: {
+    // eslint-disable-next-line vue/no-unused-components
+    VDigitalTimePicker,
+  },
   data: () => ({
-    items: [
-      {
-        src:
-          "https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_1800,h_600/https://niptict.edu.kh/wp-content/uploads/2020/06/feature3.jpg",
-        txt: "Build up your digital skills",
-      },
-      {
-        src:
-          "https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_1800,h_600/https://niptict.edu.kh/wp-content/uploads/2019/06/feature1.jpg",
-        txt:
-          "Learn the skills you require to stand out from the crowd in Digital Age",
-      },
-      {
-        src:
-          "https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_1800,h_600/https://niptict.edu.kh/wp-content/uploads/2019/06/Slider2.png",
-        txt:
-          "Online learning is not the next big thing, it is the now big thing",
-      },
-      {
-        src:
-          "https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_1800,h_600/https://niptict.edu.kh/wp-content/uploads/2020/06/feature3.jpg",
-        txt:
-          "Teaching in the Internet age means we must teach tomorrow’s skills today.",
-      },
-    ],
+    items: "",
+    dialog: false,
+    dialog1: false,
+    e1: 1,
+    examId: "",
+    title: null,
+    duration: "",
+    timeValue: "",
+    publish: false,
+    total_cases: "",
+    new_cases: "",
+    total_deaths: "",
+    new_deaths: "",
+    date: "",
   }),
-  mounted() {},
+  async mounted() {
+    await this.loadData();
+  },
+  methods: {
+    async loadData() {
+      axios
+        .get("https://covid.ourworldindata.org/data/owid-covid-data.json")
+        .then((response) => {
+          this.items = response.data.KHM.data;
+          this.total_case();
+          window.console.log(this.items);
+        })
+        .catch((error) => {
+          window.console.log(error);
+        });
+    },
+    total_case() {
+      this.total_cases = this.items[this.items.length - 1].total_cases;
+      this.new_cases = this.items[this.items.length - 1].new_cases;
+      this.total_deaths = this.items[this.items.length - 1].total_deaths;
+      this.new_deaths = this.items[this.items.length - 1].new_deaths;
+      this.date = this.items[this.items.length - 1].date;
+    },
+  },
   computed: {},
 };
 </script>
-<style scoped>
-@media (max-width: 576px) {
-}
-</style>
