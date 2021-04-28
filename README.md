@@ -17,12 +17,17 @@
 
 #### 2. Go to class_api folder
 ###### 2.1  run: `composer install`
+- install dependencies
+- copy`env.example` to `.env`
+- generate key `php artisan key:generate`
+
 ###### 2.2  run: `php artisan migrate`
 ###### 2.3  run: `php artisan serve --port 8085`
 
 
 #### 3. Go to exam_api folder
 ###### 3.1  run: `composer install`
+(follow 3.1)
 ###### 3.2  run: `php artisan migrte`
 ###### 3.3  run: `php artisan serve --port 8083`
 
