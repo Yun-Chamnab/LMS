@@ -4,15 +4,13 @@
 
 #### 1. Go to lms_auth folder
 ###### 1.1  run: `composer install`
-- run `composer install` to install dependencies (consider using homestead via `vagrant up`)
 - copy `env.example` to `.env`
 - Setup your application & auth keys with `composer keys` & check `.env`file (automatically done via composer hook)
-- run migrations & seeders with `php artisan migrate --seed` (within your vm using `vagrant ssh`)
+- run migrations & seeders with `php artisan migrate --seed`
 - A default user is created during seeding: `demo@demo.com` / `password`
-- To quickly start a dev server run `.php artisan serve` (or via `homestead.test` for the vm)
+- To quickly start a dev server run `.php artisan serve`
 - Generate your api docs with `artisan apidoc:generate`
-###### 1.2  run: `php artisan migrate`
-###### 1.3  run: `php artisan serve`
+
 
 
 #### 2. Go to class_api folder
