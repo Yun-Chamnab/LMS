@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
+use App\Models\Exam;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Result extends Model
@@ -23,5 +24,10 @@ class Result extends Model
     public function question()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function quiz()
+    {
+        return $this->belongsTo(Exam::class, "quiz_id");
     }
 }

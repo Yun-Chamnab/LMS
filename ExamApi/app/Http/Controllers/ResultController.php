@@ -29,6 +29,12 @@ class ResultController extends Controller
         return $this->successResponse($result);
     }
 
+    public function studentHistory($id)
+    {
+        $result = Result::with('quiz')->where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        return $this->successResponse($result);
+    }
+
     public function store(Request $request)
     {
         $rules = [
