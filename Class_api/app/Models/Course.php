@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Classservice;
+use App\Models\Lesson;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UsesUuid;
 
@@ -32,5 +33,10 @@ class Course extends Model
     public function classes()
     {
         return $this->hasMany(Classservice::class);
+    }
+
+    public function lesson()
+    {
+        return $this->hasMany(Lesson::class, "course_id");
     }
 }

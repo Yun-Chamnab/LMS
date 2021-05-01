@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classservice;
+use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,16 +17,16 @@ class ClassServiceController extends Controller
         return $this->successResponse($class);
     }
 
-    // public function indexStudent()
-    // {
-    //     $exam = Exam::where('publish', '1')->get();
-    //     return $this->successResponse($exam);
-    // }
+    public function studentPerClass()
+    {
+        $exam = Classservice::withCount('stuperclass')->get();
+        return $this->successResponse($exam);
+    }
 
     // public function countExam()
     // {
     //     $exam = Exam::all()->count();
-    //     $exam1 = Exam::where('publish', 1)->get()->count();
+    // $exam1 = Exam::where('publish', 1)->get()->count();
     //     return $this->successResponse(["allExam" => $exam, "examPublish" => $exam1]);
     // }
 

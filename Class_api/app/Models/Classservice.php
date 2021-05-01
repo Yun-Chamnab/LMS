@@ -35,4 +35,9 @@ class Classservice extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+    public function stuperclass()
+    {
+        return $this->hasMany(Student::class, "class_id");
+    }
 }
