@@ -1,4 +1,4 @@
-## LMS
+## Learning management system 
 
 ### First Run
 
