@@ -3,7 +3,7 @@
 ### First Run
 
 #### 1. Go to lms_auth folder
-###### 1.1  run: `composer install`
+- run: `composer install`
 - copy `env.example` to `.env`
 - Setup your application & auth keys with `composer keys` & check `.env`file (automatically done via composer hook)
 - run migrations & seeders with `php artisan migrate --seed`
