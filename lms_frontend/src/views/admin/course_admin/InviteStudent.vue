@@ -225,7 +225,7 @@ export default {
         setTimeout(() => {
           resolve("resolved");
           axios
-            .get(apiUrl.list_student + this.$route.params.id, {})
+            .get(apiUrl.list_student + "/" + this.$route.params.id, {})
             .then((res) => {
               this.listStudent = res.data.data;
               window.console.log(this.listUser);

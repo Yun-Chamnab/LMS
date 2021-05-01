@@ -16,6 +16,10 @@ class CreateFilesTable extends Migration
         Schema::create('filestores', function (Blueprint $table) {
             $table->id();
             $table->string('lesson_uuid');
+            $table->foreign('lesson_uuid')
+                ->references('uuid')
+                ->on('lessons')
+                ->onDelete('cascade');
             $table->string('file_path')->nullable();
             $table->timestamps();
         });

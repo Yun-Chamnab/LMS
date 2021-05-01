@@ -18,6 +18,10 @@ class CreateStudentTable extends Migration
             $table->integer('student_id');
             $table->string('student_name');
             $table->string('class_id');
+            $table->foreign('class_id')
+                ->references('uuid')
+                ->on('classservices')
+                ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

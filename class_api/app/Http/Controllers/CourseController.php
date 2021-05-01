@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-
+use App\Models\Student;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -16,18 +17,32 @@ class CourseController extends Controller
         return $this->successResponse($course);
     }
 
-    // public function indexStudent()
-    // {
-    //     $exam = Exam::where('publish', '1')->get();
-    //     return $this->successResponse($exam);
-    // }
+    public function courseStudent($course)
+    {
+        // $exam = Student::where('student_id', $course)->get('class_id');
+        $exam = Student::where('student_id', $course)->get('class_id');
+        $result = null;
 
-    // public function countExam()
-    // {
-    //     $exam = Exam::all()->count();
-    //     $exam1 = Exam::where('publish', 1)->get()->count();
-    //     return $this->successResponse(["allExam" => $exam, "examPublish" => $exam1]);
-    // }
+        foreach ($exam as $key) {
+            if ($key->class_id) {
+
+                $result[] = Course::where('class_id', $key->class_id)->get();
+            }
+        }
+        return $this->successResponse($result);
+    }
+
+    public function countLesson()
+    {
+        $course1 = Course::all();
+        $lesson = Lesson::all()->count();
+        // // $exam1 = Exam::where('publish', 1)->get()->count();
+        // return $this->successResponse($course);
+
+        $course = Course::with('lesson')->get();
+        return $this->successResponse(["course" => $course1, "this" => $lesson]);
+    }
+
 
     public function show($course)
     {

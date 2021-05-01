@@ -16,6 +16,11 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('lesson_uuid');
+            $table->foreign('lesson_uuid')
+                ->references('uuid')
+                ->on('lessons')
+                ->onDelete('cascade');
+
             $table->string('video_link')->nullable();
             $table->timestamps();
         });

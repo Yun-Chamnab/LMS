@@ -9,6 +9,46 @@
       }
     "
   >
+    <div>
+      <div class="loading">
+        <loading
+          :active.sync="isLoading"
+          :is-full-page="fullPage"
+          loader="dots"
+          background-color="rgba(255, 255, 255, 5)"
+          :width="40"
+          :height="40"
+        >
+          <div v-if="myLoading">
+            <img width="100%" src="../../assets/images/niptict-loading.gif" />
+          </div>
+        </loading>
+      </div>
+      <div v-if="visible">
+        <v-card>
+          <v-snackbar
+            v-model="visible"
+            :bottom="y === 'bottom'"
+            :color="color"
+            :left="x === 'left'"
+            :multi-line="mode === 'multi-line'"
+            :right="x === 'right'"
+            :timeout="timeout"
+            :auto-width="true"
+            :top="y === 'top'"
+            :vertical="mode === 'vertical'"
+          >
+            {{ alertText }}
+
+            <template v-slot:action="{ attrs }">
+              <v-btn dark text v-bind="attrs" @click="alertMessage = false">
+                Close
+              </v-btn>
+            </template>
+          </v-snackbar>
+        </v-card>
+      </div>
+    </div>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -53,7 +93,7 @@
                     <v-btn
                       block
                       color="primary"
-                      @click="login"
+                      @click="login()"
                       :loading="loading"
                       type="submit"
                       >Login</v-btn
@@ -61,14 +101,6 @@
                   </v-card-actions>
                 </v-form>
               </v-card-text>
-              <!-- <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn block color="secondary" :loading="loading"
-                  ><router-link :to="{ name: 'SignUp' }"
-                    >Register</router-link
-                  ></v-btn
-                >
-              </v-card-actions> -->
             </v-card>
           </v-flex>
         </v-layout>
@@ -81,13 +113,29 @@
 </template>
 
 <script>
-// const axios = require("axios");
-// import store from "@/store";
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+
 import httpAxios from "@/httpAxios.js";
 export default {
+  props: [
+    "isLoading",
+    "fullPage",
+    "myLoading",
+    "alertMessage",
+    "color",
+    "alertText",
+  ],
   data() {
     return {
-      loading: false,
+      mode: "",
+      snackbar: true,
+      visible: false,
+      text: "Success",
+      timeout: 6000,
+      x: "right",
+      y: "top",
       email: "",
       password: "",
       hidePassword: true,
@@ -99,41 +147,11 @@ export default {
       },
     };
   },
+  components: { Loading },
   methods: {
-    // login() {
-    //   const vm = this;
-    //   if (!vm.email || !vm.password) {
-    //     vm.result = "Email and Password can't be null.";
-    //     vm.showResult = true;
-    //     return;
-    //   }
-    //   if (
-    //     vm.email === vm.$root.email &&
-    //     vm.password === vm.$root.password
-    //   ) {
-    //     vm.$router.push({ name: "Overview" });
-    //   } else {
-    //     vm.error = true;
-    //     vm.result = "Email or Password is incorrect.";
-    //     vm.showResult = true;
-    //   }
-    // },
     login: function () {
       const self = this;
-      // Clear Errors
-      // Object.keys(this.errors).forEach(function (key) {
-      //   self.errors[key] = false;
-      // });
-      // Ajax Request
-      // const vm = this;
-      // if (
-      //   this.email != this.$root.email &&
-      //   this.password != this.$root.password
-      // ) {
-      //   this.error = true;
-      //   this.result = "Email and Password is incorrect.";
-      //   this.showResult = true;
-      // }
+
       if (!this.email || !this.password) {
         this.result = "Email and Password can't be null";
         this.showResult = true;
@@ -149,17 +167,22 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            self.$store.commit("LOGGED_USER", response.data);
-            // let loggedUser = store.getters.getLoggedUser;
-            if (response.data.data.user.roleNames == "administrator") {
-              self.$router.push({ name: "OverviewAdmin" });
-              self.$store.commit("LOGGED_USER", response.data);
-            } else if (response.data.data.user.roleNames == "student") {
-              self.$router.push({ name: "Overview" });
-              self.$store.commit("LOGGED_USER", response.data);
-            }
+            this.myLoading = true;
+            this.isLoading = true;
+            setTimeout(() => {
+              if (response.data.data.user.roleNames == "administrator") {
+                self.$router.push({ name: "OverviewAdmin" });
+                self.$store.commit("LOGGED_USER", response.data);
+              } else if (response.data.data.user.roleNames == "student") {
+                self.$router.push({ name: "Overview" });
+                self.$store.commit("LOGGED_USER", response.data);
+              }
+              this.myLoading = false;
+              this.isLoading = false;
+            }, 3000);
           }
-          window.console.log(response);
+
+          window.console.log(setTimeout);
         })
         .catch((error) => {
           try {

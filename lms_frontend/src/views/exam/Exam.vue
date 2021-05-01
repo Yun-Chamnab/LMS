@@ -8,28 +8,23 @@
         cols="12"
         sm="4"
       >
-        <router-link
-          style="display: inline-block; text-decoration: none"
-          :to="disable ? '' : 'quiz/' + item.uuid + '&' + item.duration"
-        >
-          <span>
-            <v-card
-              outlined
-              tile
-              :class="checkOneSubmite(item.uuid)"
-              dark
-              :disabled="disable"
-              min-width="200px"
-              min-height="100"
-              @click="
-                $router.push({ name: 'test2', params: { id: item.uuid } })
-              "
-            >
-              <v-card-title class="headline"> {{ item.name }} </v-card-title>
-              <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
-            </v-card>
-          </span>
-        </router-link>
+        <span>
+          <v-card
+            :to="'quiz/' + item.uuid + '&' + item.duration"
+            outlined
+            tile
+            :class="checkOneSubmite(item.uuid)"
+            dark
+            :disabled="disable"
+            min-width="200px"
+            min-height="100"
+            @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
+          >
+            <v-card-title class="headline"> {{ item.name }} </v-card-title>
+            <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
+            <v-card-subtitle>{{ convertDateTime(item.created_at) }}</v-card-subtitle>
+          </v-card>
+        </span>
       </div>
     </v-row>
   </v-container>
@@ -41,6 +36,7 @@ import TakeExam from "./TakeExam";
 import store from "@/store";
 const apiUrl = require("../../apiUrl.js");
 import { VDigitalTimePicker } from "v-digital-time-picker";
+import moment from "moment";
 
 export default {
   components: {
@@ -69,7 +65,7 @@ export default {
   },
   methods: {
     async loadData() {
-      let strUrl = apiUrl.student_list_exam;
+      let strUrl = apiUrl.student_list_exam + this.$route.params.uuid;
       let method = "get";
       axios({
         method: method,
@@ -112,35 +108,24 @@ export default {
         }
       });
       let already1 = already;
-      // this.isDisabled = already;
       this.isDisabled(already);
 
       let color = already1 == false ? "blue" : "red";
       return "disable rounded color: " + color;
     },
-
     isDisabled: function (e) {
       if (e === true) {
         return (this.disable = e);
       } else {
         return (this.disable = e);
       }
-      // return (this.disable = e);
     },
-
-    // colorClass() {
-    //   let color = this.already == false ? "green" : "red";
-    //   return "rounded color: " + color;
-    // },
+    convertDateTime(value) {
+      let dateTime = moment(value);
+      let date = dateTime.fromNow();
+      return date;
+    },
   },
-  computed: {
-    // isDisabled: function (value) {
-    //   if (value === true) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-  },
+  computed: {},
 };
 </script>

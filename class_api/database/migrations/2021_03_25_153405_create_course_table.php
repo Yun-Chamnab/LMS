@@ -16,6 +16,11 @@ class CreateCourseTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('uuid')->unique();
             $table->string('class_id');
+            // $table->unsignedInteger('class_id');
+            $table->foreign('class_id')
+                ->references('uuid')
+                ->on('classservices')
+                ->onDelete('cascade');
             $table->integer('teacher_id');
             $table->string('teacher_name');
             $table->string('title');

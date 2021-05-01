@@ -10,6 +10,7 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'class'], function () use ($router) {
         $router->get('/', ['uses' => 'ClassServiceController@index']);
+        $router->get('/studentClass', ['uses' => 'ClassServiceController@studentPerClass']);
         $router->post('/', ['uses' => 'ClassServiceController@store']);
         $router->get('/{class}', ['uses' => 'ClassServiceController@show']);
         $router->put('/{class1}', ['uses' => 'ClassServiceController@update']);
@@ -27,9 +28,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'course'], function () use ($router) {
         $router->get('/', ['uses' => 'CourseController@index']);
         $router->post('/', ['uses' => 'CourseController@store']);
+        $router->get('/lessoncourse', ['uses' => 'CourseController@countLesson']);
         $router->get('/{course}', ['uses' => 'CourseController@show']);
         $router->put('/{course}', ['uses' => 'CourseController@update']);
         $router->delete('/{course}', ['uses' => 'CourseController@destroy']);
+        $router->get('/student/{course}', ['uses' => 'CourseController@courseStudent']);
     });
 
     $router->group(['prefix' => 'lesson'], function () use ($router) {

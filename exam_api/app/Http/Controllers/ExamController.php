@@ -16,9 +16,9 @@ class ExamController extends Controller
         return $this->successResponse($exam);
     }
 
-    public function indexStudent()
+    public function indexStudent($exam)
     {
-        $exam = Exam::where('publish', '1')->get();
+        $exam = Exam::where('publish', '1')->where('course_id', $exam)->orderBy('created_at', 'desc')->get();
         return $this->successResponse($exam);
     }
 

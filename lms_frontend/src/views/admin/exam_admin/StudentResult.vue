@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <div class="mx-3 mt-3" cols="12" sm="4">
+    <div class="mx-3 mt-6" cols="12" sm="4">
       <v-card
         class="mx-auto mb-3"
         color="teal lighten-1"
@@ -27,7 +27,6 @@
         <v-list-item class="white--text">
           <v-col cols="12">
             <v-row>
-              <!-- <div v-for="(item, index) in items" :key="index"> -->
               <v-col cols="4">
                 <h3 class="text-center">{{ this.student90 }}</h3></v-col
               >
@@ -52,7 +51,6 @@
                   <i class="fas fa-caret-down"></i> 50%
                 </h4></v-col
               >
-              <!-- </div> -->
             </v-row>
           </v-col>
           <v-list-item-avatar tile size="auto"
@@ -63,12 +61,39 @@
     </div>
 
     <v-col>
+      <v-card-title>
+        <JsonCSV
+          class="btn btn-default"
+          :data="items"
+          name="student_result.csv"
+        >
+          <v-btn
+            bottom
+            color="indigo darken-4"
+            class="rounded-pill"
+            width="120"
+            dark
+          >
+            <h6>Export in CSV</h6>
+          </v-btn>
+        </JsonCSV>
+
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
       <v-data-table
         :headers="headers"
         :items="items"
         :items-per-page="10"
         item-key="name"
-        class="elevation-1"
+        :search="search"
+        class="elevation-1 blue lighten-5"
         :footer-props="{
           showFirstLastPage: true,
           firstIcon: 'mdi-arrow-collapse-left',
@@ -92,7 +117,9 @@
 import axios from "axios";
 const apiUrl = require("../../../apiUrl");
 import moment from "moment";
+import JsonCSV from "vue-json-csv";
 export default {
+  components: { JsonCSV },
   data() {
     return {
       score: [],
@@ -101,7 +128,7 @@ export default {
       student50: 0,
       student90: 0,
       percent: 0,
-      itemid: this.$route.params.uuid,
+      itemid: this.$route.params.id,
       items: [],
       headers: [
         { text: "Student Name", value: "student_name" },
@@ -109,6 +136,7 @@ export default {
         { text: "Total Score", value: "total_score" },
         { text: "Submit Time", value: "created_at" },
       ],
+      search: "",
     };
   },
   async mounted() {
@@ -147,10 +175,9 @@ export default {
     calculatePass() {
       for (let index = 0; index < this.items.length; index++) {
         const element = this.items[index];
-        window.console.log(element, "this");
+        // window.console.log(element, "this");
         this.percent = (element.score * 100) / this.total_score;
-        window.console.log(this.percent, "%$");
-
+        // window.console.log(this.percent, "%$");
         if (this.percent > 90) {
           this.student90 += 1;
           // return this.student90;
@@ -165,7 +192,7 @@ export default {
     },
     convertDateTime(value) {
       let dateTime = moment(value);
-      return dateTime.format("DD-MMM-YYYY, hh:mm:ss a");
+      return dateTime.format("DD-MM-YYYY, hh:mm:ss a");
     },
   },
 };

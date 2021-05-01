@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h3>{{ time }}</h3>
+    <!-- <h3>{{ time }}</h3> -->
 
     <v-card class="mx-auto mt-1" max-width="400" tile v-if="result == false">
       <v-list class="mx-5">
@@ -98,10 +98,8 @@ export default {
       counting: true,
       duration: this.$route.params.duration,
       countdown: false,
-      questionIndex: 0,
-      userResponses: Array(),
       currentQuestion: 0,
-      date: moment(100000),
+      date: moment(20),
     };
   },
   async mounted() {
@@ -195,7 +193,7 @@ export default {
   },
   computed: {
     time: function () {
-      return this.date.format("mm:ss");
+      return this.date.format("h:mm:ss");
     },
   },
 };

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use App\Models\Class;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Student;
+use App\Models\Course;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UsesUuid;
+use DB;
 
 class Classservice extends Model
 {
@@ -19,7 +21,7 @@ class Classservice extends Model
     protected $fillable = [
         'class_name', 'description', 'color'
     ];
-    use SoftDeletes;
+    // use SoftDeletes;
 
 
     protected $guarded = ['uuid'];
@@ -27,5 +29,15 @@ class Classservice extends Model
     public function product($id)
     {
         return $this->with($this->with)->findOrFail($id);
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function stuperclass()
+    {
+        return $this->hasMany(Student::class, "class_id");
     }
 }

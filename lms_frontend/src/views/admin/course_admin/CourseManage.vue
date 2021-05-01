@@ -77,13 +77,11 @@
               >{{ $t("cancel") }}</v-btn
             >
             <v-btn
-              class="btn_save_new float-right"
-              @click="onSaveClose(true)"
-              >{{ $t("save_new") }}</v-btn
-            >
-            <v-btn
               class="btn_save_close float-right"
-              @click="onSaveClose(false)"
+              @click="
+                onSaveClose(true);
+                dialog = false;
+              "
               >{{ $t("save_close") }}
             </v-btn>
           </v-card-actions>
@@ -98,7 +96,6 @@
           >
             <v-card
               max-width="400"
-              min-width="400"
               :color="item.color"
               dark
               @click="
@@ -163,7 +160,9 @@ export default {
       { color: "#34d491" },
     ],
     dialog: false,
+
     class_name: "",
+    uuid: "",
     classId: "",
     color: "",
     description: "",
@@ -175,6 +174,7 @@ export default {
   methods: {
     clear() {
       (this.class_name = ""), (this.description = ""), (this.color = "");
+      this.uuid = "";
     },
     async loadClass() {
       new Promise((resolve) => {
@@ -205,7 +205,7 @@ export default {
     },
     async deleteClass() {
       new Promise((resolve) => {
-        setTimeout(() => {  
+        setTimeout(() => {
           resolve("resolved");
           axios
             .delete(apiUrl.delete_class + "/" + this.deletItems.uuid, {})
@@ -218,6 +218,9 @@ export default {
         }, 200);
       });
     },
+    onNewClick() {
+      this.classId = "";
+    },
     async onSaveClose(isNew) {
       new Promise((resolve) => {
         setTimeout(() => {
@@ -228,6 +231,7 @@ export default {
           if (this.classId !== "") {
             strUrl = apiUrl.edit_class + "/" + this.classId;
             method = "put";
+            window.console.log(this.classId, "ID");
           }
           axios({
             method: method,
@@ -242,10 +246,12 @@ export default {
               window.console.log(response);
               document.body.style.background = this.color;
               if (isNew) {
-                (this.class_name = ""),
-                  (this.color = ""),
-                  (this.description = "");
+                this.class_name = "";
+                this.description = "";
+                this.color = "";
+                this.classId = "";
               } else {
+                this.clear();
                 this.dialog = false;
               }
 

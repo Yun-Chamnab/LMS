@@ -26,7 +26,7 @@
                       <v-list-item-subtitle class="white--text">
                         Teacher: {{ this.$route.params.teacher }}
                       </v-list-item-subtitle>
-                      <v-list-item-subtitle class="white--text mt-3 float-left">
+                      <v-list-item-subtitle class="white--text mt-4 float-left">
                         IP Address: {{ this.clientIp }}
                       </v-list-item-subtitle>
                       <v-list-item-subtitle> </v-list-item-subtitle>
@@ -39,7 +39,7 @@
                       ></i>
                     </v-list-item-avatar>
                   </v-list-item>
-                  <v-dialog v-model="dialog1">
+                  <v-dialog v-model="dialog1" max-width="900">
                     <v-btn
                       color="transparent"
                       class="black--text mt-12 ml-4"
@@ -52,10 +52,10 @@
                     </v-btn>
 
                     <iframe
-                      src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FBangkok&amp;src=Y2hhbW5hYi55dW5Ac3R1ZGVudC5uaXB0aWN0LmVkdS5raA&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb20xNDc1YmRmY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb21hYmQxOWY1OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb20zYTQ3ODU4YUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb20yM2IwNzEyOUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb21kMGQ4NTIyMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb202NGRkZGU1NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb20yZWYwMDgyYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y19jbGFzc3Jvb203ZTkzOGIwZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4ua2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%230047a8&amp;color=%230047a8&amp;color=%23c26401&amp;color=%23137333&amp;color=%23137333&amp;color=%230047a8&amp;color=%23202124&amp;color=%230047a8&amp;color=%230B8043"
-                      style="border-width: 0"
-                      max-width="500"
-                      height="600"
+                      src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FBangkok&amp;src=bXJybmFibWF4aUBnbWFpbC5jb20&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=Y2xhc3Nyb29tMTA3MzcwMDg4ODc1OTk5ODk4NTQ1QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=Y2xhc3Nyb29tMTA4NzU2MjY2MjM2NTk1MTUyMjY2QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=Y2xhc3Nyb29tMTA1NTU0OTkzNDMwMTUzMjQ5OTMwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tN2E2NTljNGJAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tNzE1MDYyY2JAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tZjQ1NjExNDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tMjBlYmJlMzZAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tYTUxZGUzNGVAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tYzgyMTU4NzdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tNDgyMDRkOWJAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=Y2xhc3Nyb29tMTA4ODkzMjgxNjcyMDczNjk0NTM1QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tZDY5M2M5YzNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=Y2xhc3Nyb29tMTEyMTA1MDMzMTU4NzI3NTk4NzA5QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=ZW4ua2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=Y2xhc3Nyb29tMTE1MzQwNDkyMDYyNDcxMzIwMDA0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=Y2xhc3Nyb29tMTE2NTI0NzU4Mzg1MTk2MjM1ODA3QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tNTI3NzY1NTNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tYWFlMTkxNGVAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmlwdGljdC5lZHUua2hfY2xhc3Nyb29tNWNkMDgyMWJAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=am5obmR0ZGhtZzJmazl0ZTlsbWtobGh2bGI2NzZubHZAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%23137333&amp;color=%23202124&amp;color=%230047a8&amp;color=%23007b83&amp;color=%230047a8&amp;color=%230047a8&amp;color=%23c26401&amp;color=%23c26401&amp;color=%23007b83&amp;color=%230047a8&amp;color=%23202124&amp;color=%230047a8&amp;color=%231c3aa9&amp;color=%230B8043&amp;color=%23137333&amp;color=%23c26401&amp;color=%23c26401&amp;color=%23c26401&amp;color=%23c26401&amp;color=%23A79B8E&amp;showTitle=0&amp;showNav=1&amp;showDate=1&amp;showPrint=0&amp;showTabs=1&amp;showCalendars=0&amp;showTz=1"
+                      style="border: solid 1px #777"
+                      width="600"
+                      height="550"
                       frameborder="0"
                       scrolling="no"
                     ></iframe>
@@ -203,6 +203,7 @@
                   <router-link
                     class="text-decoration-none"
                     :to="'detail/' + item.uuid + '&' + title"
+                    
                   >
                     <v-list-item>
                       <v-avatar color="pink" size="40" class="mr-3"
@@ -255,6 +256,7 @@
                 </v-card>
               </v-hover>
             </div>
+
           </v-tab-item>
           <v-tab-item><ExamManage /></v-tab-item
         ></v-tabs>
@@ -388,8 +390,10 @@ export default {
         }, 200);
       });
     },
+    
   },
   computed: {},
+  
 };
 </script>
 
