@@ -1,76 +1,105 @@
 <template>
-  <v-container>
-    <!-- <h3>{{ time }}</h3> -->
+  <v-app>
+    <v-container>
+      <!-- <p class="display-1 text-center">Quizz</p>
+      <p class="display-1 text-center">
+        Duration:
+        <label style="font-color: #00887b">{{
+          this.$route.params.duration
+        }}</label>
+      </p> -->
+      <v-row dense class="mt-8">
+        <v-col cols="6" sm="12">
+          <v-card color="#ec525e" dark class="mx-auto" max-width="850">
+            <v-card-title class="text-h5"> Quizz </v-card-title>
 
-    <v-card class="mx-auto mt-1" max-width="400" tile v-if="result == false">
-      <v-list class="mx-5">
-        <v-list-item-group color="indigo darken-4">
-          <v-list-item-title class="mb-3"
-            ><h4>
-              <span class="black--text"
-                >{{ items[currentQuestion].question }}
-              </span>
-              <span class="float-right"
-                ><h5>{{ items[currentQuestion].score }}pt</h5></span
-              >
-            </h4>
-          </v-list-item-title>
+            <v-card-subtitle
+              >This is a short answer quiz. You can list down the most important
+              points in your own words.</v-card-subtitle
+            >
 
-          <v-list-item
-            v-for="answ in items[currentQuestion].answer"
-            :key="answ"
-            @click="
-              checkAnswer(answ.status_correct, items[currentQuestion].score)
-            "
+            <v-card-subtitle
+              >Instruction: When you choose the answer , it will automatically
+              load to another Question
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col class="tab_wrapper py-0" cols="6" sm="12">
+          <v-card
+            class="mx-auto mt-1"
+            max-width="850"
+            tile
+            v-if="result == false"
           >
-            <v-list-item-content>
-              <v-list-item-title class="black--text"
-                >{{ answ.answer }}
-                <!-- <span v-if="result == true"
-                    ><span v-if="answ.status_correct == 1"
-                      ><i
-                        class="far fa-check-circle float-right"
-                        style="color: green"
-                      ></i>
-                    </span>
-                    <span v-else
-                      ><i
-                        class="far fa-times-circle float-right"
-                        style="color: red"
-                      ></i>
-                    </span>
-                  </span> -->
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-      <span class="float-right"
-        >{{ currentQuestion + 1 }} of {{ items.length }}</span
-      >
-    </v-card>
+            <v-list class="mx-5">
+              <v-list-item-group color="indigo darken-4">
+                <v-list-item-subtitle class="mb-3"
+                  ><h4>
+                    <label class="black--text"
+                      >{{ items[currentQuestion].question }}
+                    </label>
+                    <label class="float-right"
+                      ><h5>{{ items[currentQuestion].score }}pt</h5></label
+                    >
+                  </h4>
+                </v-list-item-subtitle>
 
-    <v-layout justify-center v-if="result == true">
-      <span>
-        <v-responsive
-          class="text-center green lighten-1 rounded-circle d-inline-flex align-center justify-center ma-3"
-          height="150"
-          width="150"
-        >
-          <h4>Result: {{ this.point }}/ {{ this.total_point }}</h4>
-        </v-responsive>
-      </span>
-    </v-layout>
-    <v-layout justify-center>
-      <router-link
-        v-if="result == true"
-        style="display: inline-block; text-decoration: none"
-        :to="'../course'"
-      >
-        <v-btn text class="error">Go Back</v-btn>
-      </router-link>
-    </v-layout>
-  </v-container>
+                <v-list-item
+                  v-for="answ in items[currentQuestion].answer"
+                  :key="answ"
+                  @click="
+                    checkAnswer(
+                      answ.status_correct,
+                      items[currentQuestion].score
+                    )
+                  "
+                >
+                  <template v-slot:default="{ active }">
+                    <v-list-item-action>
+                      <v-checkbox :input-value="active"></v-checkbox>
+                    </v-list-item-action>
+
+                    <v-list-item-content>
+                      <v-list-item-title class="black--text"
+                        >{{ answ.answer }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+            <span class="float-right"
+              >{{ currentQuestion + 1 }} of {{ items.length }}</span
+            >
+          </v-card>
+
+          <v-layout justify-center v-if="result == true">
+            <span>
+              <v-responsive
+                class="text-center green lighten-1 rounded-circle d-inline-flex align-center justify-center ma-3"
+                height="150"
+                width="150"
+              >
+                <h4>Result: {{ this.point }}/ {{ this.total_point }}</h4>
+              </v-responsive>
+            </span>
+          </v-layout>
+          <v-layout justify-center>
+            <router-link
+              v-if="result == true"
+              style="display: inline-block; text-decoration: none"
+              :to="'../course'"
+            >
+              <v-btn text class="error">Go Back</v-btn>
+            </router-link>
+          </v-layout>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
