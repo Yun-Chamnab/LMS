@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { Trans } from "@/plugins/Translation";
 import store from "../store";
-// const axios = require("axios");
+const axios = require("axios");
 import { i18n } from "../i18n";
 // let historyPages 	= store.default.getters.getHistoryPages
 
@@ -315,19 +315,19 @@ router.beforeEach((to, from, next) => {
 
   // Check if access token expired
   if (loggedUser) {
-    // axios.interceptors.response.use(
-    //   (response) => {
-    //     return response;
-    //   },
-    //   function(error) {
-    //     if (error.response.status === 401) {
-    //       store.dispatch("logOut");
-    //       return redirectToRoute("SignIn");
-    //     }
-    //     return Promise.reject(error.response);
-    //   }
-    // );
-    // window.console.log("ex", test)
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      function(error) {
+        if (error.response.status === 401) {
+          store.dispatch("logOut");
+          return redirectToRoute("SignIn");
+        }
+        return Promise.reject(error.response);
+      }
+    );
+    
   }
 
   if (to.meta.auth) {
