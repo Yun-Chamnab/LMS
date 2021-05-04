@@ -14,12 +14,14 @@
 
 #### 2. Go to class_api folder
 - run: `composer install`
+- go to env: `set database_name`
 - run: `php artisan migrate`
 - run: `php artisan serve --port 8085`
 
 
 #### 3. Go to exam_api folder
 - run: `composer install`
+-  go to env: `set database_name`
 - run: `php artisan migrte`
 - run: `php artisan serve --port 8083`
 
