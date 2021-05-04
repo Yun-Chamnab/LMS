@@ -14,19 +14,19 @@
 
 
 #### 2. Go to class_api folder
-###### 2.1  run: `composer install`
+- run: `composer install`
 - copy`env.example` to `.env`
-###### 2.2  run: `php artisan migrate`
-###### 2.3  run: `php artisan serve --port 8085`
+- run: `php artisan migrate`
+- run: `php artisan serve --port 8085`
 
 
 #### 3. Go to exam_api folder
-###### 3.1  run: `composer install`
+- run: `composer install`
 - copy`env.example` to `.env`
-###### 3.2  run: `php artisan migrte`
-###### 3.3  run: `php artisan serve --port 8083`
+- run: `php artisan migrte`
+- run: `php artisan serve --port 8083`
 
 
 #### 4. Go to lms_frontend folder
-###### 4.1  run: `npm install`
-###### 4.2  run: `npm run serve`
+- run: `npm install`
+- run: `npm run serve`
