@@ -4,7 +4,6 @@
 
 #### 1. Go to lms_auth folder
 - run: `composer install`
-- copy `env.example` to `.env`
 - Setup your application & auth keys with `composer keys` & check `.env`file (automatically done via composer hook)
 - run migrations & seeders with `php artisan migrate --seed`
 - A default user is created during seeding: `demo@demo.com` / `password`
@@ -15,14 +14,12 @@
 
 #### 2. Go to class_api folder
 - run: `composer install`
-- copy`env.example` to `.env`
 - run: `php artisan migrate`
 - run: `php artisan serve --port 8085`
 
 
 #### 3. Go to exam_api folder
 - run: `composer install`
-- copy`env.example` to `.env`
 - run: `php artisan migrte`
 - run: `php artisan serve --port 8083`
 
