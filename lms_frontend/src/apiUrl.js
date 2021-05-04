@@ -45,9 +45,9 @@ module.exports = {
 
     // File URL
   file_path:
-  "http://localhost/LMS-Class/LMS/Class_api/public/uploads/course_img/",
+  "http://localhost/LMS/class_api/public/uploads/course_img/",
   file_path1:
-  "http://localhost/LMS-Class/LMS/Class_api/public/uploads/img/",
+  "http://localhost/LMS/class_api/public/uploads/img/",
           
 
     // course for student

@@ -283,7 +283,7 @@
       <v-col sm="5" cols="12">
         <v-row>
           <v-col sm="12" cols="12">
-            <v-card class="mx-auto" max-width="400">
+            <v-card class="mx-auto">
               <v-card-text>
                 <v-list-item>
                   <v-list-item-content>

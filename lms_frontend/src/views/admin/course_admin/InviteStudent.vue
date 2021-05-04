@@ -46,14 +46,8 @@
               @click="(dialog = false), clear()"
               >{{ $t("cancel") }}</v-btn
             >
-            <v-btn
-              class="btn_save_new float-right"
-              @click="onSaveClose(true)"
-              >{{ $t("save_new") }}</v-btn
-            >
-            <v-btn
-              class="btn_save_close float-right"
-              @click="onSaveClose(false)"
+
+            <v-btn class="btn_save_close float-right" @click="onSaveClose()"
               >{{ $t("save_close") }}
             </v-btn>
           </v-card-actions>
