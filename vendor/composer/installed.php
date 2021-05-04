@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c22cc5afe669609b744045440e37f0303d3f98b3',
+    'reference' => 'e3481262eeb330e9f2dab2ffe2d848c440c9aff3',
     'name' => 'mstaack/lumen-api-starter',
   ),
   'versions' => 
@@ -240,6 +240,33 @@
       array (
       ),
       'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
+    ),
+    'guzzlehttp/guzzle' => 
+    array (
+      'pretty_version' => '7.0.0',
+      'version' => '7.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '414c24961042f6616fb43e23fa69a785f9fc053e',
+    ),
+    'guzzlehttp/promises' => 
+    array (
+      'pretty_version' => '1.4.1',
+      'version' => '1.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
+    ),
+    'guzzlehttp/psr7' => 
+    array (
+      'pretty_version' => '1.8.2',
+      'version' => '1.8.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dc960a912984efb74d0a90222870c72c87f10c91',
     ),
     'hamcrest/hamcrest-php' => 
     array (
@@ -633,7 +660,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c22cc5afe669609b744045440e37f0303d3f98b3',
+      'reference' => 'e3481262eeb330e9f2dab2ffe2d848c440c9aff3',
     ),
     'myclabs/deep-copy' => 
     array (
@@ -889,6 +916,38 @@
         0 => '1.0',
       ),
     ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-message' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f6561bf28d520154e4b0ec72be95418abe6d9363',
+    ),
+    'psr/http-message-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
     'psr/log' => 
     array (
       'pretty_version' => '1.1.3',
@@ -902,8 +961,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -923,6 +982,15 @@
       array (
       ),
       'reference' => '90da7f37568aee36b116a030c5f99c915267edd4',
+    ),
+    'ralouphie/getallheaders' => 
+    array (
+      'pretty_version' => '3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
     ),
     'ramsey/uuid' => 
     array (

@@ -39,6 +39,7 @@ $app->configure('mail');
 $app->configure('permission');
 $app->configure('constants');
 $app->configure('apidoc');
+$app->configure('services');
 
 /*
 |--------------------------------------------------------------------------
