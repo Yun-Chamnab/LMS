@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <h2 style="font-weight: bold; font-size: 35px">
-        {{ $t("Classroom") }}
+        {{ $t("classroom") }}
       </h2>
       <div style="height: 10px; width: 100%"></div>
 
@@ -133,7 +133,7 @@
               <v-divider class="mx-4"></v-divider>
 
               <v-card-actions>
-                <v-btn color="white" text> Learn More </v-btn>
+                <v-btn color="white" text> {{$("learn_more")}} </v-btn>
               </v-card-actions>
             </v-card>
           </router-link>
