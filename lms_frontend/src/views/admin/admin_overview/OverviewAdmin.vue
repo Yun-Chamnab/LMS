@@ -115,7 +115,7 @@
                     class="white--text text-right text-uppercase float-right"
                     style="font-size: 30px"
                   >
-                    {{ $t("quizz") }}
+                    {{ $t("quiz") }}
                   </h4>
                 </v-col>
               </v-row>
@@ -288,14 +288,14 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title class="title red--text">
-                      Total Cases: {{ total_cases }}
+                     {{$t("totalcases")}} {{ total_cases }}
                     </v-list-item-title>
                     <v-list-item-subtitle> {{ date }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-row align="center">
-                    <h4 class="subtitle-1">New Cases:</h4>
+                    <h4 class="subtitle-1">{{$t("newcase")}}</h4>
 
                     <v-col class="display-2 red--text" cols="4">
                       {{ new_cases }}
@@ -315,7 +315,7 @@
                   </v-list-item-icon>
                   <v-list-item-title
                     ><h4 class="subtitle-1">
-                      New Deaths:
+                      {{$t("newdeath")}}
                       <span class="red--text font-weight-bold">
                         {{ new_deaths }}</span
                       >
@@ -328,7 +328,7 @@
                   </v-list-item-icon>
                   <v-list-item-title
                     ><h4 class="subtitle-1">
-                      Total Deaths:
+                      {{$t("totaldeath")}}
                       <span class="red--text font-weight-bold">
                         {{ total_deaths }}</span
                       >
@@ -377,7 +377,7 @@
     </v-row>
     <div>
       <chart
-        title-text="Number of student in each class"
+        title-text= "Number of student in each class"
         :data-source="studentperclass"
         :series="series1"
         :legend-position="'bottom'"

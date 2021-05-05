@@ -6,6 +6,7 @@
   "attendance": "Exam History",
   "course": "Course",
   "exam": "Exam",
+  "classroom": "Classroom",
   "feedback": "Feedback",
   "coming_soon": "Coming Soon",
   "admin_dashboard": "Dashboard",
@@ -36,13 +37,21 @@
   "role_name": "Role Name",
   "permission_name": "Permission Name",
   "permissions": "Permissions",
+  "learn_more": "Learn More",
   "name": "Username",
   "email": "Email",
   "role": "Role",
+  "cancel": "Cancel",
   "password": "Password",
   "page_not_found": "Page Not Found",
-
+  "student": "Student" ,
   "statistics": "Statistics",
-  "quizz": "Quizz",
+  "quiz": "Quiz",
+  "overviewadmin": "Overview Admin",
+  "totalcases": "Total Cases :",
+  "newcase": "New Cases : ",
+  "newdeath": "New Death : ",
+  "totaldeath": "Total Death : ",
   "class": "Class"
+  
 }
