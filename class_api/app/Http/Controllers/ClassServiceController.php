@@ -19,7 +19,7 @@ class ClassServiceController extends Controller
 
     public function studentPerClass()
     {
-        $exam = Classservice::withCount('stuperclass')->get();
+        $exam = Classservice::withCount('stuperclass')->withCount('courses')->get();
         return $this->successResponse($exam);
     }
 

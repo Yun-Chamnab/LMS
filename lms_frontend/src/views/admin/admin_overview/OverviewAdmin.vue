@@ -283,7 +283,7 @@
       <v-col sm="5" cols="12">
         <v-row>
           <v-col sm="12" cols="12">
-            <v-card class="mx-auto" max-width="400">
+            <v-card class="mx-auto">
               <v-card-text>
                 <v-list-item>
                   <v-list-item-content>
@@ -381,6 +381,7 @@
         :data-source="studentperclass"
         :series="series1"
         :legend-position="'bottom'"
+        :tooltip="tooltip"
         :theme="'sass'"
       >
       </chart>
@@ -436,11 +437,21 @@ export default {
     studentperclass: [],
     series1: [
       {
+        name: "Student per class",
         field: "stuperclass_count",
-        labels: {
-          visible: true,
-        },
         categoryField: "class_name",
+        tooltip: {
+          visible: true,
+          template: "Student: #= value #",
+        },
+      },
+      {
+        name: "Course per class",
+        field: "courses_count",
+        tooltip: {
+          visible: true,
+          template: "Course: #= value #",
+        },
       },
     ],
     total_cases: "",

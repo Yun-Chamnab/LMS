@@ -131,7 +131,7 @@ const routes = [
             name: "Attendance",
             component: load("attendance/Attendance"),
             meta: {
-              mainMenu: "Attendance",
+              mainMenu: "Exam History",
               auth: true,
               adminAuth: false,
               guest: false,
@@ -327,7 +327,7 @@ router.beforeEach((to, from, next) => {
         return Promise.reject(error.response);
       }
     );
-    // window.console.log("ex", test)
+    
   }
 
   if (to.meta.auth) {

@@ -1,12 +1,15 @@
 <template>
   <v-container class="grey lighten-5">
+    <h2 style="font-weight: bold; font-size: 35px">
+      {{ $t("quizz") }}
+    </h2>
     <v-row>
-      <div
-        class="mx-3 mt-3"
+      <v-col
+        class="tab_wrapper py-0 mt-5"
         v-for="(item, i) in items"
         :key="i"
         cols="12"
-        sm="4"
+        sm="3"
       >
         <span>
           <v-card
@@ -16,16 +19,19 @@
             :class="checkOneSubmite(item.uuid)"
             dark
             :disabled="disable"
-            min-width="200px"
+            class="mx-auto"
+            max-width="800"
             min-height="100"
             @click="$router.push({ name: 'test2', params: { id: item.uuid } })"
           >
             <v-card-title class="headline"> {{ item.name }} </v-card-title>
             <v-card-subtitle>Duration: {{ item.duration }}</v-card-subtitle>
-            <v-card-subtitle>{{ convertDateTime(item.created_at) }}</v-card-subtitle>
+            <v-card-subtitle>{{
+              convertDateTime(item.created_at)
+            }}</v-card-subtitle>
           </v-card>
         </span>
-      </div>
+      </v-col>
     </v-row>
   </v-container>
 </template>

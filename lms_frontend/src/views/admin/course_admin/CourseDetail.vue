@@ -60,7 +60,8 @@
                       scrolling="no"
                     ></iframe>
                   </v-dialog>
-                  <v-menu origin="center center" transition="scale-transition">
+
+                  <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         bottom
@@ -73,105 +74,98 @@
                         v-on="on"
                       >
                         <h5>Create</h5>
-                        <i class="fas fa-sort-down fa-lg mb-2"></i>
                       </v-btn>
                     </template>
 
-                    <v-list>
-                      <v-dialog v-model="dialog" width="500">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-list-item v-bind="attrs" v-on="on"
-                            >New Lesson</v-list-item
-                          >
-                        </template>
+                    <v-card fluid>
+                      <v-card-title class="headline grey lighten-2">
+                        Create Lesson
+                      </v-card-title>
 
-                        <v-card fluid>
-                          <v-card-title class="headline grey lighten-2">
-                            Create Lesson
-                          </v-card-title>
+                      <v-card-text>
+                        <v-form v-model="valid">
+                          <v-container>
+                            <v-row>
+                              <v-col cols="12" md="12">
+                                <v-text-field
+                                  v-model="lesson"
+                                  label="Title of Lesson"
+                                  required
+                                  outlined
+                                ></v-text-field>
+                              </v-col>
 
-                          <v-card-text>
-                            <v-form v-model="valid">
-                              <v-container>
-                                <v-row>
-                                  <v-col cols="12" md="12">
-                                    <v-text-field
-                                      v-model="lesson"
-                                      label="Title of Lesson"
-                                      required
-                                      outlined
-                                    ></v-text-field>
-                                  </v-col>
+                              <v-col cols="12" md="12">
+                                <v-textarea
+                                  label="Description"
+                                  auto-grow
+                                  outlined
+                                  v-model="description"
+                                  rows="3"
+                                  row-height="15"
+                                  class="height: auto"
+                                ></v-textarea>
+                              </v-col>
 
-                                  <v-col cols="12" md="12">
-                                    <v-textarea
-                                      label="Description"
-                                      auto-grow
-                                      outlined
-                                      v-model="description"
-                                      rows="3"
-                                      row-height="15"
-                                      class="height: auto"
-                                    ></v-textarea>
-                                  </v-col>
+                              <v-col cols="12" md="12">
+                                <input
+                                  type="file"
+                                  multiple
+                                  @change="onFileSelected"
+                                />
+                              </v-col>
+                              <v-col cols="12" md="12">
+                                <v-text-field
+                                  label="Link"
+                                  v-model="video_link"
+                                  outlined
+                                ></v-text-field>
+                              </v-col>
+                            </v-row>
+                          </v-container>
+                        </v-form>
+                      </v-card-text>
 
-                                  <v-col cols="12" md="12">
-                                    <input
-                                      type="file"
-                                      multiple
-                                      @change="onFileSelected"
-                                    />
-                                  </v-col>
-                                  <v-col cols="12" md="12">
-                                    <v-text-field
-                                      label="Link"
-                                      v-model="video_link"
-                                      outlined
-                                    ></v-text-field>
-                                  </v-col>
-                                </v-row>
-                              </v-container>
-                            </v-form>
-                          </v-card-text>
+                      <v-divider></v-divider>
 
-                          <v-divider></v-divider>
-
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" text @click="dialog = false">
-                              Cancel
-                            </v-btn>
-                            <v-btn
-                              color="primary"
-                              text
-                              @click="
-                                dialog = false;
-                                onSaveClose();
-                              "
-                            >
-                              Create
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-list>
-                  </v-menu>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" text @click="dialog = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          text
+                          @click="
+                            dialog = false;
+                            onSaveClose();
+                          "
+                        >
+                          Create
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-card>
               </v-col>
             </v-row>
 
             <div v-for="(item, i) in items" :key="i">
               <v-hover v-slot:default="{ hover }" open-delay="80">
-                <v-card
-                  outlined
-                  max-width="800"
-                  class="mx-auto mt-6 rounded-lg border"
-                  style="border: 2px solid pink !important"
-                  :elevation="hover ? 8 : 0"
-                  min-height="150"
+                <router-link
+                  class="text-decoration-none"
+                  :to="'detail/' + item.uuid + '&' + title"
                 >
-                  <!-- Delete -->
-                  <v-dialog v-model="dialog3" max-width="290">
+                  <v-card
+                    outlined
+                    max-width="800"
+                    class="mx-auto mt-6 rounded-lg border"
+                    style="border: 2px solid pink !important"
+                    :elevation="hover ? 8 : 0"
+                    min-height="150"
+                  >
+                    <!-- Delete -->
+                    <!-- <v-dialog v-model="dialog3" max-width="290">
                     <v-card>
                       <v-card-title class="headline"
                         >Are you sure?</v-card-title
@@ -198,13 +192,9 @@
                         </v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog>
-                  <!-- End Delete Dialog -->
-                  <router-link
-                    class="text-decoration-none"
-                    :to="'detail/' + item.uuid + '&' + title"
-                    
-                  >
+                  </v-dialog> -->
+                    <!-- End Delete Dialog -->
+
                     <v-list-item>
                       <v-avatar color="pink" size="40" class="mr-3"
                         ><i
@@ -228,35 +218,34 @@
                         style="color: red"
                         @click="dialog3 = true"
                       ></i> -->
-                      <v-btn color="black" link bottom icon>
+                      <v-btn
+                        color="black"
+                        style="float: right"
+                        icon
+                        @click="deleteexam(item)"
+                      >
                         <i
                           class="fa fa-trash float-right mx-1 align-top"
                           style="color: red"
-                          @click="dialog3 = true"
                         ></i>
                       </v-btn>
-
-                      <!-- <span class="float-right">{{
-                        convertDate(item.created_at)
-                      }}</span> -->
                     </v-list-item>
                     <v-divider class="my-2"></v-divider>
 
                     <v-card-text class="black--text">
                       {{ item.description }}
                     </v-card-text>
-                  </router-link>
 
-                  <!-- <i
+                    <!-- <i
                     class="far fa-edit float-right"
                     style="color: green"
                     color="primary"
                     @click="onEditItem(item)"
                   ></i> -->
-                </v-card>
+                  </v-card>
+                </router-link>
               </v-hover>
             </div>
-
           </v-tab-item>
           <v-tab-item><ExamManage /></v-tab-item
         ></v-tabs>
@@ -372,8 +361,11 @@ export default {
     async deleteexam(item) {
       const index = this.items.indexOf(item);
       this.deletItems = item;
-      this.items.splice(index, 1);
-      await this.deleteExam();
+      const btnCancel = confirm("Are you sure you want to delete this item?");
+      if (btnCancel === true) {
+        this.items.splice(index, 1);
+        await this.deleteExam();
+      }
     },
     async deleteExam() {
       new Promise((resolve) => {
@@ -390,10 +382,8 @@ export default {
         }, 200);
       });
     },
-    
   },
   computed: {},
-  
 };
 </script>
 
